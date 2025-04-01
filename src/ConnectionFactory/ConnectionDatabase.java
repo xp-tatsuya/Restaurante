@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class ConnectionDatabase {
 	
 	private static final String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String URL = "jdbc:sqlserver://localhost:64594;encrypt=false;databaseName=Mercadinho;user=sa;password=Senailab05";
+	private static final String URL = "jdbc:sqlserver://localhost:64594;encrypt=false;databaseName=Restaurante;user=sa;password=Senailab05";
 	private final static String user = "sa";
 	private final static String password = "Senailab05";
 	
@@ -46,7 +46,7 @@ public class ConnectionDatabase {
 				} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		System.out.println("Conexao Fechada '-'");
+		System.out.println("Conexao Fechada.");
 	}
 	
 	/**

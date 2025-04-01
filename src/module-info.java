@@ -3,4 +3,5 @@ module Restaurante {
 	requires java.sql;
 	
 	opens application to javafx.graphics, javafx.fxml;
+	opens ConnectionFactory to javafx.fxml, javafx.base;
 }

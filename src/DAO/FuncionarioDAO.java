@@ -1,0 +1,173 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import ConnectionFactory.ConnectionDatabase;
+import Model.Funcionario;
+
+public class FuncionarioDAO {
+
+    // CREATE - inserir um novo funcionário
+    public void create(Funcionario funcionario) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            String sql = "INSERT INTO Funcionario (nomeFuncionario, senha, cpfFuncionario, emailFuncionario, telefoneFuncionario, generoFuncionario, enderecoFuncionario, dataNascFuncionario, cargo, salario, dataDeAdmissao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, funcionario.getNome());
+            stmt.setString(2, funcionario.getSenha());
+            stmt.setString(3, funcionario.getCpf());
+            stmt.setString(4, funcionario.getEmail());
+            stmt.setString(5, funcionario.getTelefone());
+            stmt.setString(6, funcionario.getGenero());
+            stmt.setString(7, funcionario.getEndereco());
+            stmt.setString(8, funcionario.getDataNasc());
+            stmt.setString(9, funcionario.getCargo());
+            stmt.setString(10, funcionario.getSalario());
+            stmt.setString(11, funcionario.getDataAdms());
+            
+            stmt.executeUpdate();
+            System.out.println("Funcionário cadastrado com sucesso!!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao cadastrar funcionário!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt);
+        }
+    }
+    
+    // READ - ler todos os funcionários
+    public ArrayList<Funcionario> read() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT * FROM Funcionario";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId(rs.getString("idFuncionario"));
+                funcionario.setNome(rs.getString("nomeFuncionario"));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setCpf(rs.getString("cpfFuncionario"));
+                funcionario.setEmail(rs.getString("emailFuncionario"));
+                funcionario.setTelefone(rs.getString("telefoneFuncionario"));
+                funcionario.setGenero(rs.getString("generoFuncionario"));
+                funcionario.setEndereco(rs.getString("enderecoFuncionario"));
+                funcionario.setDataNasc(rs.getString("dataNascFuncionario"));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setSalario(rs.getString("salario"));
+                funcionario.setDataAdms(rs.getString("dataDeAdmissao"));
+                
+                funcionarios.add(funcionario);
+            }
+            
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler informações dos funcionários!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        
+        return funcionarios;
+    }
+    
+    // UPDATE - atualizar os dados de um funcionário
+    public void update(Funcionario funcionario) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            String sql = "UPDATE Funcionario SET nomeFuncionario = ?, senha = ?, cpfFuncionario = ?, emailFuncionario = ?, telefoneFuncionario = ?, generoFuncionario = ?, enderecoFuncionario = ?, dataNascFuncionario = ?, cargo = ?, salario = ?, dataDeAdmissao = ? WHERE idFuncionario = ? OR cpfFuncionario = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, funcionario.getNome());
+            stmt.setString(2, funcionario.getSenha());
+            stmt.setString(3, funcionario.getCpf());
+            stmt.setString(4, funcionario.getEmail());
+            stmt.setString(5, funcionario.getTelefone());
+            stmt.setString(6, funcionario.getGenero());
+            stmt.setString(7, funcionario.getEndereco());
+            stmt.setString(8, funcionario.getDataNasc());
+            stmt.setString(9, funcionario.getCargo());
+            stmt.setString(10, funcionario.getSalario());
+            stmt.setString(11, funcionario.getDataAdms());
+            stmt.setString(12, funcionario.getId());
+            stmt.setString(13, funcionario.getCpf());
+            
+            stmt.executeUpdate();
+            System.out.println("Funcionário atualizado com sucesso!!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar funcionário!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt);
+        }
+    }
+    
+    // DELETE - remover um funcionário
+    public void delete(Funcionario funcionario) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            String sql = "DELETE FROM Funcionario WHERE idFuncionario = ? OR cpfFuncionario = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, funcionario.getId());
+            stmt.setString(2, funcionario.getCpf());
+            
+            stmt.executeUpdate();
+            System.out.println("Funcionário deletado com sucesso!!");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar funcionário!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt);
+        }
+    }
+    
+    // SEARCH - buscar funcionários por nome ou CPF
+    public ArrayList<Funcionario> search(Funcionario funcionarioFiltro) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT * FROM Funcionario WHERE cpfFuncionario LIKE ? OR nomeFuncionario LIKE ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, "%" + funcionarioFiltro.getCpf() + "%");
+            stmt.setString(2, "%" + funcionarioFiltro.getNome() + "%");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId(rs.getString("idFuncionario"));
+                funcionario.setNome(rs.getString("nomeFuncionario"));
+                funcionario.setSenha(rs.getString("senha"));
+                funcionario.setCpf(rs.getString("cpfFuncionario"));
+                funcionario.setEmail(rs.getString("emailFuncionario"));
+                funcionario.setTelefone(rs.getString("telefoneFuncionario"));
+                funcionario.setGenero(rs.getString("generoFuncionario"));
+                funcionario.setEndereco(rs.getString("enderecoFuncionario"));
+                funcionario.setDataNasc(rs.getString("dataNascFuncionario"));
+                funcionario.setCargo(rs.getString("cargo"));
+                funcionario.setSalario(rs.getString("salario"));
+                funcionario.setDataAdms(rs.getString("dataDeAdmissao"));
+                
+                funcionarios.add(funcionario);
+            }
+            
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar funcionário!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        
+        return funcionarios;
+    }
+}
