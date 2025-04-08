@@ -5,9 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import Util.cpfValidator;
+
 
 import ConnectionFactory.ConnectionDatabase;
 import Model.Funcionario;
+import Util.Alerts;
+import javafx.scene.control.Alert.AlertType;
 
 public class FuncionarioDAO {
 
@@ -170,4 +174,50 @@ public class FuncionarioDAO {
         
         return funcionarios;
     }
+    
+    // Autenticar na Tela Login com validação de CPF
+    public Funcionario autenticarUser(String cpf, String senha) {
+    	
+        if (!cpfValidator.validarCPF(cpf)) {
+            Alerts.showAlert("Erro!!", "CPF inválido", "O CPF informado não é válido", AlertType.ERROR);
+            return null;
+        }
+        
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Funcionario func = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM Funcionario WHERE cpfFuncionario = ? AND senha = ?");
+            stmt.setString(1, cpf);
+            stmt.setString(2, senha);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                func = new Funcionario();
+                func.setId(rs.getString("idFuncionario"));
+                func.setNome(rs.getString("nomeFuncionario"));
+                func.setSenha(rs.getString("senha"));
+                func.setCpf(rs.getString("cpfFuncionario"));
+                func.setEmail(rs.getString("emailFuncionario"));
+                func.setTelefone(rs.getString("telefoneFuncionario"));
+                func.setGenero(rs.getString("generoFuncionario"));
+                func.setEndereco(rs.getString("enderecoFuncionario"));
+                func.setDataNasc(rs.getString("dataNascFuncionario"));
+                func.setCargo(rs.getString("cargo"));
+                func.setSalario(rs.getString("salario"));
+                func.setDataAdms(rs.getString("dataDeAdmissao"));
+            }
+            
+        } catch (SQLException e) {
+            Alerts.showAlert("Erro!!", "Erro de conexão", "Falha ao consultar informações no banco de dados", AlertType.ERROR);
+            throw new RuntimeException("Erro de autenticação", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        
+        return func;
+    }
+    
 }
