@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 	
 	private static Stage stage;
+<<<<<<< HEAD
 	private static Scene login;
 	private static Scene main;
 	
@@ -70,9 +71,49 @@ public class Main extends Application {
     	stage.show();
     	
     }
+=======
+	private static Scene Login;
+	private static Scene main;
+	
+	public void start(Stage primaryStage) {
+		try {
+			stage = primaryStage;
+			primaryStage.setTitle("Miyazaki - Login");
+			
+			Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/View/ViewLogin.fxml"));
+			Login = new Scene(fxmlLogin);
+			
+			primaryStage.setScene(Login);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+>>>>>>> branch 'master' of https://github.com/xp-tatsuya/Restaurante.git
+	
+	public static void changeScreen(String tela) {
+		if(tela.equals("main")) {
+			stage.setScene(main);
+			stage.centerOnScreen();
+			stage.setTitle("Menu Principal");
+		}
+	}
+	
+	public static void TelaHome () throws IOException {
+		FXMLLoader fxmlHome = new FXMLLoader();
+		fxmlHome.setLocation(Main.class.getResource("/View/ViewHome.fxml"));
+		Parent telaHome = fxmlHome.load();
+		main = new Scene(telaHome);
+		stage.setTitle("Miyazaki - Menu Principal");
+		stage.setScene(main);
+		stage.setResizable(false);
+		stage.centerOnScreen();
+		stage.show();
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }
 
