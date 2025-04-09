@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<<<<<<< HEAD
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -72,37 +71,7 @@
             <Label layoutX="27.0" layoutY="89.0" prefHeight="43.0" prefWidth="253.0" text="Faça seu Login">
                <font>
                   <Font name="Constantia Bold" size="36.0" />
-=======
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #e1decc;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controller.controllerLogin">
-   <children>
-      <Pane layoutX="296.0" layoutY="89.0" prefHeight="552.0" prefWidth="500.0" style="-fx-background-color: #474145;">
-         <children>
-            <PasswordField fx:id="txtSenha" layoutX="99.0" layoutY="280.0" prefHeight="45.0" prefWidth="300.0" promptText="********" />
-            <TextField fx:id="txtUsuario" layoutX="98.0" layoutY="200.0" prefHeight="45.0" prefWidth="300.0" promptText="*********" />
-            <Label layoutX="171.0" layoutY="53.0" text="LOGIN" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
-            <Button fx:id="btEntrar" layoutX="160.0" layoutY="390.0" mnemonicParsing="false" onAction="#actionLogin" prefHeight="65.0" prefWidth="175.0" style="-fx-background-color: #e70f0e; -fx-background-radius: 40;" text="Entrar" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
-               </font>
-            </Button>
-            <Label layoutX="98.0" layoutY="173.0" text="Usuario" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="98.0" layoutY="253.0" text="Senha" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
->>>>>>> branch 'master' of https://github.com/xp-tatsuya/Restaurante.git
                </font>
             </Label>
          </children>
