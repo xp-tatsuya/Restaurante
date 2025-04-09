@@ -23,7 +23,7 @@ public class ConnectionDatabase {
 		
 		try {
 			Class.forName(Driver);
-			System.out.println("Conexão bem sucedida!");
+			System.out.println("Conexao bem sucedida!");
 			return DriverManager.getConnection(URL, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new RuntimeException("Erro ao Conectar...", e);

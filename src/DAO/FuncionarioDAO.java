@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import Util.cpfValidator;
 
-
 import ConnectionFactory.ConnectionDatabase;
 import Model.Funcionario;
 import Util.Alerts;
@@ -19,21 +18,21 @@ public class FuncionarioDAO {
     public void create(Funcionario funcionario) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
-        
         try {
-            String sql = "INSERT INTO Funcionario (nomeFuncionario, senha, cpfFuncionario, emailFuncionario, telefoneFuncionario, generoFuncionario, enderecoFuncionario, dataNascFuncionario, cargo, salario, dataDeAdmissao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Funcionario (nomeFuncionario, senha, verificarAcesso, cpfFuncionario, emailFuncionario, telefoneFuncionario, generoFuncionario, enderecoFuncionario, dataNascFuncionario, cargo, salario, dataDeAdmissao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, funcionario.getNome());
             stmt.setString(2, funcionario.getSenha());
-            stmt.setString(3, funcionario.getCpf());
-            stmt.setString(4, funcionario.getEmail());
-            stmt.setString(5, funcionario.getTelefone());
-            stmt.setString(6, funcionario.getGenero());
-            stmt.setString(7, funcionario.getEndereco());
-            stmt.setString(8, funcionario.getDataNasc());
-            stmt.setString(9, funcionario.getCargo());
-            stmt.setString(10, funcionario.getSalario());
-            stmt.setString(11, funcionario.getDataAdms());
+            stmt.setString(3, funcionario.getVerificarAcesso());
+            stmt.setString(4, funcionario.getCpf());
+            stmt.setString(5, funcionario.getEmail());
+            stmt.setString(6, funcionario.getTelefone());
+            stmt.setString(7, funcionario.getGenero());
+            stmt.setString(8, funcionario.getEndereco());
+            stmt.setString(9, funcionario.getDataNasc());
+            stmt.setString(10, funcionario.getCargo());
+            stmt.setString(11, funcionario.getSalario());
+            stmt.setString(12, funcionario.getDataAdms());
             
             stmt.executeUpdate();
             System.out.println("Funcionário cadastrado com sucesso!!");
@@ -61,6 +60,7 @@ public class FuncionarioDAO {
                 funcionario.setId(rs.getString("idFuncionario"));
                 funcionario.setNome(rs.getString("nomeFuncionario"));
                 funcionario.setSenha(rs.getString("senha"));
+                funcionario.setVerificarAcesso(rs.getString("verificarAcesso"));
                 funcionario.setCpf(rs.getString("cpfFuncionario"));
                 funcionario.setEmail(rs.getString("emailFuncionario"));
                 funcionario.setTelefone(rs.getString("telefoneFuncionario"));
@@ -89,21 +89,22 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Funcionario SET nomeFuncionario = ?, senha = ?, cpfFuncionario = ?, emailFuncionario = ?, telefoneFuncionario = ?, generoFuncionario = ?, enderecoFuncionario = ?, dataNascFuncionario = ?, cargo = ?, salario = ?, dataDeAdmissao = ? WHERE idFuncionario = ? OR cpfFuncionario = ?";
+            String sql = "UPDATE Funcionario SET nomeFuncionario = ?, senha = ?, verificarAcesso = ?, cpfFuncionario = ?, emailFuncionario = ?, telefoneFuncionario = ?, generoFuncionario = ?, enderecoFuncionario = ?, dataNascFuncionario = ?, cargo = ?, salario = ?, dataDeAdmissao = ? WHERE idFuncionario = ? OR cpfFuncionario = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, funcionario.getNome());
             stmt.setString(2, funcionario.getSenha());
-            stmt.setString(3, funcionario.getCpf());
-            stmt.setString(4, funcionario.getEmail());
-            stmt.setString(5, funcionario.getTelefone());
-            stmt.setString(6, funcionario.getGenero());
-            stmt.setString(7, funcionario.getEndereco());
-            stmt.setString(8, funcionario.getDataNasc());
-            stmt.setString(9, funcionario.getCargo());
-            stmt.setString(10, funcionario.getSalario());
-            stmt.setString(11, funcionario.getDataAdms());
-            stmt.setString(12, funcionario.getId());
-            stmt.setString(13, funcionario.getCpf());
+            stmt.setString(3, funcionario.getVerificarAcesso());
+            stmt.setString(4, funcionario.getCpf());
+            stmt.setString(5, funcionario.getEmail());
+            stmt.setString(6, funcionario.getTelefone());
+            stmt.setString(7, funcionario.getGenero());
+            stmt.setString(8, funcionario.getEndereco());
+            stmt.setString(9, funcionario.getDataNasc());
+            stmt.setString(10, funcionario.getCargo());
+            stmt.setString(11, funcionario.getSalario());
+            stmt.setString(12, funcionario.getDataAdms());
+            stmt.setString(13, funcionario.getId());
+            stmt.setString(14, funcionario.getCpf());
             
             stmt.executeUpdate();
             System.out.println("Funcionário atualizado com sucesso!!");
@@ -153,6 +154,7 @@ public class FuncionarioDAO {
                 funcionario.setId(rs.getString("idFuncionario"));
                 funcionario.setNome(rs.getString("nomeFuncionario"));
                 funcionario.setSenha(rs.getString("senha"));
+                funcionario.setVerificarAcesso(rs.getString("verificarAcesso"));
                 funcionario.setCpf(rs.getString("cpfFuncionario"));
                 funcionario.setEmail(rs.getString("emailFuncionario"));
                 funcionario.setTelefone(rs.getString("telefoneFuncionario"));
@@ -177,7 +179,6 @@ public class FuncionarioDAO {
     
     // Autenticar na Tela Login com validação de CPF
     public Funcionario autenticarUser(String cpf, String senha) {
-    	
         if (!cpfValidator.validarCPF(cpf)) {
             Alerts.showAlert("Erro!!", "CPF inválido", "O CPF informado não é válido", AlertType.ERROR);
             return null;
@@ -199,6 +200,7 @@ public class FuncionarioDAO {
                 func.setId(rs.getString("idFuncionario"));
                 func.setNome(rs.getString("nomeFuncionario"));
                 func.setSenha(rs.getString("senha"));
+                func.setVerificarAcesso(rs.getString("verificarAcesso"));
                 func.setCpf(rs.getString("cpfFuncionario"));
                 func.setEmail(rs.getString("emailFuncionario"));
                 func.setTelefone(rs.getString("telefoneFuncionario"));
