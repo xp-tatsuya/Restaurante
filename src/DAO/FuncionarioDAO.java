@@ -134,46 +134,6 @@ public class FuncionarioDAO {
         }
     }
     
-public Funcionario autenticarUser(String cpf, String senha) {
-    	
-    	Connection con = ConnectionDatabase.getConnection();
-    	PreparedStatement stmt = null;
-    	ResultSet rs = null;
-		Funcionario func = new Funcionario();
-
-    	
-    	try {
-			stmt = con.prepareStatement("select * from Funcionario where cpfFuncionario = ? and senha = ?");
-			stmt.setString(1, cpf);
-			stmt.setString(2, senha);
-			rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-            func.setId(rs.getString(1));
-            func.setNome(rs.getString(2));
-            func.setSenha(rs.getString(3));
-            func.setCpf(rs.getString(4));
-            func.setEmail(rs.getString(5));
-            func.setTelefone(rs.getString(6));
-            func.setGenero(rs.getString(7));
-            func.setEndereco(rs.getString(8));
-            func.setDataNasc(rs.getString(9));
-            func.setCargo(rs.getString(10));
-            func.setSalario(rs.getString(11));
-            func.setDataAdms(rs.getString(12));
-            
-			}
-			
-		} catch (SQLException e) {
-			Alerts.showAlert("Erro!!", "Erro de conexão", "Falha ao consultar informações no bando de dados", AlertType.ERROR);
-			throw new RuntimeException("Erro de autenticação", e);
-		} finally {
-			ConnectionDatabase.closeConnection(con, stmt, rs);
-		}
-    	
-		return func;
-    }
-    
     // SEARCH - buscar funcionários por nome ou CPF
     public ArrayList<Funcionario> search(Funcionario funcionarioFiltro) {
         Connection con = ConnectionDatabase.getConnection();
