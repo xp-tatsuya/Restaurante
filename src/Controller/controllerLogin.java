@@ -8,10 +8,12 @@ import Util.Alerts;
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class controllerLogin {
 
@@ -24,10 +26,21 @@ public class controllerLogin {
     @FXML
     private TextField txtUser;
     
-    public static Funcionario funcionario = new Funcionario();
+    static Funcionario funcionario = new Funcionario();
+    
+    @FXML
+    void PressEnter(KeyEvent event) throws IOException {
+    	if(event.getCode() == KeyCode.ENTER) {
+    		Login();
+    	}
+    }
 
     @FXML
     void actionLogin(ActionEvent event) throws IOException {
+    	Login();
+    }
+    
+    private void Login() throws IOException {
         if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty()) {
             Alerts.showAlert("Erro!!!", "Erro de Login", "Preencha as informações de login e senha para acessar!", AlertType.ERROR);
             return;
@@ -57,4 +70,5 @@ public class controllerLogin {
             Alerts.showAlert("Erro", "Erro de Login", "Dados inválidos", AlertType.ERROR);
         }
     }
+
 }

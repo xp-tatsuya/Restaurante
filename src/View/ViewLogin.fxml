@@ -70,7 +70,7 @@
                   <Image url="@../../../../repository/MERCADINHO/src/Images/password.png" />
                </image>
             </ImageView>
-            <PasswordField fx:id="txtPassword" layoutX="33.0" prefHeight="34.0" prefWidth="202.0" promptText="SENHA" style="-fx-background-color: ffffff;">
+            <PasswordField fx:id="txtPassword" layoutX="33.0" onKeyPressed="#PressEnter" prefHeight="34.0" prefWidth="202.0" promptText="SENHA" style="-fx-background-color: ffffff;">
                <font>
                   <Font size="14.0" />
                </font>
