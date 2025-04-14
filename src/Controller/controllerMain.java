@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import DAO.FuncionarioDAO;
 import DAO.ProdutoDAO;
 import Model.Produto;
 import application.Main;
@@ -65,6 +66,27 @@ public class controllerMain implements Initializable{
 
     @FXML
     private TableColumn<Produto, String> columnNome;
+    
+    @FXML
+    private TableColumn<Produto, String> columnCategoria2;
+
+    @FXML
+    private TableColumn<Produto, String> columnDataFab2;
+
+    @FXML
+    private TableColumn<Produto, String> columnDataVal2;
+
+    @FXML
+    private TableColumn<Produto, String> columnEstoque2;
+
+    @FXML
+    private TableColumn<Produto, String> columnIndice2;
+
+    @FXML
+    private TableColumn<Produto, String> columnMarca2;
+
+    @FXML
+    private TableColumn<Produto, String> columnNome2;
 
     @FXML
     private TableView<Produto> tableProdutoDataVal;
@@ -81,10 +103,21 @@ public class controllerMain implements Initializable{
     ProdutoDAO produtoDao = new ProdutoDAO();
     
     private ObservableList<Produto> ArrayProdutos;
+    private ObservableList<Produto> ArrayProdutos2;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	CarregarTableEstoqueAcabando();
+    	String nomeCompleto = controllerLogin.funcionario.getNome();
+    	String[] partesNome = nomeCompleto.split(" ");
+    	
+    	String primeiroNome = partesNome[0];
+    	String ultimoNome = partesNome[partesNome.length - 1];
+    	
+    	String nomeFormatado = primeiroNome + " " + ultimoNome;
+    	
+    	txtUser.setText(nomeFormatado);
+    	CarregarTableEstoqueAcabando();	
+    	CarregarTableValidade();
     }
 
     @FXML
@@ -207,6 +240,18 @@ public class controllerMain implements Initializable{
     	columnCategoria.setCellValueFactory(new PropertyValueFactory<>("Categoria"));
     	columnEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
     	tableProdutoEstoque.setItems(ArrayProdutos);
+    }
+    
+    private void CarregarTableValidade() {
+    	ArrayProdutos2 = FXCollections.observableArrayList(produtoDao.BaixaVal());
+    	columnIndice2.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	columnNome2.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	columnDataFab2.setCellValueFactory(new PropertyValueFactory<>("dataFab"));
+    	columnDataVal2.setCellValueFactory(new PropertyValueFactory<>("dataVal"));
+    	columnMarca2.setCellValueFactory(new PropertyValueFactory<>("marca"));
+    	columnCategoria2.setCellValueFactory(new PropertyValueFactory<>("Categoria"));
+    	columnEstoque2.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+    	tableProdutoDataVal.setItems(ArrayProdutos2);
     }
 
 }

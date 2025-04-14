@@ -162,13 +162,43 @@ public class ProdutoDAO {
         return produtos;
     }
     
+    public ArrayList<Produto> BaixaVal(){
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	ArrayList<Produto> produto = new ArrayList<>();
+    	
+    	try {
+    		stmt = con.prepareStatement("SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE FROM PRODUTO WHERE DATAVALIDADE < DATEADD(MONTH, 4, GETDATE());");
+    		rs = stmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			Produto p = new Produto();
+    			p.setId(rs.getString(1));
+    			p.setNome(rs.getString(2));
+    			p.setDataFab(rs.getString(3));
+    			p.setDataVal(rs.getString(4));
+    			p.setMarca(rs.getString(5));
+    			p.setCategoria(rs.getString(6));
+    			p.setEstoque(rs.getString(7));
+    			
+    			produto.add(p);
+    		}
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+    	}finally {
+    		ConnectionDatabase.closeConnection(con, stmt, rs);
+    	}
+    	return produto;
+    }
+    
     public ArrayList<Produto> EstoqueBaixo(){
     	Connection con = ConnectionDatabase.getConnection();
     	PreparedStatement stmt = null;
     	ResultSet rs = null;
     	ArrayList<Produto> produto = new ArrayList<>();
     	try {
-    		stmt = con.prepareStatement("SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE FROM PRODUTO WHERE ESTOQUE < 100");
+    		stmt = con.prepareStatement("SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE FROM PRODUTO WHERE ESTOQUE < 20");
     		rs = stmt.executeQuery();
     		
     		while(rs.next()) {

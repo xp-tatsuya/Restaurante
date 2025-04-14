@@ -20,7 +20,7 @@
                   <Image url="@../Icons/icon%20user.png" />
                </image>
             </ImageView>
-            <Label fx:id="txtUser" alignment="CENTER" layoutX="748.0" layoutY="75.0" prefHeight="20.0" prefWidth="108.0" text="Usuário" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <Label fx:id="txtUser" alignment="CENTER" layoutX="713.0" layoutY="76.0" prefHeight="20.0" prefWidth="175.0" text="Usuário" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font name="Arial" size="13.0" />
                </font>
@@ -139,13 +139,13 @@
       </Pane>
       <TableView fx:id="tableProdutoDataVal" layoutX="243.0" layoutY="519.0" prefHeight="170.0" prefWidth="800.0">
         <columns>
-          <TableColumn fx:id="columnIndice" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="columnNome" prefWidth="150.0" text="Nome" />
-            <TableColumn fx:id="columnMarca" prefWidth="110.0" text="Marca" />
-            <TableColumn fx:id="columnCategoria" prefWidth="110.0" text="Categoria" />
-            <TableColumn fx:id="columnDataFab" prefWidth="125.0" text="Data de Fabricação" />
-            <TableColumn fx:id="columnDataVal" prefWidth="125.0" text="Data de Validade" />
-            <TableColumn fx:id="columnEstoque" prefWidth="100.0" text="Estoque" />
+          <TableColumn fx:id="columnIndice2" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="columnNome2" prefWidth="150.0" text="Nome" />
+            <TableColumn fx:id="columnMarca2" prefWidth="110.0" text="Marca" />
+            <TableColumn fx:id="columnCategoria2" prefWidth="110.0" text="Categoria" />
+            <TableColumn fx:id="columnDataFab2" prefWidth="125.0" text="Data de Fabricação" />
+            <TableColumn fx:id="columnDataVal2" prefWidth="125.0" text="Data de Validade" />
+            <TableColumn fx:id="columnEstoque2" prefWidth="100.0" text="Estoque" />
         </columns>
       </TableView>
       <Pane layoutX="243.0" layoutY="131.0" prefHeight="100.0" prefWidth="545.0" style="-fx-background-color: #000000; -fx-background-radius: 15;">
@@ -172,7 +172,7 @@
             <TableColumn fx:id="columnNome" prefWidth="150.0" text="Nome" />
             <TableColumn fx:id="columnMarca" minWidth="4.800048828125" prefWidth="110.0" text="Marca" />
             <TableColumn fx:id="columnCategoria" prefWidth="110.0" text="Categoria" />
-            <TableColumn prefWidth="125.0" text="Data de Fabricação" />
+            <TableColumn fx:id="columnDataFab" prefWidth="125.0" text="Data de Fabricação" />
             <TableColumn fx:id="columnDataVal" prefWidth="125.0" text="Data de Validade" />
             <TableColumn fx:id="columnEstoque" prefWidth="100.0" text="Estoque" />
          </columns>
