@@ -36,16 +36,17 @@ public class Main extends Application {
         }
     }
     
-    public static void changeScreen(String tela) {
-        if (tela.equals("main")) {
-            stage.setScene(main);
+    public static void changeScreen(String tela) throws IOException {
+    	switch(tela) {
+    	case "main":
+    		TelaHome();
+    		break;
+    	case "Login":
+    		stage.setScene(login);
+    		stage.setResizable(false);
             stage.centerOnScreen();
-            stage.setTitle("Menu Principal");
-        } else if(tela.equals("login")) {
-            stage.setScene(login);
-            stage.centerOnScreen();
-            stage.setTitle("Login");
-        }
+    	}
+ 
     }
     
     public static void TelaHome() throws IOException {

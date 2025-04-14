@@ -20,7 +20,7 @@
                   <Image url="@../Icons/icon%20user.png" />
                </image>
             </ImageView>
-            <Label fx:id="txtUser" alignment="CENTER" layoutX="748.0" layoutY="75.0" prefHeight="20.0" prefWidth="108.0" text="Usuário" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <Label fx:id="txtUser" alignment="CENTER" layoutX="713.0" layoutY="76.0" prefHeight="20.0" prefWidth="175.0" text="Usuário" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font name="Arial" size="13.0" />
                </font>
@@ -33,17 +33,17 @@
          </children></Pane>
       <Pane prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #000000;">
          <children>
-            <Button fx:id="btSair" alignment="CENTER" layoutX="25.0" layoutY="650.0" mnemonicParsing="false" onAction="#ActionSair" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Sair" textFill="WHITE">
+            <Button fx:id="btSair" alignment="CENTER" layoutX="25.0" layoutY="650.0" mnemonicParsing="false" onAction="#ActionSair" onMouseEntered="#OnMouseSair" onMouseExited="#OffMouseSair" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Sair" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btCardapio" layoutX="25.0" layoutY="241.0" mnemonicParsing="false" onAction="#ActionCardapio" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Cardápio" textFill="WHITE">
+            <Button fx:id="btCardapio" layoutX="25.0" layoutY="241.0" mnemonicParsing="false" onAction="#ActionCardapio" onMouseEntered="#OnMouseCardapio" onMouseExited="#OffMouseCardapio" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Cardápio" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
+            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" onMouseEntered="#OnMouseFuncionario" onMouseExited="#OffMouseFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -55,7 +55,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btFonecedor" layoutX="25.0" layoutY="321.0" mnemonicParsing="false" onAction="#ActionFornecedor" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Fornecedor" textFill="WHITE">
+            <Button fx:id="btFonecedor" layoutX="25.0" layoutY="321.0" mnemonicParsing="false" onAction="#ActionFornecedor" onMouseEntered="#OnMouseFornecedor" onMouseExited="#OffMouseFornecedor" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Fornecedor" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -67,12 +67,12 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btProduto" layoutX="25.0" layoutY="361.0" mnemonicParsing="false" onAction="#ActionProduto" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Produto" textFill="WHITE">
+            <Button fx:id="btProduto" layoutX="25.0" layoutY="361.0" mnemonicParsing="false" onAction="#ActionProduto" onMouseEntered="#OnMouseProduto" onMouseExited="#OffMouseProduto" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Produto" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btHome" layoutX="25.0" layoutY="161.0" mnemonicParsing="false" onAction="#ActionHome" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 25;" text="Home" textFill="WHITE">
+            <Button fx:id="btHome" layoutX="25.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 25;" text="Home" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -80,12 +80,12 @@
                   <Bloom />
                </effect>
             </Button>
-            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
+            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" onMouseEntered="#OnMousePedido" onMouseExited="#OffMousePedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btMesa" layoutX="25.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionMesa" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Mesa" textFill="WHITE">
+            <Button fx:id="btMesa" layoutX="25.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionMesa" onMouseEntered="#OnMouseMesa" onMouseExited="#OffMouseMesa" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Mesa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -137,15 +137,15 @@
             </ImageView>
          </children>
       </Pane>
-      <TableView layoutX="243.0" layoutY="519.0" prefHeight="170.0" prefWidth="800.0">
+      <TableView fx:id="tableProdutoDataVal" layoutX="243.0" layoutY="519.0" prefHeight="170.0" prefWidth="800.0">
         <columns>
-          <TableColumn prefWidth="75.0" />
-          <TableColumn prefWidth="150.0" text="Nome" />
-            <TableColumn prefWidth="110.0" text="Marca" />
-            <TableColumn prefWidth="110.0" text="Categoria" />
-            <TableColumn prefWidth="125.0" text="Data de Fabricação" />
-            <TableColumn prefWidth="125.0" text="Data de Validade" />
-            <TableColumn prefWidth="100.0" text="Estoque" />
+          <TableColumn fx:id="columnIndice2" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="columnNome2" prefWidth="150.0" text="Nome" />
+            <TableColumn fx:id="columnMarca2" prefWidth="110.0" text="Marca" />
+            <TableColumn fx:id="columnCategoria2" prefWidth="110.0" text="Categoria" />
+            <TableColumn fx:id="columnDataFab2" prefWidth="125.0" text="Data de Fabricação" />
+            <TableColumn fx:id="columnDataVal2" prefWidth="125.0" text="Data de Validade" />
+            <TableColumn fx:id="columnEstoque2" prefWidth="100.0" text="Estoque" />
         </columns>
       </TableView>
       <Pane layoutX="243.0" layoutY="131.0" prefHeight="100.0" prefWidth="545.0" style="-fx-background-color: #000000; -fx-background-radius: 15;">
@@ -166,15 +166,15 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableProduto" layoutX="243.0" layoutY="289.0" prefHeight="170.0" prefWidth="800.0">
+      <TableView fx:id="tableProdutoEstoque" layoutX="243.0" layoutY="289.0" onSort="#columnDataFab" prefHeight="170.0" prefWidth="800.0">
          <columns>
-            <TableColumn prefWidth="75.0" />
-            <TableColumn prefWidth="150.0" text="Nome" />
-            <TableColumn minWidth="4.800048828125" prefWidth="110.0" text="Marca" />
-            <TableColumn prefWidth="110.0" text="Categoria" />
-            <TableColumn prefWidth="125.0" text="Data de Fabricação" />
-            <TableColumn prefWidth="125.0" text="Data de Validade" />
-            <TableColumn prefWidth="100.0" text="Estoque" />
+            <TableColumn fx:id="columnIndice" prefWidth="75.0" text="Id" />
+            <TableColumn fx:id="columnNome" prefWidth="150.0" text="Nome" />
+            <TableColumn fx:id="columnMarca" minWidth="4.800048828125" prefWidth="110.0" text="Marca" />
+            <TableColumn fx:id="columnCategoria" prefWidth="110.0" text="Categoria" />
+            <TableColumn fx:id="columnDataFab" prefWidth="125.0" text="Data de Fabricação" />
+            <TableColumn fx:id="columnDataVal" prefWidth="125.0" text="Data de Validade" />
+            <TableColumn fx:id="columnEstoque" prefWidth="100.0" text="Estoque" />
          </columns>
       </TableView>
       <Label layoutX="244.0" layoutY="248.0" text="Produtos com Estoque Baixo">
