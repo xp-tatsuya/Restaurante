@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class controllerPedido {
+public class controllerProdutos {
 
     @FXML
     private Button btAdicionar;
@@ -47,22 +47,25 @@ public class controllerPedido {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCondicao;
+    private TableColumn<?, ?> columnCategoria;
 
     @FXML
-    private TableColumn<?, ?> columnDesconto;
+    private TableColumn<?, ?> columnEstoque;
 
     @FXML
     private TableColumn<?, ?> columnIndice;
 
     @FXML
+    private TableColumn<?, ?> columnMarca;
+
+    @FXML
     private TableColumn<?, ?> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnPrecoTotal;
+    private TableColumn<?, ?> columnPrecoUN;
 
     @FXML
-    private TableView<?> tablePedido;
+    private TableView<?> tableProdutos;
 
     @FXML
     private TextField txtPesquisa;

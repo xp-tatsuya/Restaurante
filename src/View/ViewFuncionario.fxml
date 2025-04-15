@@ -13,10 +13,19 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #D9D9D9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerPedido">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #D9D9D9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerFuncionario">
    <children>
       <Pane layoutX="230.0" layoutY="137.0" prefHeight="550.0" prefWidth="820.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
          <children>
+            <TableView fx:id="tableFuncionario" layoutX="35.0" layoutY="146.0" prefHeight="351.0" prefWidth="510.0">
+               <columns>
+                  <TableColumn fx:id="columnIndice" prefWidth="25.0" />
+                  <TableColumn fx:id="columnNome" prefWidth="103.0" text="Nome" />
+                  <TableColumn fx:id="columnCPF" prefWidth="110.0" text="CPF" />
+                  <TableColumn fx:id="columnEmail" prefWidth="150.0" text="E-mail" />
+                  <TableColumn fx:id="columnCargo" prefWidth="120.0" text="Cargo" />
+               </columns>
+            </TableView>
             <Line endX="-104.73333740234375" endY="205.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />
             <TextField fx:id="txtPesquisa" layoutX="35.0" layoutY="52.0" prefHeight="50.0" prefWidth="510.0" promptText="Pesquisar" style="-fx-background-radius: 25;">
                <font>
@@ -72,15 +81,6 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <TableView fx:id="tablePedido" layoutX="35.0" layoutY="146.0" prefHeight="351.0" prefWidth="510.0">
-               <columns>
-                  <TableColumn fx:id="columnIndice" prefWidth="25.0" />
-                  <TableColumn fx:id="columnNome" prefWidth="150.0" text="Nome" />
-                  <TableColumn fx:id="columnCondicao" prefWidth="125.0" text="Condição" />
-                  <TableColumn fx:id="columnDesconto" prefWidth="75.0" text="Desconto" />
-                  <TableColumn fx:id="columnPrecoTotal" prefWidth="132.39996337890625" text="Preço Total" />
-               </columns>
-            </TableView>
          </children>
       </Pane>
       <Pane layoutX="199.0" prefHeight="100.0" prefWidth="880.0" style="-fx-background-color: #FFFFFF;">
@@ -95,7 +95,7 @@
                   <Font name="Arial" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="43.0" layoutY="22.0" text="RELATÓRIO DE PEDIDO">
+            <Label layoutX="43.0" layoutY="22.0" text="RELATÓRIO DE FUNCIONÁRIO">
                <font>
                   <Font name="Berlin Sans FB" size="48.0" />
                </font>
@@ -114,7 +114,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
+            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -125,6 +125,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <effect>
+                  <Bloom />
+               </effect>
             </Button>
             <Button fx:id="btFonecedor" layoutX="25.0" layoutY="321.0" mnemonicParsing="false" onAction="#ActionFornecedor" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Fornecedor" textFill="WHITE">
                <font>
@@ -148,13 +151,10 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
+            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
-               <effect>
-                  <Bloom />
-               </effect>
             </Button>
             <Button fx:id="btMesa" layoutX="25.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionMesa" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Mesa" textFill="WHITE">
                <font>
