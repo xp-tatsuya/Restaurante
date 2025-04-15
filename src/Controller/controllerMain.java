@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import DAO.FuncionarioDAO;
+import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import Model.Produto;
 import application.Main;
@@ -20,7 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class controllerMain implements Initializable{
+public class controllerMain implements Initializable {
 
     @FXML
     private Button btCardapio;
@@ -66,7 +67,7 @@ public class controllerMain implements Initializable{
 
     @FXML
     private TableColumn<Produto, String> columnNome;
-    
+
     @FXML
     private TableColumn<Produto, String> columnCategoria2;
 
@@ -99,159 +100,148 @@ public class controllerMain implements Initializable{
 
     @FXML
     private Label txtUser;
-    
+
     ProdutoDAO produtoDao = new ProdutoDAO();
-    
+    PedidoDAO pedidoDAO = new PedidoDAO();
+
     private ObservableList<Produto> ArrayProdutos;
     private ObservableList<Produto> ArrayProdutos2;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	String nomeCompleto = controllerLogin.funcionario.getNome();
-    	String[] partesNome = nomeCompleto.split(" ");
-    	
-    	String primeiroNome = partesNome[0];
-    	String ultimoNome = partesNome[partesNome.length - 1];
-    	
-    	String nomeFormatado = primeiroNome + " " + ultimoNome;
-    	
-    	txtUser.setText(nomeFormatado);
-    	CarregarTableEstoqueAcabando();	
-    	CarregarTableValidade();
+        String nomeCompleto = controllerLogin.funcionario.getNome();
+        String[] partesNome = nomeCompleto.split(" ");
+
+        String primeiroNome = partesNome[0];
+        String ultimoNome = partesNome[partesNome.length - 1];
+
+        String nomeFormatado = primeiroNome + " " + ultimoNome;
+        txtUser.setText(nomeFormatado);
+
+        double totalVendas = pedidoDAO.getTotalVendasMes();
+        txtSalario.setText("R$ " + String.format("%,.2f", totalVendas));
+
+        CarregarTableEstoqueAcabando();
+        CarregarTableValidade();
     }
 
     @FXML
-    void ActionCardapio(ActionEvent event) {
-
-    }
+    void ActionCardapio(ActionEvent event) {}
 
     @FXML
-    void ActionFornecedor(ActionEvent event) {
-
-    }
+    void ActionFornecedor(ActionEvent event) {}
 
     @FXML
-    void ActionFuncionario(ActionEvent event) {
-
-    }
+    void ActionFuncionario(ActionEvent event) {}
 
     @FXML
-    void ActionMesa(ActionEvent event) {
-
-    }
+    void ActionMesa(ActionEvent event) {}
 
     @FXML
-    void ActionPedido(ActionEvent event) {
-
-    }
+    void ActionPedido(ActionEvent event) {}
 
     @FXML
-    void ActionProduto(ActionEvent event) {
-
-    }
+    void ActionProduto(ActionEvent event) {}
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
-    	Main.changeScreen("Login");
+        Main.changeScreen("Login");
     }
 
     @FXML
     void OffMouseCardapio(MouseEvent event) {
-    	btCardapio.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btCardapio.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMouseFornecedor(MouseEvent event) {
-    	btFonecedor.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btFonecedor.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMouseFuncionario(MouseEvent event) {
-    	btFuncionario.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btFuncionario.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMouseMesa(MouseEvent event) {
-    	btMesa.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btMesa.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMousePedido(MouseEvent event) {
-    	btPedido.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btPedido.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMouseProduto(MouseEvent event) {
-    	btProduto.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btProduto.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OffMouseSair(MouseEvent event) {
-    	btSair.setStyle("-fx-background-color:   #000000; -fx-background-radius: 25;");
+        btSair.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseCardapio(MouseEvent event) {
-    	btCardapio.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btCardapio.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseFornecedor(MouseEvent event) {
-    	btFonecedor.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btFonecedor.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseFuncionario(MouseEvent event) {
-    	btFuncionario.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btFuncionario.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseMesa(MouseEvent event) {
-    	btMesa.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btMesa.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMousePedido(MouseEvent event) {
-    	btPedido.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btPedido.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseProduto(MouseEvent event) {
-    	btProduto.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btProduto.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
     void OnMouseSair(MouseEvent event) {
-    	btSair.setStyle("-fx-background-color:  #A71D1D; -fx-background-radius: 25;");
+        btSair.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
     }
 
     @FXML
-    void columnDataFab(ActionEvent event) {
+    void columnDataFab(ActionEvent event) {}
 
-    }
-    
     private void CarregarTableEstoqueAcabando() {
-    	ArrayProdutos = FXCollections.observableArrayList(produtoDao.EstoqueBaixo());
-    	columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
-    	columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-    	columnDataFab.setCellValueFactory(new PropertyValueFactory<>("dataFab"));
-    	columnDataVal.setCellValueFactory(new PropertyValueFactory<>("dataVal"));
-    	columnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-    	columnCategoria.setCellValueFactory(new PropertyValueFactory<>("Categoria"));
-    	columnEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-    	tableProdutoEstoque.setItems(ArrayProdutos);
-    }
-    
-    private void CarregarTableValidade() {
-    	ArrayProdutos2 = FXCollections.observableArrayList(produtoDao.BaixaVal());
-    	columnIndice2.setCellValueFactory(new PropertyValueFactory<>("id"));
-    	columnNome2.setCellValueFactory(new PropertyValueFactory<>("nome"));
-    	columnDataFab2.setCellValueFactory(new PropertyValueFactory<>("dataFab"));
-    	columnDataVal2.setCellValueFactory(new PropertyValueFactory<>("dataVal"));
-    	columnMarca2.setCellValueFactory(new PropertyValueFactory<>("marca"));
-    	columnCategoria2.setCellValueFactory(new PropertyValueFactory<>("Categoria"));
-    	columnEstoque2.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-    	tableProdutoDataVal.setItems(ArrayProdutos2);
+        ArrayProdutos = FXCollections.observableArrayList(produtoDao.EstoqueBaixo());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnDataFab.setCellValueFactory(new PropertyValueFactory<>("dataFab"));
+        columnDataVal.setCellValueFactory(new PropertyValueFactory<>("dataVal"));
+        columnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnCategoria.setCellValueFactory(new PropertyValueFactory<>("Categoria"));
+        columnEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        tableProdutoEstoque.setItems(ArrayProdutos);
     }
 
+    private void CarregarTableValidade() {
+        ArrayProdutos2 = FXCollections.observableArrayList(produtoDao.BaixaVal());
+        columnIndice2.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome2.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnDataFab2.setCellValueFactory(new PropertyValueFactory<>("dataFab"));
+        columnDataVal2.setCellValueFactory(new PropertyValueFactory<>("dataVal"));
+        columnMarca2.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnCategoria2.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        columnEstoque2.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        tableProdutoDataVal.setItems(ArrayProdutos2);
+    }
 }
