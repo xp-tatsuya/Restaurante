@@ -126,19 +126,29 @@ public class controllerMain implements Initializable {
     }
 
     @FXML
-    void ActionCardapio(ActionEvent event) {}
+    void ActionCardapio(ActionEvent event) throws IOException {
+    	Main.TelaCardapio();
+    }
 
     @FXML
-    void ActionFornecedor(ActionEvent event) {}
+    void ActionFornecedor(ActionEvent event) throws IOException {
+    	Main.TelaFornecedor();
+    }
 
     @FXML
-    void ActionFuncionario(ActionEvent event) {}
+    void ActionFuncionario(ActionEvent event) throws IOException {
+    	Main.TelaFuncionario();
+    }
 
     @FXML
-    void ActionMesa(ActionEvent event) {}
+    void ActionMesa(ActionEvent event) throws IOException {
+    	Main.TelaMesa();
+    }
 
     @FXML
-    void ActionPedido(ActionEvent event) {}
+    void ActionPedido(ActionEvent event) throws IOException {
+    	Main.TelaPedido();
+    }
 
     @FXML
     void ActionProduto(ActionEvent event) {}

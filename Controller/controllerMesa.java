@@ -1,5 +1,8 @@
 package Controller;
 
+import java.io.IOException;
+
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class controllerFuncionario {
+public class controllerMesa {
 
     @FXML
     private Button btAdicionar;
@@ -47,22 +50,16 @@ public class controllerFuncionario {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCPF;
+    private TableColumn<?, ?> columnCapacidade;
 
     @FXML
-    private TableColumn<?, ?> columnCargo;
-
-    @FXML
-    private TableColumn<?, ?> columnEmail;
+    private TableColumn<?, ?> columnCondicao;
 
     @FXML
     private TableColumn<?, ?> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
-
-    @FXML
-    private TableView<?> tableFuncionario;
+    private TableView<?> tableMesa;
 
     @FXML
     private TextField txtPesquisa;
@@ -96,38 +93,38 @@ public class controllerFuncionario {
     }
 
     @FXML
-    void ActionFornecedor(ActionEvent event) {
-
+    void ActionFornecedor(ActionEvent event) throws IOException {
+    	Main.TelaFornecedor();
     }
 
     @FXML
-    void ActionFuncionario(ActionEvent event) {
-
+    void ActionFuncionario(ActionEvent event) throws IOException {
+    	Main.TelaFuncionario();
     }
 
     @FXML
-    void ActionHome(ActionEvent event) {
-
+    void ActionHome(ActionEvent event) throws IOException {
+    	Main.TelaHome();
     }
 
     @FXML
-    void ActionMesa(ActionEvent event) {
-
+    void ActionMesa(ActionEvent event) throws IOException {
+    	Main.TelaMesa();
     }
 
     @FXML
-    void ActionPedido(ActionEvent event) {
-
+    void ActionPedido(ActionEvent event) throws IOException {
+    	Main.TelaPedido();
     }
 
     @FXML
-    void ActionProduto(ActionEvent event) {
-
+    void ActionProduto(ActionEvent event) throws IOException {
+    	Main.TelaProduto();
     }
 
     @FXML
-    void ActionSair(ActionEvent event) {
-
+    void ActionSair(ActionEvent event) throws IOException {
+        Main.changeScreen("Login");
     }
 
 }

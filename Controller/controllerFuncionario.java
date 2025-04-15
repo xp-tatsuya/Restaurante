@@ -1,5 +1,8 @@
 package Controller;
 
+import java.io.IOException;
+
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class controllerPedido {
+public class controllerFuncionario {
 
     @FXML
     private Button btAdicionar;
@@ -47,10 +50,13 @@ public class controllerPedido {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCondicao;
+    private TableColumn<?, ?> columnCPF;
 
     @FXML
-    private TableColumn<?, ?> columnDesconto;
+    private TableColumn<?, ?> columnCargo;
+
+    @FXML
+    private TableColumn<?, ?> columnEmail;
 
     @FXML
     private TableColumn<?, ?> columnIndice;
@@ -59,10 +65,7 @@ public class controllerPedido {
     private TableColumn<?, ?> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnPrecoTotal;
-
-    @FXML
-    private TableView<?> tablePedido;
+    private TableView<?> tableFuncionario;
 
     @FXML
     private TextField txtPesquisa;
@@ -76,8 +79,8 @@ public class controllerPedido {
     }
 
     @FXML
-    void ActionCardapio(ActionEvent event) {
-
+    void ActionCardapio(ActionEvent event) throws IOException {
+    	Main.TelaCardapio();
     }
 
     @FXML
@@ -96,38 +99,38 @@ public class controllerPedido {
     }
 
     @FXML
-    void ActionFornecedor(ActionEvent event) {
-
+    void ActionFornecedor(ActionEvent event) throws IOException {
+    	Main.TelaFornecedor();
     }
 
     @FXML
-    void ActionFuncionario(ActionEvent event) {
-
+    void ActionFuncionario(ActionEvent event) throws IOException {
+    	Main.TelaFuncionario();
     }
 
     @FXML
-    void ActionHome(ActionEvent event) {
-
+    void ActionHome(ActionEvent event) throws IOException {
+    	Main.TelaHome();
     }
 
     @FXML
-    void ActionMesa(ActionEvent event) {
-
+    void ActionMesa(ActionEvent event) throws IOException {
+    	Main.TelaMesa();
     }
 
     @FXML
-    void ActionPedido(ActionEvent event) {
-
+    void ActionPedido(ActionEvent event) throws IOException {
+    	Main.TelaPedido();
     }
 
     @FXML
-    void ActionProduto(ActionEvent event) {
-
+    void ActionProduto(ActionEvent event) throws IOException {
+    	Main.TelaProduto();
     }
 
     @FXML
-    void ActionSair(ActionEvent event) {
-
+    void ActionSair(ActionEvent event) throws IOException {
+        Main.changeScreen("Login");
     }
 
 }
