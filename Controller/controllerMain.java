@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import DAO.FuncionarioDAO;
 import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import Model.Produto;
@@ -141,6 +140,11 @@ public class controllerMain implements Initializable {
     }
 
     @FXML
+    void ActionHome(ActionEvent event) throws IOException {
+    	Main.TelaHome();
+    }
+
+    @FXML
     void ActionMesa(ActionEvent event) throws IOException {
     	Main.TelaMesa();
     }
@@ -151,7 +155,9 @@ public class controllerMain implements Initializable {
     }
 
     @FXML
-    void ActionProduto(ActionEvent event) {}
+    void ActionProduto(ActionEvent event) throws IOException {
+    	Main.TelaProduto();
+    }
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {

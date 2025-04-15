@@ -73,8 +73,8 @@ public class controllerMesa {
     }
 
     @FXML
-    void ActionCardapio(ActionEvent event) {
-
+    void ActionCardapio(ActionEvent event) throws IOException {
+    	Main.TelaCardapio();
     }
 
     @FXML

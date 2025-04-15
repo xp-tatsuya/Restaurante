@@ -1,5 +1,8 @@
 package Controller;
 
+import java.io.IOException;
+
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -79,8 +82,8 @@ public class controllerProdutos {
     }
 
     @FXML
-    void ActionCardapio(ActionEvent event) {
-
+    void ActionCardapio(ActionEvent event) throws IOException {
+    	Main.TelaCardapio();
     }
 
     @FXML
@@ -99,38 +102,38 @@ public class controllerProdutos {
     }
 
     @FXML
-    void ActionFornecedor(ActionEvent event) {
-
+    void ActionFornecedor(ActionEvent event) throws IOException {
+    	Main.TelaFornecedor();
     }
 
     @FXML
-    void ActionFuncionario(ActionEvent event) {
-
+    void ActionFuncionario(ActionEvent event) throws IOException {
+    	Main.TelaFuncionario();
     }
 
     @FXML
-    void ActionHome(ActionEvent event) {
-
+    void ActionHome(ActionEvent event) throws IOException {
+    	Main.TelaHome();
     }
 
     @FXML
-    void ActionMesa(ActionEvent event) {
-
+    void ActionMesa(ActionEvent event) throws IOException {
+    	Main.TelaMesa();
     }
 
     @FXML
-    void ActionPedido(ActionEvent event) {
-
+    void ActionPedido(ActionEvent event) throws IOException {
+    	Main.TelaPedido();
     }
 
     @FXML
-    void ActionProduto(ActionEvent event) {
-
+    void ActionProduto(ActionEvent event) throws IOException {
+    	Main.TelaProduto();
     }
 
     @FXML
-    void ActionSair(ActionEvent event) {
-
+    void ActionSair(ActionEvent event) throws IOException {
+        Main.changeScreen("Login");
     }
 
 }
