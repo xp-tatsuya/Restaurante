@@ -163,4 +163,33 @@ public class PedidoDAO {
         
         return pedidos;
     }
+    
+    public double getTotalVendasMes() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double total = 0.0;
+
+        String sql = "SELECT ISNULL(SUM(precoTotal), 0) AS totalVendasMes " +
+                     "FROM Pedido " +
+                     "WHERE MONTH(dataPedido) = MONTH(GETDATE()) " +
+                     "AND YEAR(dataPedido) = YEAR(GETDATE()) " +
+                     "AND condicao = 'Concluído'";
+
+        try {
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getDouble("totalVendasMes");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+
+        return total;
+    }
+    
 }
