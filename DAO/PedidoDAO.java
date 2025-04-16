@@ -15,11 +15,9 @@ public class PedidoDAO {
     public void create(Pedido pedido) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
-        
         try {
             String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto, precoTotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
             stmt = con.prepareStatement(sql);
-            
             stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
             stmt.setDate(3, java.sql.Date.valueOf(pedido.getDataPedido()));
@@ -27,7 +25,6 @@ public class PedidoDAO {
             stmt.setString(5, pedido.getObservacoes());
             stmt.setBigDecimal(6, new BigDecimal(pedido.getDesconto()));
             stmt.setBigDecimal(7, new BigDecimal(pedido.getPrecoTotal()));
-            
             stmt.executeUpdate();
             System.out.println("Pedido cadastrado com sucesso!!");
         } catch (SQLException e) {
@@ -43,12 +40,10 @@ public class PedidoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        
         try {
             String sql = "SELECT * FROM Pedido";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
-            
             while (rs.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setId(rs.getString("idPedido"));
@@ -57,13 +52,9 @@ public class PedidoDAO {
                 pedido.setDataPedido(rs.getDate("dataPedido").toString());
                 pedido.setCondicao(rs.getString("condicao"));
                 pedido.setObservacoes(rs.getString("observacoes"));
-                
-                // Se o campo desconto for nulo, atribui null; caso contrário, converte para String
                 BigDecimal desconto = rs.getBigDecimal("desconto");
                 pedido.setDesconto((desconto == null) ? null : desconto.toPlainString());
-                
                 pedido.setPrecoTotal(rs.getBigDecimal("precoTotal").toPlainString());
-                
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -71,7 +62,6 @@ public class PedidoDAO {
         } finally {
             ConnectionDatabase.closeConnection(con, stmt, rs);
         }
-        
         return pedidos;
     }
     
@@ -79,11 +69,9 @@ public class PedidoDAO {
     public void update(Pedido pedido) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
-        
         try {
             String sql = "UPDATE Pedido SET codeFuncionario = ?, codeMesa = ?, dataPedido = ?, condicao = ?, observacoes = ?, desconto = ?, precoTotal = ? WHERE idPedido = ? OR codeFuncionario = ?";
             stmt = con.prepareStatement(sql);
-            
             stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
             stmt.setDate(3, java.sql.Date.valueOf(pedido.getDataPedido()));
@@ -93,7 +81,6 @@ public class PedidoDAO {
             stmt.setBigDecimal(7, new BigDecimal(pedido.getPrecoTotal()));
             stmt.setString(8, pedido.getId());
             stmt.setInt(9, Integer.parseInt(pedido.getCodeFuncionario()));
-            
             stmt.executeUpdate();
             System.out.println("Pedido atualizado com sucesso!!");
         } catch (SQLException e) {
@@ -107,14 +94,11 @@ public class PedidoDAO {
     public void delete(Pedido pedido) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
-        
         try {
             String sql = "DELETE FROM Pedido WHERE idPedido = ? OR codeFuncionario = ?";
             stmt = con.prepareStatement(sql);
-            
             stmt.setString(1, pedido.getId());
             stmt.setInt(2, Integer.parseInt(pedido.getCodeFuncionario()));
-            
             stmt.executeUpdate();
             System.out.println("Pedido deletado com sucesso!!");
         } catch (SQLException e) {
@@ -130,15 +114,12 @@ public class PedidoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        
         try {
             String sql = "SELECT * FROM Pedido WHERE condicao LIKE ? OR codeFuncionario LIKE ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, "%" + pedidoFiltro.getCondicao() + "%");
             stmt.setString(2, "%" + pedidoFiltro.getCodeFuncionario() + "%");
-            
             rs = stmt.executeQuery();
-            
             while (rs.next()) {
                 Pedido pedido = new Pedido();
                 pedido.setId(rs.getString("idPedido"));
@@ -147,12 +128,9 @@ public class PedidoDAO {
                 pedido.setDataPedido(rs.getDate("dataPedido").toString());
                 pedido.setCondicao(rs.getString("condicao"));
                 pedido.setObservacoes(rs.getString("observacoes"));
-                
                 BigDecimal desconto = rs.getBigDecimal("desconto");
                 pedido.setDesconto((desconto == null) ? null : desconto.toPlainString());
-                
                 pedido.setPrecoTotal(rs.getBigDecimal("precoTotal").toPlainString());
-                
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -160,26 +138,23 @@ public class PedidoDAO {
         } finally {
             ConnectionDatabase.closeConnection(con, stmt, rs);
         }
-        
         return pedidos;
     }
     
+    // Retorna o total de vendas do mês (para pedidos com condicao 'Concluído')
     public double getTotalVendasMes() {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         double total = 0.0;
-
         String sql = "SELECT ISNULL(SUM(precoTotal), 0) AS totalVendasMes " +
                      "FROM Pedido " +
                      "WHERE MONTH(dataPedido) = MONTH(GETDATE()) " +
                      "AND YEAR(dataPedido) = YEAR(GETDATE()) " +
                      "AND condicao = 'Concluído'";
-
         try {
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 total = rs.getDouble("totalVendasMes");
             }
@@ -188,8 +163,78 @@ public class PedidoDAO {
         } finally {
             ConnectionDatabase.closeConnection(con, stmt, rs);
         }
-
         return total;
     }
     
+    // Carrega os pedidos CONCLUÍDOS do dia atual
+    public ArrayList<Pedido> CarregarTableConcluido() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        try {
+            String sql = "SELECT P.idPedido, P.codeFuncionario, P.codeMesa, P.dataPedido, P.condicao, P.observacoes, " +
+                         "       CONVERT(VARCHAR(10), M.idMesa) AS mesa, " +
+                         "       P.desconto, P.precoTotal " +
+                         "FROM Pedido P " +
+                         "INNER JOIN Mesa M ON P.codeMesa = M.idMesa " +
+                         "WHERE P.condicao = 'Concluído' " +
+                         "  AND CAST(P.dataPedido AS DATE) = CAST(GETDATE() AS DATE)";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                Pedido pedido = new Pedido();
+                pedido.setId(rs.getString("idPedido"));
+                pedido.setCodeFuncionario(String.valueOf(rs.getInt("codeFuncionario")));
+                pedido.setCodeMesa(rs.getString("mesa"));
+                pedido.setDataPedido(rs.getDate("dataPedido").toString());
+                pedido.setCondicao(rs.getString("condicao"));
+                pedido.setObservacoes(rs.getString("observacoes"));
+                BigDecimal desconto = rs.getBigDecimal("desconto");
+                pedido.setDesconto((desconto == null) ? null : desconto.toPlainString());
+                pedido.setPrecoTotal(rs.getBigDecimal("precoTotal").toPlainString());
+                pedidos.add(pedido);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao carregar pedidos concluídos!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return pedidos;
+    }
+    
+    public ArrayList<Pedido> CarregarTablePendente() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        try {
+            String sql = "SELECT P.idPedido, P.codeFuncionario, P.codeMesa, P.dataPedido, P.condicao, P.observacoes, " +
+                         "       CONVERT(VARCHAR(10), M.idMesa) AS mesa, " +
+                         "       P.desconto, P.precoTotal " +
+                         "FROM Pedido P " +
+                         "INNER JOIN Mesa M ON P.codeMesa = M.idMesa " +
+                         "WHERE P.condicao = 'Pendente'";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                Pedido pedido = new Pedido();
+                pedido.setId(rs.getString("idPedido"));
+                pedido.setCodeFuncionario(String.valueOf(rs.getInt("codeFuncionario")));
+                pedido.setCodeMesa(rs.getString("mesa"));
+                pedido.setDataPedido(rs.getDate("dataPedido").toString());
+                pedido.setCondicao(rs.getString("condicao"));
+                pedido.setObservacoes(rs.getString("observacoes"));
+                BigDecimal desconto = rs.getBigDecimal("desconto");
+                pedido.setDesconto((desconto == null) ? null : desconto.toPlainString());
+                pedido.setPrecoTotal(rs.getBigDecimal("precoTotal").toPlainString());
+                pedidos.add(pedido);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao carregar pedidos pendentes!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return pedidos;
+    }
 }

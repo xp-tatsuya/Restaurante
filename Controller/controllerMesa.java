@@ -19,7 +19,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+<<<<<<< HEAD
 public class controllerMesa implements Initializable{
+=======
+public class controllerMesa implements Initializable {
+>>>>>>> branch 'master' of https://github.com/xp-tatsuya/Restaurante.git
 
     @FXML
     private Button btAdicionar;
@@ -74,6 +78,20 @@ public class controllerMesa implements Initializable{
 
     @FXML
     private Label txtUser;
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	
+    	String nomeCompleto = controllerLogin.funcionario.getNome();
+        String[] partesNome = nomeCompleto.split(" ");
+
+        String primeiroNome = partesNome[0];
+        String ultimoNome = partesNome[partesNome.length - 1];
+
+        String nomeFormatado = primeiroNome + " " + ultimoNome;
+        txtUser.setText(nomeFormatado);
+        
+    }
 
     @FXML
     void ActionAdicionar(ActionEvent event) {
