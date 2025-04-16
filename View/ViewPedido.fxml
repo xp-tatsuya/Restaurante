@@ -17,7 +17,7 @@
    <children>
       <Pane layoutX="230.0" layoutY="137.0" prefHeight="550.0" prefWidth="820.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
          <children>
-            <Line endX="-104.73333740234375" endY="205.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />
+            <Line endX="-104.73333740234375" endY="230.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />
             <TextField fx:id="txtPesquisa" layoutX="35.0" layoutY="52.0" prefHeight="50.0" prefWidth="510.0" promptText="Pesquisar" style="-fx-background-radius: 25;">
                <font>
                   <Font name="System Italic" size="18.0" />
@@ -28,7 +28,7 @@
                   <Image url="@../Icons/icon%20pesquisar.png" />
                </image>
             </ImageView>
-            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="249.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
+            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="254.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -39,7 +39,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btEditar" layoutX="585.0" layoutY="344.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditar" layoutX="585.0" layoutY="356.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -50,7 +50,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btExcluir" layoutX="585.0" layoutY="441.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btExcluir" layoutX="585.0" layoutY="455.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -72,13 +72,25 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <TableView fx:id="tablePedido" layoutX="35.0" layoutY="146.0" prefHeight="351.0" prefWidth="510.0">
+            <TableView fx:id="tablePedido" layoutX="35.0" layoutY="146.0" prefHeight="166.0" prefWidth="510.0">
                <columns>
                   <TableColumn fx:id="columnIndice" prefWidth="25.0" />
-                  <TableColumn fx:id="columnNome" prefWidth="150.0" text="Nome" />
-                  <TableColumn fx:id="columnCondicao" prefWidth="125.0" text="Condição" />
-                  <TableColumn fx:id="columnDesconto" prefWidth="75.0" text="Desconto" />
-                  <TableColumn fx:id="columnPrecoTotal" prefWidth="132.39996337890625" text="Preço Total" />
+                  <TableColumn fx:id="columnNome" prefWidth="115.7333984375" text="Nome" />
+                  <TableColumn fx:id="columnCondicao" prefWidth="110.39999389648438" text="Condição" />
+                  <TableColumn fx:id="columnDesconto" prefWidth="86.6666259765625" text="Desconto" />
+                  <TableColumn fx:id="columnMesa" prefWidth="62.66668701171875" text="Mesa" />
+                  <TableColumn fx:id="columnPrecoTotal" prefWidth="106.79998779296875" text="Preço Total" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tablePedido1" layoutX="35.0" layoutY="355.0" prefHeight="166.0" prefWidth="510.0">
+               <columns>
+                  <TableColumn fx:id="columnIndice1" prefWidth="25.0" />
+                  <TableColumn fx:id="columnNome1" prefWidth="79.20001220703125" text="Nome" />
+                  <TableColumn fx:id="columnCondicao1" prefWidth="95.20001220703125" text="Condição" />
+                  <TableColumn fx:id="columnData1" prefWidth="96.0" text="Data" />
+                  <TableColumn fx:id="columnMesa1" prefWidth="41.5999755859375" text="Mesa" />
+                  <TableColumn fx:id="columnDesconto1" prefWidth="87.20001220703125" text="Desconto" />
+                  <TableColumn fx:id="columnPrecoTotal1" prefWidth="82.0" text="Preço Total" />
                </columns>
             </TableView>
          </children>
