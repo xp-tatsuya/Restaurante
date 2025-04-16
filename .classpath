@@ -6,13 +6,13 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ControllsFx">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SQLServer"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SQLServer"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ControlsFx">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

@@ -94,6 +94,7 @@ public class controllerCardapio implements Initializable {
 
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
+        carregarTableCardapio();
         
     }
 
@@ -158,12 +159,6 @@ public class controllerCardapio implements Initializable {
         Main.changeScreen("Login");
     }
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		carregarTableCardapio();
-		
-	}
 	
 	private ObservableList<Cardapio> ArrayCardapio;
     private void carregarTableCardapio() {

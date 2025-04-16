@@ -94,6 +94,7 @@ public class controllerFuncionario implements Initializable {
 
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
+        carregarTableFuncionario();
         
     }
 
@@ -157,13 +158,6 @@ public class controllerFuncionario implements Initializable {
         Main.changeScreen("Login");
     }
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		carregarTableFuncionario();
-		
-	}
-	
 	private ObservableList<Funcionario> ArrayFuncionarios;
     private void carregarTableFuncionario() {
     	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();

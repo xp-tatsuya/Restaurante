@@ -21,11 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-<<<<<<< HEAD
 public class controllerFornecedor implements Initializable{
-=======
-public class controllerFornecedor implements Initializable {
->>>>>>> branch 'master' of https://github.com/xp-tatsuya/Restaurante.git
+
 
     @FXML
     private Button btAdicionar;
@@ -98,7 +95,7 @@ public class controllerFornecedor implements Initializable {
 
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
-        
+        carregarTableFornecedor();
     }
 
     @FXML
@@ -160,13 +157,6 @@ public class controllerFornecedor implements Initializable {
     void ActionSair(ActionEvent event) throws IOException {
         Main.changeScreen("Login");
     }
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		carregarTableFornecedor();
-		
-	}
 	
 	private ObservableList<Fornecedor> ArrayFornecedores;
     private void carregarTableFornecedor() {
