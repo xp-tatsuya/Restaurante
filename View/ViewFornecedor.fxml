@@ -23,7 +23,7 @@
                   <TableColumn fx:id="columnNome" prefWidth="103.0" text="Nome" />
                   <TableColumn fx:id="columnCNPJ" prefWidth="110.0" text="CNPJ" />
                   <TableColumn fx:id="columnTelefone" prefWidth="130.0" text="Telefone" />
-                  <TableColumn fx:id="columnEndereco" prefWidth="140.0" text="Endereco" />
+                  <TableColumn fx:id="columnEndereco" prefWidth="140.0" text="Endereço" />
                </columns>
             </TableView>
             <Line endX="-104.73333740234375" endY="205.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />

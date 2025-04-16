@@ -1,17 +1,27 @@
 package Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import DAO.FornecedorDAO;
+import DAO.MesaDAO;
+import Model.Fornecedor;
+import Model.Mesa;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerFornecedor {
+public class controllerFornecedor implements Initializable{
 
     @FXML
     private Button btAdicionar;
@@ -50,22 +60,22 @@ public class controllerFornecedor {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCNPJ;
+    private TableColumn<Fornecedor, String> columnCNPJ;
 
     @FXML
-    private TableColumn<?, ?> columnEndereco;
+    private TableColumn<Fornecedor, String> columnEndereco;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<Fornecedor, String> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
+    private TableColumn<Fornecedor, String> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnTelefone;
+    private TableColumn<Fornecedor, String> columnTelefone;
 
     @FXML
-    private TableView<?> tableFornecedor;
+    private TableView<Fornecedor> tableFornecedor;
 
     @FXML
     private TextField txtPesquisa;
@@ -131,5 +141,25 @@ public class controllerFornecedor {
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
         Main.changeScreen("Login");
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		carregarTableFornecedor();
+		
+	}
+	
+	private ObservableList<Fornecedor> ArrayFornecedores;
+    private void carregarTableFornecedor() {
+    	FornecedorDAO fornecedorDAO =  new FornecedorDAO();
+    	ArrayFornecedores = FXCollections.observableArrayList(fornecedorDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnCNPJ.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+        columnTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        columnEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+
+        tableFornecedor.setItems(ArrayFornecedores);
     }
 }

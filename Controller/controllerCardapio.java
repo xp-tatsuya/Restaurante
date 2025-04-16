@@ -1,17 +1,27 @@
 package Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import DAO.CardapioDAO;
+import DAO.MesaDAO;
+import Model.Cardapio;
+import Model.Mesa;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerCardapio {
+public class controllerCardapio implements Initializable {
 
     @FXML
     private Button btAdicionar;
@@ -50,22 +60,22 @@ public class controllerCardapio {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCategoria;
+    private TableColumn<Cardapio, String> columnCategoria;
 
     @FXML
-    private TableColumn<?, ?> columnDescricao;
+    private TableColumn<Cardapio, String> columnDescricao;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<Cardapio, String> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
+    private TableColumn<Cardapio, String> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnPrecoUN;
+    private TableColumn<Cardapio, String> columnPrecoUN;
 
     @FXML
-    private TableView<?> tableCardapio;
+    private TableView<Cardapio> tableCardapio;
 
     @FXML
     private TextField txtPesquisa;
@@ -132,5 +142,25 @@ public class controllerCardapio {
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
         Main.changeScreen("Login");
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		carregarTableCardapio();
+		
+	}
+	
+	private ObservableList<Cardapio> ArrayCardapio;
+    private void carregarTableCardapio() {
+    	CardapioDAO cardapioDAO = new CardapioDAO();
+    	ArrayCardapio = FXCollections.observableArrayList(cardapioDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        columnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        columnPrecoUN.setCellValueFactory(new PropertyValueFactory<>("precoUnitario"));
+        
+        tableCardapio.setItems(ArrayCardapio);
     }
 }

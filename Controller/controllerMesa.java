@@ -1,17 +1,25 @@
 package Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import DAO.MesaDAO;
+import Model.Mesa;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerMesa {
+public class controllerMesa implements Initializable{
 
     @FXML
     private Button btAdicionar;
@@ -50,16 +58,16 @@ public class controllerMesa {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCapacidade;
+    private TableColumn<Mesa, String> columnCapacidade;
 
     @FXML
-    private TableColumn<?, ?> columnCondicao;
+    private TableColumn<Mesa, String> columnCondicao;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<Mesa, String> columnIndice;
 
     @FXML
-    private TableView<?> tableMesa;
+    private TableView<Mesa> tableMesa;
 
     @FXML
     private TextField txtPesquisa;
@@ -127,4 +135,20 @@ public class controllerMesa {
         Main.changeScreen("Login");
     }
 
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		carregarTableMesa();
+		
+	}
+	private ObservableList<Mesa> ArrayMesas;
+    private void carregarTableMesa() {
+    	MesaDAO mesaDAO =  new MesaDAO();
+        ArrayMesas = FXCollections.observableArrayList(mesaDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnCapacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
+        columnCondicao.setCellValueFactory(new PropertyValueFactory<>("condicao"));
+        
+        tableMesa.setItems(ArrayMesas);
+    }
 }

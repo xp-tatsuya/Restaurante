@@ -1,17 +1,27 @@
 package Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import DAO.CardapioDAO;
+import DAO.FuncionarioDAO;
+import Model.Cardapio;
+import Model.Funcionario;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerFuncionario {
+public class controllerFuncionario implements Initializable {
 
     @FXML
     private Button btAdicionar;
@@ -50,22 +60,22 @@ public class controllerFuncionario {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCPF;
+    private TableColumn<Funcionario, String> columnCPF;
 
     @FXML
-    private TableColumn<?, ?> columnCargo;
+    private TableColumn<Funcionario, String> columnCargo;
 
     @FXML
-    private TableColumn<?, ?> columnEmail;
+    private TableColumn<Funcionario, String> columnEmail;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<Funcionario, String> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
+    private TableColumn<Funcionario, String> columnNome;
 
     @FXML
-    private TableView<?> tableFuncionario;
+    private TableView<Funcionario> tableFuncionario;
 
     @FXML
     private TextField txtPesquisa;
@@ -131,6 +141,26 @@ public class controllerFuncionario {
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
         Main.changeScreen("Login");
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		carregarTableFuncionario();
+		
+	}
+	
+	private ObservableList<Funcionario> ArrayFuncionarios;
+    private void carregarTableFuncionario() {
+    	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    	ArrayFuncionarios = FXCollections.observableArrayList(funcionarioDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        columnCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+        
+        tableFuncionario.setItems(ArrayFuncionarios);
     }
 
 }

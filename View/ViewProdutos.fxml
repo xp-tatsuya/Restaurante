@@ -20,11 +20,11 @@
             <TableView fx:id="tableProdutos" layoutX="35.0" layoutY="146.0" prefHeight="351.0" prefWidth="510.0">
                <columns>
                   <TableColumn fx:id="columnIndice" prefWidth="25.0" />
-                  <TableColumn fx:id="columnNome" prefWidth="100.0" text="Nome" />
-                  <TableColumn fx:id="columnMarca" prefWidth="110.0" text="Marca" />
-                  <TableColumn fx:id="columnCategoria" prefWidth="100.79998779296875" text="Categoria" />
-                  <TableColumn fx:id="columnPrecoUN" prefWidth="86.39996337890625" text="Preço Unitário" />
-                  <TableColumn fx:id="columnEstoque" prefWidth="93.60003662109375" text="Estoque" />
+                  <TableColumn fx:id="columnNome" prefWidth="156.80001831054688" text="Nome" />
+                  <TableColumn fx:id="columnMarca" minWidth="0.0" prefWidth="80.00006103515625" text="Marca" />
+                  <TableColumn fx:id="columnCategoria" prefWidth="101.86669921875" text="Categoria" />
+                  <TableColumn fx:id="columnPrecoUN" minWidth="0.0" prefWidth="86.13330078125" text="Preço Unitário" />
+                  <TableColumn fx:id="columnEstoque" prefWidth="55.2000732421875" text="Estoque" />
                </columns>
             </TableView>
             <Line endX="-104.73333740234375" endY="205.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />

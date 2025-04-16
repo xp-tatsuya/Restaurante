@@ -1,17 +1,27 @@
 package Controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import DAO.MesaDAO;
+import DAO.ProdutoDAO;
+import Model.Mesa;
+import Model.Produto;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerProdutos {
+public class controllerProdutos implements Initializable  {
 
     @FXML
     private Button btAdicionar;
@@ -50,25 +60,25 @@ public class controllerProdutos {
     private Button btSair;
 
     @FXML
-    private TableColumn<?, ?> columnCategoria;
+    private TableColumn<Produto, String> columnCategoria;
 
     @FXML
-    private TableColumn<?, ?> columnEstoque;
+    private TableColumn<Produto, String> columnEstoque;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<Produto, String> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnMarca;
+    private TableColumn<Produto, String> columnMarca;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
+    private TableColumn<Produto, String> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnPrecoUN;
+    private TableColumn<Produto, String> columnPrecoUN;
 
     @FXML
-    private TableView<?> tableProdutos;
+    private TableView<Produto> tableProdutos;
 
     @FXML
     private TextField txtPesquisa;
@@ -136,4 +146,24 @@ public class controllerProdutos {
         Main.changeScreen("Login");
     }
 
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		carregarTableFornecedor();
+	}
+	
+	private ObservableList<Produto> ArrayProdutos;
+    private void carregarTableFornecedor() {
+    	ProdutoDAO produtoDAO = new ProdutoDAO(); 
+    	ArrayProdutos = FXCollections.observableArrayList(produtoDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        columnPrecoUN.setCellValueFactory(new PropertyValueFactory<>("precoUn"));
+        columnEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        
+        tableProdutos.setItems(ArrayProdutos);
+    }
+	
 }
