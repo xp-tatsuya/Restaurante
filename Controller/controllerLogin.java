@@ -26,8 +26,9 @@ public class controllerLogin {
     @FXML
     private TextField txtUser;
     
-    static Funcionario funcionario = new Funcionario();
+    public static Funcionario funcionario = new Funcionario();
     
+    public String teste;
     @FXML
     void PressEnter(KeyEvent event) throws IOException {
     	if(event.getCode() == KeyCode.ENTER) {
@@ -60,7 +61,7 @@ public class controllerLogin {
             
             String acesso = funcionario.getVerificarAcesso();
             if (acesso.equals("1") || acesso.equals("2")) {
-                Main.TelaHome();
+                Main.changeScreen("main", funcionario.getNome());
             } else if (acesso.equals("3")) {
                 Main.TelaRegistroGarcons();
             } else {

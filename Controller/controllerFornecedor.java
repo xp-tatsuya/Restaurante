@@ -86,8 +86,10 @@ public class controllerFornecedor implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
-    	String nomeCompleto = controllerLogin.funcionario.getNome();
+        carregarTableFornecedor();
+    }
+    
+    public void nome(String nomeCompleto) {
         String[] partesNome = nomeCompleto.split(" ");
 
         String primeiroNome = partesNome[0];
@@ -95,7 +97,6 @@ public class controllerFornecedor implements Initializable{
 
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
-        carregarTableFornecedor();
     }
 
     @FXML
@@ -105,7 +106,7 @@ public class controllerFornecedor implements Initializable{
 
     @FXML
     void ActionCardapio(ActionEvent event) throws IOException {
-    	Main.TelaCardapio();
+    	Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());
     }
 
     @FXML
@@ -125,37 +126,37 @@ public class controllerFornecedor implements Initializable{
 
     @FXML
     void ActionFornecedor(ActionEvent event) throws IOException {
-    	Main.TelaFornecedor();
+    	Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionFuncionario(ActionEvent event) throws IOException {
-    	Main.TelaFuncionario();
+    	Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionHome(ActionEvent event) throws IOException {
-    	Main.TelaHome();
+    	Main.changeScreen("main", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionMesa(ActionEvent event) throws IOException {
-    	Main.TelaMesa();
+    	Main.changeScreen("Mesa", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionPedido(ActionEvent event) throws IOException {
-    	Main.TelaPedido();
+    	Main.changeScreen("Pedido", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionProduto(ActionEvent event) throws IOException {
-    	Main.TelaProduto();
+        Main.changeScreen("Produto", controllerLogin.funcionario.getNome());
     }
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login");
+        Main.changeScreen("Login", null);
     }
 	
 	private ObservableList<Fornecedor> ArrayFornecedores;
