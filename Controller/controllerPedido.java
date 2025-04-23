@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import DAO.MesaDAO;
 import DAO.PedidoDAO;
 import Model.Pedido;
@@ -18,8 +19,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
-public class controllerPedido implements Initializable {
+public class controllerPedido implements Initializable{
 
     @FXML
     private Button btAdicionar;
@@ -32,9 +34,6 @@ public class controllerPedido implements Initializable {
 
     @FXML
     private Button btExcluir;
-
-    @FXML
-    private Button btFinalizar;
 
     @FXML
     private Button btFonecedor;
@@ -57,47 +56,57 @@ public class controllerPedido implements Initializable {
     @FXML
     private Button btSair;
 
-    // Colunas para pedidos pendentes (tablePedido)
-    @FXML
-    private TableColumn<Pedido, String> columnIndice;    
-    @FXML
-    private TableColumn<Pedido, String> columnNome;
     @FXML
     private TableColumn<Pedido, String> columnCondicao;
+
+    @FXML
+    private TableColumn<Pedido, String> columnCondicao1;
+
+    @FXML
+    private TableColumn<Pedido, String> columnData1;
+
     @FXML
     private TableColumn<Pedido, String> columnDesconto;
+
     @FXML
-    private TableColumn<Pedido, String> columnPrecoTotal;
+    private TableColumn<Pedido, String> columnDesconto1;
+
+    @FXML
+    private TableColumn<Pedido, String> columnIndice;
+
+    @FXML
+    private TableColumn<Pedido, String> columnIndice1;
+
     @FXML
     private TableColumn<Pedido, String> columnMesa;
 
-    // Colunas para pedidos concluídos (tablePedido1)
-    @FXML
-    private TableColumn<Pedido, String> columnIndice1;    
-    @FXML
-    private TableColumn<Pedido, String> columnNome1;
-    @FXML
-    private TableColumn<Pedido, String> columnCondicao1;
-    @FXML
-    private TableColumn<Pedido, String> columnData1;
-    @FXML
-    private TableColumn<Pedido, String> columnDesconto1;
-    @FXML
-    private TableColumn<Pedido, String> columnPrecoTotal1;
     @FXML
     private TableColumn<Pedido, String> columnMesa1;
 
     @FXML
-    private TableView<Pedido> tablePedido;   // Tabela para pedidos pendentes
+    private TableColumn<Pedido, String> columnNome;
+
     @FXML
-    private TableView<Pedido> tablePedido1;  // Tabela para pedidos concluídos
+    private TableColumn<Pedido, String> columnNome1;
+
+    @FXML
+    private TableColumn<Pedido, String> columnPrecoTotal;
+
+    @FXML
+    private TableColumn<Pedido, String> columnPrecoTotal1;
+
+    @FXML
+    private TableView<Pedido> tablePedido;
+
+    @FXML
+    private TableView<Pedido> tablePedido1;
 
     @FXML
     private TextField txtPesquisa;
 
     @FXML
     private Label txtUser;
-    
+
     MesaDAO mesaDAO = new MesaDAO();
     PedidoDAO pedidoDAO = new PedidoDAO();
     
@@ -106,8 +115,8 @@ public class controllerPedido implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CarregarTabelaPendentes();
-        CarregarTabelaConcluidos();
+    	CarregarTabelaConcluidos();
+    	CarregarTabelaPendentes();
     }
     
     public void nome(String nomeCompleto) {
@@ -118,62 +127,6 @@ public class controllerPedido implements Initializable {
 
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
-    }
-
-    @FXML
-    void ActionAdicionar(ActionEvent event) {
-    }
-
-    @FXML
-    void ActionCardapio(ActionEvent event) throws IOException {
-    	Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-    void ActionEditar(ActionEvent event) {
-    }
-
-    @FXML
-    void ActionExcluir(ActionEvent event) {
-    }
-
-    @FXML
-    void ActionFinalizar(ActionEvent event) {
-    }
-
-    @FXML
-    void ActionFornecedor(ActionEvent event) throws IOException {
-    	Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-    void ActionFuncionario(ActionEvent event) throws IOException {
-    	Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-    void ActionHome(ActionEvent event) throws IOException {
-        Main.changeScreen("main", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-    void ActionMesa(ActionEvent event) throws IOException {
-    	Main.changeScreen("Mesa", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-    void ActionPedido(ActionEvent event) throws IOException {
-    	Main.changeScreen("Pedido", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
-	void ActionProduto(ActionEvent event) throws IOException {
-		Main.changeScreen("Produto", controllerLogin.funcionario.getNome());
-	}
-
-    @FXML
-    void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login", null);
     }
     
     private void CarregarTabelaPendentes() {
@@ -198,4 +151,125 @@ public class controllerPedido implements Initializable {
         columnMesa1.setCellValueFactory(new PropertyValueFactory<>("codeMesa"));
         tablePedido1.setItems(ArrayPedidosConcluidos);
     }
+    
+    @FXML
+    void ActionAdicionar(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ActionCardapio(ActionEvent event) throws IOException {
+    	Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionEditar(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ActionExcluir(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ActionFornecedor(ActionEvent event) throws IOException {
+    	Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionFuncionario(ActionEvent event) throws IOException {
+    	Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionHome(ActionEvent event) throws IOException {
+    	Main.changeScreen("main", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionMesa(ActionEvent event) throws IOException {
+    	Main.changeScreen("Mesa", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionProduto(ActionEvent event) throws IOException {
+    	Main.changeScreen("Produto", controllerLogin.funcionario.getNome());
+    }
+
+    @FXML
+    void ActionSair(ActionEvent event) throws IOException {
+    	Main.changeScreen("Login", null);
+    }
+
+    @FXML
+    void OffMouseCardapio(MouseEvent event) {
+    	btCardapio.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseFornecedor(MouseEvent event) {
+    	btFonecedor.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseFuncionario(MouseEvent event) {
+    	btFuncionario.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseHome(MouseEvent event) {
+    	btHome.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseMesa(MouseEvent event) {
+    	btMesa.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseProduto(MouseEvent event) {
+    	btProduto.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseSair(MouseEvent event) {
+    	btSair.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseCardapio(MouseEvent event) {
+    	btCardapio.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseFornecedor(MouseEvent event) {
+    	btFonecedor.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseFuncionario(MouseEvent event) {
+    	btFuncionario.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseHome(MouseEvent event) {
+    	btHome.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseMesa(MouseEvent event) {
+    	btMesa.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseProduto(MouseEvent event) {
+    	btProduto.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseSair(MouseEvent event) {
+    	btSair.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
 }

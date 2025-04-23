@@ -18,9 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class controllerMesa implements Initializable{
-
 
     @FXML
     private Button btAdicionar;
@@ -33,9 +33,6 @@ public class controllerMesa implements Initializable{
 
     @FXML
     private Button btExcluir;
-
-    @FXML
-    private Button btFinalizar;
 
     @FXML
     private Button btFonecedor;
@@ -75,10 +72,10 @@ public class controllerMesa implements Initializable{
 
     @FXML
     private Label txtUser;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        carregarTableMesa();
+    	carregarTableMesa();
     }
     
     public void nome(String nomeCompleto) {
@@ -90,7 +87,18 @@ public class controllerMesa implements Initializable{
         String nomeFormatado = primeiroNome + " " + ultimoNome;
         txtUser.setText(nomeFormatado);
     }
-
+    
+	private ObservableList<Mesa> ArrayMesas;
+    private void carregarTableMesa() {
+    	MesaDAO mesaDAO =  new MesaDAO();
+        ArrayMesas = FXCollections.observableArrayList(mesaDAO.read());
+        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnCapacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
+        columnCondicao.setCellValueFactory(new PropertyValueFactory<>("condicao"));
+        
+        tableMesa.setItems(ArrayMesas);
+    }
+    
     @FXML
     void ActionAdicionar(ActionEvent event) {
 
@@ -112,11 +120,6 @@ public class controllerMesa implements Initializable{
     }
 
     @FXML
-    void ActionFinalizar(ActionEvent event) {
-
-    }
-
-    @FXML
     void ActionFornecedor(ActionEvent event) throws IOException {
     	Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
     }
@@ -132,11 +135,6 @@ public class controllerMesa implements Initializable{
     }
 
     @FXML
-    void ActionMesa(ActionEvent event) throws IOException {
-    	Main.changeScreen("Mesa", controllerLogin.funcionario.getNome());
-    }
-
-    @FXML
     void ActionPedido(ActionEvent event) throws IOException {
     	Main.changeScreen("Pedido", controllerLogin.funcionario.getNome());
     }
@@ -148,18 +146,77 @@ public class controllerMesa implements Initializable{
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login", null);
+    	Main.changeScreen("Login", null);
     }
 
-
-	private ObservableList<Mesa> ArrayMesas;
-    private void carregarTableMesa() {
-    	MesaDAO mesaDAO =  new MesaDAO();
-        ArrayMesas = FXCollections.observableArrayList(mesaDAO.read());
-        columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnCapacidade.setCellValueFactory(new PropertyValueFactory<>("capacidade"));
-        columnCondicao.setCellValueFactory(new PropertyValueFactory<>("condicao"));
-        
-        tableMesa.setItems(ArrayMesas);
+    @FXML
+    void OffMouseCardapio(MouseEvent event) {
+    	btCardapio.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }
+
+    @FXML
+    void OffMouseFornecedor(MouseEvent event) {
+    	btFonecedor.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseFuncionario(MouseEvent event) {
+    	btFuncionario.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseHome(MouseEvent event) {
+    	btHome.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMousePedido(MouseEvent event) {
+    	btPedido.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseProduto(MouseEvent event) {
+    	btProduto.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OffMouseSair(MouseEvent event) {
+    	btSair.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseCardapio(MouseEvent event) {
+    	btCardapio.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseFornecedor(MouseEvent event) {
+    	btFonecedor.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseFuncionario(MouseEvent event) {
+    	btFuncionario.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseHome(MouseEvent event) {
+    	btHome.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMousePedido(MouseEvent event) {
+    	btPedido.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseProduto(MouseEvent event) {
+    	btProduto.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
+    @FXML
+    void OnMouseSair(MouseEvent event) {
+    	btSair.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;");
+    }
+
 }

@@ -70,17 +70,6 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btFinalizar" layoutX="585.0" layoutY="146.0" mnemonicParsing="false" onAction="#ActionFinalizar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Finalizar" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/icon%20de%20finalizar.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
          </children>
       </Pane>
       <Pane layoutX="199.0" prefHeight="100.0" prefWidth="880.0" style="-fx-background-color: #FFFFFF;">
@@ -104,17 +93,17 @@
       </Pane>
       <Pane prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: #000000;">
          <children>
-            <Button fx:id="btSair" alignment="CENTER" layoutX="25.0" layoutY="650.0" mnemonicParsing="false" onAction="#ActionSair" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Sair" textFill="WHITE">
+            <Button fx:id="btSair" alignment="CENTER" layoutX="25.0" layoutY="650.0" mnemonicParsing="false" onAction="#ActionSair" onMouseEntered="#OnMouseSair" onMouseExited="#OffMouseSair" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Sair" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btCardapio" layoutX="25.0" layoutY="241.0" mnemonicParsing="false" onAction="#ActionCardapio" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Cardápio" textFill="WHITE">
+            <Button fx:id="btCardapio" layoutX="25.0" layoutY="241.0" mnemonicParsing="false" onAction="#ActionCardapio" onMouseEntered="#OnMouseCardapio" onMouseExited="#OffMouseCardapio" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Cardápio" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
+            <Button fx:id="btFuncionario" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#ActionFuncionario" onMouseEntered="#OnMouseFuncionario" onMouseExited="#OffMouseFuncionario" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Funcionário" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -141,22 +130,22 @@
                   <Bloom />
                </effect>
             </Button>
-            <Button fx:id="btProduto" layoutX="25.0" layoutY="361.0" mnemonicParsing="false" onAction="#ActionProduto" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Produto" textFill="WHITE">
+            <Button fx:id="btProduto" layoutX="25.0" layoutY="361.0" mnemonicParsing="false" onAction="#ActionProduto" onMouseEntered="#OnMouseProduto" onMouseExited="#OffMouseProduto" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Produto" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btHome" layoutX="25.0" layoutY="161.0" mnemonicParsing="false" onAction="#ActionHome" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Home" textFill="WHITE">
+            <Button fx:id="btHome" layoutX="25.0" layoutY="161.0" mnemonicParsing="false" onAction="#ActionHome" onMouseEntered="#OnMouseHome" onMouseExited="#OffMouseHome" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Home" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
+            <Button fx:id="btPedido" layoutX="25.0" layoutY="201.0" mnemonicParsing="false" onAction="#ActionPedido" onMouseEntered="#OnMousePedido" onMouseExited="#OffMousePedido" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pedido" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btMesa" layoutX="25.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionMesa" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Mesa" textFill="WHITE">
+            <Button fx:id="btMesa" layoutX="25.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionMesa" onMouseEntered="#OnMouseMesa" onMouseExited="#OffMouseMesa" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Mesa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
