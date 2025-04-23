@@ -33,6 +33,9 @@ public class controllerMesa implements Initializable{
 
     @FXML
     private Button btExcluir;
+    
+    @FXML
+    private Button btPesquisar;
 
     @FXML
     private Button btFonecedor;
@@ -100,8 +103,8 @@ public class controllerMesa implements Initializable{
     }
     
     @FXML
-    void ActionAdicionar(ActionEvent event) {
-
+    void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaRegistroGarcons();
     }
 
     @FXML
@@ -110,13 +113,19 @@ public class controllerMesa implements Initializable{
     }
 
     @FXML
-    void ActionEditar(ActionEvent event) {
+    void ActionEditar(ActionEvent event) throws IOException {
+    	Main.TelaRegistroGarcons();
 
     }
 
     @FXML
     void ActionExcluir(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void ActionPesquisar(ActionEvent event) {
+    	
     }
 
     @FXML

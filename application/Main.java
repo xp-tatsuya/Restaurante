@@ -8,7 +8,8 @@
 	import javafx.scene.Parent;
 	import javafx.scene.Scene;
 	import javafx.scene.image.Image;
-	import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 	public class Main extends Application {
 		
@@ -141,17 +142,19 @@
 	        stage.show();
 	    }
 	
+	    private static Stage cadPedido;
 	    public static void TelaRegistroGarcons() throws IOException {
 	        FXMLLoader fxmlRegistro = new FXMLLoader();
 	        fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));
 	        Parent telaRegistro = fxmlRegistro.load();
-	        registroGarcons = new Scene(telaRegistro);
-	        
-	        stage.setTitle("Registro de Garçons");
-	        stage.setScene(registroGarcons);
-	        stage.setResizable(false);
-	        stage.centerOnScreen();
-	        stage.show();
+	    	Scene scene2 = new Scene(telaRegistro);
+	    	
+	    	cadPedido = new Stage();
+	    	cadPedido.setTitle("Registro de Garçons");
+	    	cadPedido.initModality(Modality.WINDOW_MODAL);
+	    	cadPedido.setScene(scene2);
+	    	cadPedido.centerOnScreen();
+	    	cadPedido.showAndWait();   	
 	    }
 	    
 	    public static void TelaPedido() throws IOException {
