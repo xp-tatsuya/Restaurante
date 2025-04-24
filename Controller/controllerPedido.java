@@ -153,8 +153,8 @@ public class controllerPedido implements Initializable{
     }
     
     @FXML
-    void ActionAdicionar(ActionEvent event) {
-
+    void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddPedido();
     }
 
     @FXML
@@ -163,8 +163,8 @@ public class controllerPedido implements Initializable{
     }
 
     @FXML
-    void ActionEditar(ActionEvent event) {
-
+    void ActionEditar(ActionEvent event) throws IOException {
+    	Main.TelaAddPedido();
     }
 
     @FXML
