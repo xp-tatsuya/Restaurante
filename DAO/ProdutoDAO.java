@@ -225,4 +225,34 @@ public class ProdutoDAO {
     	
     	return produto;
     }
+    
+    public ArrayList<String> readProdutoByNome() {
+    	
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	ArrayList<String> produtos = new ArrayList<>();
+    	
+    	try {
+    		
+            stmt = con.prepareStatement("SELECT nomeProduto FROM Produto");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+            	String nomeProduto;
+            	nomeProduto = rs.getString(1);
+            	produtos.add(nomeProduto);
+                
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler os produtos!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+    	
+    	return produtos;
+    	
+    }
+
 }

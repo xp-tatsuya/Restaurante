@@ -28,7 +28,7 @@
                </columns>
             </TableView>
             <Line endX="-104.73333740234375" endY="205.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />
-            <TextField fx:id="txtPesquisa" layoutX="35.0" layoutY="52.0" prefHeight="50.0" prefWidth="510.0" promptText="Pesquisar" style="-fx-background-radius: 25;">
+            <TextField fx:id="txtPesquisa" layoutX="35.0" layoutY="52.0" onKeyTyped="#actionProdutoType" onMouseClicked="#actionProdutoClick" onMouseEntered="#actionProdutoClick" prefHeight="50.0" prefWidth="510.0" promptText="Pesquisar" style="-fx-background-radius: 25;">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Image url="@../Icons/icon%20pesquisar.png" />
                </image>
             </ImageView>
-            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="249.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
+            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="185.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -49,7 +49,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btEditar" layoutX="585.0" layoutY="344.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditar" layoutX="585.0" layoutY="286.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -60,7 +60,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btExcluir" layoutX="585.0" layoutY="441.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btExcluir" layoutX="585.0" layoutY="380.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>

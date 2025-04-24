@@ -141,4 +141,27 @@ public class FornecedorDAO {
         
         return fornecedores;
     }
+    
+    public ArrayList<String> readFornecedorByNome() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> nomes = new ArrayList<>();
+
+        try {
+            String sql = "SELECT nomeFornecedor FROM Fornecedor";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                nomes.add(rs.getString("nomeFornecedor"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler nomes de fornecedores!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return nomes;
+    }
+    
 }

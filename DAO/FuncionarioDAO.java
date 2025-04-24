@@ -222,4 +222,23 @@ public class FuncionarioDAO {
         return func;
     }
     
+    public ArrayList<String> readFuncionarioByNome() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> nomes = new ArrayList<>();
+        try {
+            stmt = con.prepareStatement("SELECT nomeFuncionario FROM Funcionario");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                nomes.add(rs.getString("nomeFuncionario"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler nomes de funcionários!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return nomes;
+    }
+    
 }
