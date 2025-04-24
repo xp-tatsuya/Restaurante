@@ -131,4 +131,25 @@ public class MesaDAO {
         
         return mesas;
     }
+    
+    public ArrayList<String> readMesaByCapacidade() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> capacidades = new ArrayList<>();
+        try {
+            String sql = "SELECT DISTINCT capacidade FROM Mesa";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                capacidades.add(String.valueOf(rs.getInt("capacidade")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler capacidades das mesas!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return capacidades;
+    }
+    
 }
