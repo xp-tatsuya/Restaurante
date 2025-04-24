@@ -104,7 +104,7 @@ public class controllerMesa implements Initializable{
     
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Main.TelaRegistroGarcons();
+    	
     }
 
     @FXML
@@ -114,7 +114,6 @@ public class controllerMesa implements Initializable{
 
     @FXML
     void ActionEditar(ActionEvent event) throws IOException {
-    	Main.TelaRegistroGarcons();
 
     }
 

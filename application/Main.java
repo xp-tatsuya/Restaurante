@@ -143,11 +143,11 @@ import javafx.stage.Stage;
 	    }
 	
 	    private static Stage cadPedido;
-	    public static void TelaRegistroGarcons() throws IOException {
-	        FXMLLoader fxmlRegistro = new FXMLLoader();
-	        fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));
-	        Parent telaRegistro = fxmlRegistro.load();
-	    	Scene scene2 = new Scene(telaRegistro);
+	    public static void TelaAddPedido() throws IOException {
+	        FXMLLoader fxmlAddPedido = new FXMLLoader();
+	        fxmlAddPedido.setLocation(Main.class.getResource("/View/ViewAddPedido.fxml"));
+	        Parent telaAddPedido = fxmlAddPedido.load();
+	    	Scene scene2 = new Scene(telaAddPedido);
 	    	
 	    	cadPedido = new Stage();
 	    	cadPedido.setTitle("Registro de Garçons");
@@ -155,6 +155,34 @@ import javafx.stage.Stage;
 	    	cadPedido.setScene(scene2);
 	    	cadPedido.centerOnScreen();
 	    	cadPedido.showAndWait();   	
+	    }
+	    
+	    private static Stage cadCardapio;
+	    public static void TelaAddCardapio() throws IOException {
+	        FXMLLoader fxmlAddCardapio = new FXMLLoader();
+	        fxmlAddCardapio.setLocation(Main.class.getResource("/View/ViewAddCardapio.fxml"));
+	        Parent telaAddCardapio = fxmlAddCardapio.load();
+	    	Scene scene3 = new Scene(telaAddCardapio);
+	    	
+	    	cadCardapio = new Stage();
+	    	cadCardapio.setTitle("Registro de Garçons");
+	    	cadCardapio.initModality(Modality.WINDOW_MODAL);
+	    	cadCardapio.setScene(scene3);
+	    	cadCardapio.centerOnScreen();
+	    	cadCardapio.showAndWait();   	
+	    }
+	    
+	    public static void TelaRegistroGarcons() throws IOException {
+	        FXMLLoader fxmlRegistro = new FXMLLoader();
+	        fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));
+	        Parent telaRegistro = fxmlRegistro.load();
+	        main = new Scene(telaRegistro);
+	        
+	        stage.setTitle("Registro de Garçons");
+	        stage.setScene(main);
+	        stage.setResizable(false);
+	        stage.centerOnScreen();
+	        stage.show();
 	    }
 	    
 	    public static void TelaPedido() throws IOException {

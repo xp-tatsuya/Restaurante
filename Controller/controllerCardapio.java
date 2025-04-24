@@ -111,7 +111,8 @@ public class controllerCardapio implements Initializable{
 
     
     @FXML
-    void ActionAdicionar(ActionEvent event) {
+    void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddCardapio();
     	
     }
 
@@ -121,8 +122,8 @@ public class controllerCardapio implements Initializable{
     }
 
     @FXML
-    void ActionEditar(ActionEvent event) {
-
+    void ActionEditar(ActionEvent event) throws IOException {
+    	Main.TelaAddCardapio();
     }
 
     @FXML
