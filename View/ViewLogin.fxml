@@ -53,7 +53,7 @@
          <children>
             <ImageView fitHeight="34.0" fitWidth="36.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../repository/MERCADINHO/src/Images/user.png" />
+                  <Image url="@../Icons/user.png" />
                </image>
             </ImageView>
             <TextField fx:id="txtUser" layoutX="33.0" prefHeight="34.0" prefWidth="202.0" promptText="USUÁRIO" style="-fx-background-color: ffffff; -fx-background-radius: 5;">
@@ -67,7 +67,7 @@
          <children>
             <ImageView fitHeight="34.0" fitWidth="23.0" layoutX="3.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../repository/MERCADINHO/src/Images/password.png" />
+                  <Image url="@../Icons/password.png" />
                </image>
             </ImageView>
             <PasswordField fx:id="txtPassword" layoutX="33.0" onKeyPressed="#PressEnter" prefHeight="34.0" prefWidth="202.0" promptText="SENHA" style="-fx-background-color: ffffff;">

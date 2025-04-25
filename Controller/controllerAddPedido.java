@@ -3,6 +3,7 @@ package Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class controllerAddPedido {
@@ -14,10 +15,10 @@ public class controllerAddPedido {
     private Button btSalvar;
 
     @FXML
-    private TextField txtCODEmesa;
+    private DatePicker datePedido;
 
     @FXML
-    private TextField txtDatePedido;
+    private TextField txtCODEmesa;
 
     @FXML
     private TextField txtDesconto;

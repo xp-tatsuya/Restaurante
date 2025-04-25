@@ -10,35 +10,23 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerAddPedido">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerAddCardapio">
    <children>
       <Pane layoutX="-10.0" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: #000000;" />
-      <Label layoutX="341.0" layoutY="29.0" text="Adicionar Pedido">
+      <Label layoutX="244.0" layoutY="30.0" text="ADICIONAR ITEM AO CARDAPIO">
          <font>
             <Font name="GOST Common" size="36.0" />
          </font>
       </Label>
       <Line endX="70.199951171875" layoutX="697.0" layoutY="76.0" startX="-521.0" stroke="#a71d1d" strokeWidth="4.0" />
-      <TextField fx:id="txtFuncionario" layoutX="174.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtCODEmesa" layoutX="516.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtDatePedido" layoutX="174.0" layoutY="235.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtObs" layoutX="178.0" layoutY="309.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="190.0" layoutY="134.0" text="Funcionário">
+      <TextField fx:id="txtNome" layoutX="174.0" layoutY="160.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="txtDescricao" layoutX="178.0" layoutY="236.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
+      <Label layoutX="190.0" layoutY="134.0" text="Nome">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="190.0" layoutY="209.0" text="Data do Pedido">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="184.0" layoutY="283.0" prefHeight="18.0" prefWidth="150.0" text="Observações">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="529.0" layoutY="134.0" text="Codigo da mesa">
+      <Label layoutX="184.0" layoutY="210.0" prefHeight="18.0" prefWidth="150.0" text="Descrição">
          <font>
             <Font size="16.0" />
          </font>
@@ -50,7 +38,7 @@
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/icon%20de%20excluir.png" />
+                  <Image url="@../Icons/icon%20de%20excluir.png" />
                </image>
             </ImageView>
          </graphic>
@@ -62,19 +50,19 @@
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/ic_baseline-save-alt.png" />
+                  <Image url="@../Icons/icon%20salvar.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtDesconto" layoutX="185.0" layoutY="380.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtPrecoTotal" layoutX="527.0" layoutY="380.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="201.0" layoutY="354.0" text="Desconto">
+      <TextField fx:id="txtCategoria" layoutX="185.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="txtValorUn" layoutX="527.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
+      <Label layoutX="201.0" layoutY="281.0" text="Categoria">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="540.0" layoutY="354.0" text="Preço Total">
+      <Label layoutX="540.0" layoutY="281.0" text="Valor Unitario">
          <font>
             <Font size="16.0" />
          </font>

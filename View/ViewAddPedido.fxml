@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -21,7 +22,6 @@
       <Line endX="70.199951171875" layoutX="697.0" layoutY="76.0" startX="-521.0" stroke="#a71d1d" strokeWidth="4.0" />
       <TextField fx:id="txtFuncionario" layoutX="174.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
       <TextField fx:id="txtCODEmesa" layoutX="516.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtDatePedido" layoutX="174.0" layoutY="235.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
       <TextField fx:id="txtObs" layoutX="178.0" layoutY="309.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
       <Label layoutX="190.0" layoutY="134.0" text="Funcionário">
          <font>
@@ -50,7 +50,7 @@
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/icon%20de%20excluir.png" />
+                  <Image url="@../Icons/icon%20de%20excluir.png" />
                </image>
             </ImageView>
          </graphic>
@@ -60,9 +60,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="29.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/ic_baseline-save-alt.png" />
+                  <Image url="@../Icons/icon%20salvar.png" />
                </image>
             </ImageView>
          </graphic>
@@ -79,5 +79,6 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <DatePicker fx:id="datePedido" layoutX="180.0" layoutY="235.0" prefHeight="40.0" prefWidth="238.0" />
    </children>
 </AnchorPane>

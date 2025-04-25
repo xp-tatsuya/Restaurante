@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,18 +16,8 @@
    <children>
       <Pane layoutX="230.0" layoutY="137.0" prefHeight="550.0" prefWidth="820.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
          <children>
-            <Line endX="-104.73333740234375" endY="230.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-142.60000610351562" stroke="#a71d1d" strokeWidth="3.0" />
-            <TextField fx:id="txtPesquisa" layoutX="35.0" layoutY="52.0" prefHeight="50.0" prefWidth="510.0" promptText="Pesquisar" style="-fx-background-radius: 25;">
-               <font>
-                  <Font name="System Italic" size="18.0" />
-               </font>
-            </TextField>
-            <ImageView fitHeight="40.0" fitWidth="27.0" layoutX="503.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/icon%20pesquisar.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="254.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
+            <Line endX="-104.73333740234375" endY="230.60003662109375" layoutX="670.0" layoutY="290.0" startX="-104.7333984375" startY="-254.20001220703125" stroke="#a71d1d" strokeWidth="3.0" />
+            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="59.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -39,7 +28,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btEditar" layoutX="585.0" layoutY="356.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditar" layoutX="585.0" layoutY="161.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -50,7 +39,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btExcluir" layoutX="585.0" layoutY="455.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btExcluir" layoutX="585.0" layoutY="260.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -61,7 +50,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <TableView fx:id="tablePedido" layoutX="35.0" layoutY="146.0" prefHeight="166.0" prefWidth="510.0">
+            <TableView fx:id="tablePedido" layoutX="35.0" layoutY="34.0" prefHeight="225.0" prefWidth="510.0">
                <columns>
                   <TableColumn fx:id="columnIndice" prefWidth="25.0" />
                   <TableColumn fx:id="columnNome" prefWidth="115.7333984375" text="Nome" />
@@ -71,7 +60,7 @@
                   <TableColumn fx:id="columnPrecoTotal" prefWidth="106.79998779296875" text="Preço Total" />
                </columns>
             </TableView>
-            <TableView fx:id="tablePedido1" layoutX="35.0" layoutY="355.0" prefHeight="166.0" prefWidth="510.0">
+            <TableView fx:id="tablePedido1" layoutX="35.0" layoutY="293.0" prefHeight="225.0" prefWidth="510.0">
                <columns>
                   <TableColumn fx:id="columnIndice1" prefWidth="25.0" />
                   <TableColumn fx:id="columnNome1" prefWidth="79.20001220703125" text="Nome" />
@@ -194,7 +183,7 @@
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="42.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/Vector.png" />
+                  <Image url="@../Icons/icon%20home.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
