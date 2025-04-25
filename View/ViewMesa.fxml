@@ -30,7 +30,7 @@
                   <Font name="System Italic" size="18.0" />
                </font>
             </TextField>
-            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="249.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
+            <Button fx:id="btAdicionar" layoutX="585.0" layoutY="164.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -41,7 +41,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btEditar" layoutX="585.0" layoutY="344.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditar" layoutX="585.0" layoutY="266.0" mnemonicParsing="false" onAction="#ActionEditar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Editar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -52,7 +52,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btExcluir" layoutX="585.0" layoutY="441.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
+            <Button fx:id="btExcluir" layoutX="585.0" layoutY="368.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -184,7 +184,7 @@
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="42.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/Vector.png" />
+                  <Image url="@../Icons/icon%20home.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
