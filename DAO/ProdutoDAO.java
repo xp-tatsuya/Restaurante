@@ -46,7 +46,7 @@ public class ProdutoDAO {
         ArrayList<Produto> produtos = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Produto";
+            String sql = "SELECT * FROM Produto WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             
@@ -103,16 +103,15 @@ public class ProdutoDAO {
     }
     
     // DELETE - remover um produto
-    public void delete(Produto produto) {
+    public void delete(String id) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            String sql = "DELETE FROM Produto WHERE idProduto = ? OR codeFornecedor = ?";
+            String sql = "UPDATE PRODUTO SET ATIVO = 0 WHERE IDPRODUTO = ?";
             stmt = con.prepareStatement(sql);
             
-            stmt.setString(1, produto.getId());
-            stmt.setInt(2, Integer.parseInt(produto.getCodeFornecedor()));
+            stmt.setString(1, id);
             
             stmt.executeUpdate();
             System.out.println("Produto deletado com sucesso!!");
@@ -131,7 +130,7 @@ public class ProdutoDAO {
         ArrayList<Produto> produtos = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Produto WHERE nomeProduto LIKE ? OR codeFornecedor LIKE ?";
+            String sql = "SELECT * FROM Produto WHERE nomeProduto LIKE ? OR codeFornecedor LIKE ? AND ATIVO = 1";
             stmt = con.prepareStatement(sql);
             
             stmt.setString(1, "%" + produtoFiltro.getNome() + "%");
@@ -172,7 +171,7 @@ public class ProdutoDAO {
             stmt = con.prepareStatement(
                 "SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE " +
                 "FROM PRODUTO " +
-                "WHERE DATAVALIDADE >= GETDATE() AND DATAVALIDADE <= DATEADD(MONTH, 1, GETDATE());"
+                "WHERE DATAVALIDADE >= GETDATE() AND DATAVALIDADE <= DATEADD(MONTH, 1, GETDATE()) AND ATIVO = 1;"
             );
             rs = stmt.executeQuery();
             
@@ -202,7 +201,7 @@ public class ProdutoDAO {
     	ResultSet rs = null;
     	ArrayList<Produto> produto = new ArrayList<>();
     	try {
-    		stmt = con.prepareStatement("SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE FROM PRODUTO WHERE ESTOQUE < 10");
+    		stmt = con.prepareStatement("SELECT IDPRODUTO, NOMEPRODUTO, DATAFABRICACAO, DATAVALIDADE, MARCA, CATEGORIA, ESTOQUE FROM PRODUTO WHERE ESTOQUE < 10 AND ATIVO = 1");
     		rs = stmt.executeQuery();
     		
     		while(rs.next()) {
@@ -235,7 +234,7 @@ public class ProdutoDAO {
     	
     	try {
     		
-            stmt = con.prepareStatement("SELECT nomeProduto FROM Produto");
+            stmt = con.prepareStatement("SELECT nomeProduto FROM Produto WHERE ATIVO = 1");
             rs = stmt.executeQuery();
             
             while (rs.next()) {

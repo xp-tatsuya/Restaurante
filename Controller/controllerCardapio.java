@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.CardapioDAO;
 import Model.Cardapio;
@@ -76,6 +78,8 @@ public class controllerCardapio implements Initializable {
 	
 	CardapioDAO cardapioDAO = new CardapioDAO();
 
+	private AutoCompletionBinding<String> acb;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		CarregarTableCardapio();
@@ -106,8 +110,11 @@ public class controllerCardapio implements Initializable {
 		sortedData.comparatorProperty().bind(tableCardapio.comparatorProperty());
 		tableCardapio.setItems(sortedData);
 
+		if(acb != null) {
+			acb.dispose();
+		}
 		ArrayList<String> nomes = cardapioDAO.readCardapioByNome();
-		TextFields.bindAutoCompletion(txtPesquisa, nomes);
+		acb = TextFields.bindAutoCompletion(txtPesquisa, nomes);
 	}
 
 	public void nome(String nomeCompleto) {

@@ -3,12 +3,16 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import DAO.ProdutoDAO;
+import Model.Funcionario;
 import Model.Produto;
+import Util.Alerts;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +21,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -52,11 +58,18 @@ public class controllerProdutos implements Initializable {
     @FXML private Label txtUser;
 
     private ObservableList<Produto> masterData = FXCollections.observableArrayList();
-
+    
+    private AutoCompletionBinding<String> acb;
+    
+    ProdutoDAO produtoDAO = new ProdutoDAO();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-
+    	CarregarTableProduto();
+    }
+    
+    public void CarregarTableProduto() {
+    	masterData.clear();
         masterData.addAll(produtoDAO.read());
 
         columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -82,9 +95,13 @@ public class controllerProdutos implements Initializable {
         sortedData.comparatorProperty().bind(tableProdutos.comparatorProperty());
 
         tableProdutos.setItems(sortedData);
-
+        
+        if (acb != null) {
+        	acb.dispose();
+        }
+        
         ArrayList<String> nomeProdutos = produtoDAO.readProdutoByNome();
-        TextFields.bindAutoCompletion(txtPesquisa, nomeProdutos);
+        acb = TextFields.bindAutoCompletion(txtPesquisa, nomeProdutos);
     }
 
     public void nome(String nomeCompleto) {
@@ -109,6 +126,25 @@ public class controllerProdutos implements Initializable {
 
     @FXML
     void ActionExcluir(ActionEvent event) {
+    	int i = tableProdutos.getSelectionModel().getSelectedIndex();
+    	if(i == -1){
+    		Alerts.showAlert("Informação", "Nenhum produto selecionado", "Selecione um produto para excluir!", Alert.AlertType.INFORMATION);
+    	}else {
+    		Produto produto = new Produto();
+    		produto = tableProdutos.getItems().get(i);
+    		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
+			mensagemDeAviso.setContentText("Tem certeza que deseja excluir o produto " + produto.getNome());
+			
+			Optional<ButtonType> resultado = mensagemDeAviso.showAndWait();
+
+			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+				produtoDAO.delete(produto.getId());
+				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
+				mensagemDeExcluir.setContentText("Produto excluido com sucesso!");
+				mensagemDeExcluir.showAndWait();
+				CarregarTableProduto();
+			}
+    	}
     }
 
     @FXML

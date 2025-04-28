@@ -3,10 +3,14 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.FuncionarioDAO;
 import Model.Funcionario;
+import Util.Alerts;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +19,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,9 +54,17 @@ public class controllerFuncionario implements Initializable {
 
     private ObservableList<Funcionario> masterData = FXCollections.observableArrayList();
 
+    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    
+    private AutoCompletionBinding<String> acb;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    	CarregarTableFuncionario();
+    }
+    
+    public void CarregarTableFuncionario() {
+    	masterData.clear();
         masterData.addAll(funcionarioDAO.read());
 
         columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -72,9 +86,13 @@ public class controllerFuncionario implements Initializable {
         SortedList<Funcionario> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableFuncionario.comparatorProperty());
         tableFuncionario.setItems(sortedData);
+        
+        if(acb != null) {
+        	acb.dispose();
+        }
 
         ArrayList<String> nomes = funcionarioDAO.readFuncionarioByNome();
-        TextFields.bindAutoCompletion(txtPesquisa, nomes);
+        acb = TextFields.bindAutoCompletion(txtPesquisa, nomes);
     }
 
     public void nome(String nomeCompleto) {
@@ -99,6 +117,25 @@ public class controllerFuncionario implements Initializable {
 
     @FXML
     void ActionExcluir(ActionEvent event) {
+    	int i = tableFuncionario.getSelectionModel().getSelectedIndex();
+    	if(i == -1){
+    		Alerts.showAlert("Informação", "Nenhum funcionario selecionado", "Selecione um funcionario para excluir!", Alert.AlertType.INFORMATION);
+    	}else {
+    		Funcionario funcionario = new Funcionario();
+    		funcionario = tableFuncionario.getItems().get(i);
+    		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
+			mensagemDeAviso.setContentText("Tem certeza que deseja excluir o funcionario " + funcionario.getNome());
+			
+			Optional<ButtonType> resultado = mensagemDeAviso.showAndWait();
+
+			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+				funcionarioDAO.delete(funcionario.getId());
+				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
+				mensagemDeExcluir.setContentText("Funcionario excluido com sucesso!");
+				mensagemDeExcluir.showAndWait();
+				CarregarTableFuncionario();
+			}
+    	}
     }
 
     @FXML
