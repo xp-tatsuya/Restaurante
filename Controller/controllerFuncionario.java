@@ -85,7 +85,8 @@ public class controllerFuncionario implements Initializable {
     }
 
     @FXML
-    void ActionAdicionar(ActionEvent event) {
+    void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddFuncionario();
     }
     
     @FXML

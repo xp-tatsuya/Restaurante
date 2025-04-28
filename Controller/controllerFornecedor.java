@@ -92,12 +92,18 @@ public class controllerFornecedor implements Initializable {
         txtUser.setText(primeiro + " " + ultimo);
     }
 
-    @FXML void ActionAdicionar(ActionEvent event) { }
+    @FXML void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddFornecedor();
+    }
+    
     @FXML void ActionCardapio(ActionEvent event) throws IOException {
         Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());
     }
     @FXML void ActionEditar(ActionEvent event) { }
+    
     @FXML void ActionExcluir(ActionEvent event) { }
+    
+    
     @FXML void ActionFornecedor(ActionEvent event) throws IOException {
         Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
     }
@@ -119,7 +125,6 @@ public class controllerFornecedor implements Initializable {
     @FXML void ActionSair(ActionEvent event) throws IOException {
         Main.changeScreen("Login", null);
     }
-
     @FXML void OffMouseCardapio(MouseEvent event) {
         btCardapio.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;");
     }

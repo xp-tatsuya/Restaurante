@@ -95,9 +95,10 @@ public class controllerProdutos implements Initializable {
     }
 
     @FXML
-    void ActionAdicionar(ActionEvent event) {
+    void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddProduto();
     }
-
+    	
     @FXML
     void ActionCardapio(ActionEvent event) throws IOException {
         Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());

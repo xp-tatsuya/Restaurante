@@ -71,6 +71,16 @@
                   <TableColumn fx:id="columnPrecoTotal1" prefWidth="82.0" text="Preço Total" />
                </columns>
             </TableView>
+            <Label layoutX="35.0" layoutY="263.0" text="Pendentes">
+               <font>
+                  <Font name="Ebrima Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="3.0" text="Em andamento">
+               <font>
+                  <Font name="Ebrima Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane layoutX="199.0" prefHeight="100.0" prefWidth="880.0" style="-fx-background-color: #FFFFFF;">

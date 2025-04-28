@@ -167,6 +167,69 @@ public class Main extends Application {
         cadPedido.showAndWait();
     }
 
+    private static Stage cadFornecedor;
+    public static void TelaAddFornecedor() throws IOException {
+        FXMLLoader fxmlAddFornecedor = new FXMLLoader();
+        fxmlAddFornecedor.setLocation(Main.class.getResource("/View/ViewAddFornecedor.fxml"));
+        Parent telaAddFornecedor = fxmlAddFornecedor.load();
+        Scene scene3 = new Scene(telaAddFornecedor);
+
+        cadFornecedor = new Stage();
+        cadFornecedor.setTitle("Registro de Fornecedor");
+        cadFornecedor.initModality(Modality.WINDOW_MODAL);
+        cadFornecedor.setScene(scene3);
+        cadFornecedor.setResizable(false);
+        cadFornecedor.centerOnScreen();
+        cadFornecedor.showAndWait();
+    }
+    private static Stage cadFuncionario;	
+    public static void TelaAddFuncionario() throws IOException {
+        FXMLLoader fxmlAddFuncionario = new FXMLLoader();
+        fxmlAddFuncionario.setLocation(Main.class.getResource("/View/ViewAddFuncionario.fxml"));
+        Parent telaAddFuncionario = fxmlAddFuncionario.load();
+        Scene scene3 = new Scene(telaAddFuncionario);
+        
+        cadFuncionario = new Stage();
+        cadFuncionario.setTitle("Cadastro de Funcionario");
+        cadFuncionario.initModality(Modality.WINDOW_MODAL);
+        cadFuncionario.setScene(scene3);
+        cadFuncionario.setResizable(false);
+        cadFuncionario.centerOnScreen();
+        cadFuncionario.showAndWait();
+    }
+    
+    private static Stage cadProduto;
+    public static void TelaAddProduto() throws IOException {
+        FXMLLoader fxmlAddProduto = new FXMLLoader();
+        fxmlAddProduto.setLocation(Main.class.getResource("/View/ViewAddProduto.fxml"));
+        Parent telaAddProduto = fxmlAddProduto.load();
+        Scene scene3 = new Scene(telaAddProduto);
+
+        cadProduto = new Stage();
+        cadProduto.setTitle("Cadastro de produto");
+        cadProduto.initModality(Modality.WINDOW_MODAL);
+        cadProduto.setScene(scene3);
+        cadProduto.setResizable(false);
+        cadProduto.centerOnScreen();
+        cadProduto.showAndWait();
+    }
+    
+    private static Stage cadMesa;
+    public static void TelaAddMesa() throws IOException {
+        FXMLLoader fxmlAddMesa = new FXMLLoader();
+        fxmlAddMesa.setLocation(Main.class.getResource("/View/ViewAddMesa.fxml"));
+        Parent telaAddMesa = fxmlAddMesa.load();
+        Scene scene3 = new Scene(telaAddMesa);
+
+        cadMesa = new Stage();
+        cadMesa.setTitle("Registro de Mesa");
+        cadMesa.initModality(Modality.WINDOW_MODAL);
+        cadMesa.setScene(scene3);
+        cadMesa.setResizable(false);
+        cadMesa.centerOnScreen();
+        cadMesa.showAndWait();
+    }
+    
     private static Stage cadCardapio;
     public static void TelaAddCardapio() throws IOException {
         FXMLLoader fxmlAddCardapio = new FXMLLoader();
@@ -175,14 +238,14 @@ public class Main extends Application {
         Scene scene3 = new Scene(telaAddCardapio);
 
         cadCardapio = new Stage();
-        cadCardapio.setTitle("Registro de Cardápio");
+        cadCardapio.setTitle("Registro de Produto");
         cadCardapio.initModality(Modality.WINDOW_MODAL);
         cadCardapio.setScene(scene3);
         cadCardapio.setResizable(false);
         cadCardapio.centerOnScreen();
         cadCardapio.showAndWait();
     }
-
+    
     public static void TelaRegistroGarcons() throws IOException {
         FXMLLoader fxmlRegistro = new FXMLLoader();
         fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));

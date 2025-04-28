@@ -84,6 +84,7 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
+    	Main.TelaAddMesa();
     }
 
     @FXML
