@@ -51,7 +51,7 @@ public class FuncionarioDAO {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Funcionario";
+            String sql = "SELECT * FROM Funcionario WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             
@@ -116,15 +116,14 @@ public class FuncionarioDAO {
     }
     
     // DELETE - remover um funcionário
-    public void delete(Funcionario funcionario) {
+    public void delete(String id) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            String sql = "DELETE FROM Funcionario WHERE idFuncionario = ? OR cpfFuncionario = ?";
+            String sql = "UPDATE FUNCIONARIO SET ATIVO = 0 WHERE IDFUNCIONARIO = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, funcionario.getId());
-            stmt.setString(2, funcionario.getCpf());
+            stmt.setString(1, id);
             
             stmt.executeUpdate();
             System.out.println("Funcionário deletado com sucesso!!");
@@ -228,7 +227,7 @@ public class FuncionarioDAO {
         ResultSet rs = null;
         ArrayList<String> nomes = new ArrayList<>();
         try {
-            stmt = con.prepareStatement("SELECT nomeFuncionario FROM Funcionario");
+            stmt = con.prepareStatement("SELECT nomeFuncionario FROM Funcionario WHERE ATIVO = 1");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 nomes.add(rs.getString("nomeFuncionario"));
