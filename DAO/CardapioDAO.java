@@ -42,7 +42,7 @@ public class CardapioDAO {
         ArrayList<Cardapio> cardapios = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Cardapio";
+            String sql = "SELECT * FROM Cardapio WHERE ativo = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             
@@ -90,17 +90,17 @@ public class CardapioDAO {
     }
     
     // DELETE - remover um cardápio
-    public void delete(Cardapio cardapio) {
+    public void delete(String id) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            String sql = "DELETE FROM Cardapio WHERE idCardapio = ? OR nomeCardapio = ?";
+            String sql = "UPDATE CARDAPIO SET ATIVO = 0 WHERE IDCARDAPIO = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, cardapio.getId());
-            stmt.setString(2, cardapio.getNome());
+            stmt.setString(1, id);
             
             stmt.executeUpdate();
+            
             System.out.println("Cardápio deletado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar cardápio!", e);
@@ -149,7 +149,7 @@ public class CardapioDAO {
         ResultSet rs = null;
         ArrayList<String> nomes = new ArrayList<>();
         try {
-            String sql = "SELECT nomeCardapio FROM Cardapio";
+            String sql = "SELECT nomeCardapio FROM Cardapio WHERE ativo = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
