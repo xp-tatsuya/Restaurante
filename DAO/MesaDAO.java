@@ -152,4 +152,24 @@ public class MesaDAO {
         return capacidades;
     }
     
+    public ArrayList<String> readMesaById() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> ids = new ArrayList<>();
+        try {
+            String sql = "SELECT idMesa FROM Mesa";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                ids.add(rs.getString("idMesa"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler IDs de mesas!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return ids;
+    }
+    
 }

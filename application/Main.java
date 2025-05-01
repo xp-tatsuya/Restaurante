@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-
 import Controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +12,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private static Stage stage;
-    private static Scene login;
-    private static Scene main;
-    private static Scene pedido;
-    private static Scene cardapio;
-    private static Scene funcionario;
-    private static Scene fornecedor;
-    private static Scene registroGarcons;
-    private static Scene produto;
-    private static Scene mesa;
-
+    private static Scene login, main, pedido, cardapio, funcionario, fornecedor, produto, mesa;
     private static controllerMain controllerHome;
-    private static controllerPedido controllerpedido;
+    private static controllerPedido controllerPedido;
     private static controllerCardapio controllerCardapio;
     private static controllerFuncionario controllerFuncionario;
     private static controllerFornecedor controllerFornecedor;
@@ -36,48 +26,45 @@ public class Main extends Application {
         try {
             stage = primaryStage;
             primaryStage.setTitle("Login");
-
-            Parent fxmlLogin = FXMLLoader.load(getClass().getResource("/View/ViewLogin.fxml"));
-            login = new Scene(fxmlLogin);
+            login = new Scene(FXMLLoader.load(getClass().getResource("/View/ViewLogin.fxml")));
 
             FXMLLoader fxmlHome = new FXMLLoader(getClass().getResource("/View/ViewMain.fxml"));
-            Parent fxmlHomeParent = fxmlHome.load();
-            main = new Scene(fxmlHomeParent);
+            Parent homeRoot = fxmlHome.load();
+            main = new Scene(homeRoot);
             controllerHome = fxmlHome.getController();
 
             FXMLLoader fxmlPedido = new FXMLLoader(getClass().getResource("/View/ViewPedido.fxml"));
-            Parent telaPedido = fxmlPedido.load();
-            pedido = new Scene(telaPedido);
-            controllerpedido = fxmlPedido.getController();
+            Parent pedidoRoot = fxmlPedido.load();
+            pedido = new Scene(pedidoRoot);
+            controllerPedido = fxmlPedido.getController();
 
             FXMLLoader fxmlCardapio = new FXMLLoader(getClass().getResource("/View/ViewCardapio.fxml"));
-            Parent fxmlCardapioParent = fxmlCardapio.load();
-            cardapio = new Scene(fxmlCardapioParent);
+            Parent cardapioRoot = fxmlCardapio.load();
+            cardapio = new Scene(cardapioRoot);
             controllerCardapio = fxmlCardapio.getController();
 
             FXMLLoader fxmlFuncionario = new FXMLLoader(getClass().getResource("/View/ViewFuncionario.fxml"));
-            Parent fxmlFuncionarioParent = fxmlFuncionario.load();
-            funcionario = new Scene(fxmlFuncionarioParent);
+            Parent funcRoot = fxmlFuncionario.load();
+            funcionario = new Scene(funcRoot);
             controllerFuncionario = fxmlFuncionario.getController();
 
             FXMLLoader fxmlFornecedor = new FXMLLoader(getClass().getResource("/View/ViewFornecedor.fxml"));
-            Parent fxmlFornecedorParent = fxmlFornecedor.load();
-            fornecedor = new Scene(fxmlFornecedorParent);
+            Parent fornRoot = fxmlFornecedor.load();
+            fornecedor = new Scene(fornRoot);
             controllerFornecedor = fxmlFornecedor.getController();
 
             FXMLLoader fxmlProduto = new FXMLLoader(getClass().getResource("/View/ViewProdutos.fxml"));
-            Parent fxmlProdutoParent = fxmlProduto.load();
-            produto = new Scene(fxmlProdutoParent);
+            Parent prodRoot = fxmlProduto.load();
+            produto = new Scene(prodRoot);
             controllerProduto = fxmlProduto.getController();
 
             FXMLLoader fxmlMesa = new FXMLLoader(getClass().getResource("/View/ViewMesa.fxml"));
-            Parent fxmlMesaParent = fxmlMesa.load();
-            mesa = new Scene(fxmlMesaParent);
+            Parent mesaRoot = fxmlMesa.load();
+            mesa = new Scene(mesaRoot);
             controllerMesa = fxmlMesa.getController();
 
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/Icons/restaurante.png")));
-
-            primaryStage.setScene(login);
+            stage.setScene(login);
             stage.setResizable(false);
             stage.centerOnScreen();
             primaryStage.show();
@@ -91,51 +78,51 @@ public class Main extends Application {
             case "main":
                 controllerHome.nome(nome);
                 stage.setScene(main);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Login":
                 stage.setScene(login);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Pedido":
-                controllerpedido.nome(nome);
+                controllerPedido.nome(nome);
                 stage.setScene(pedido);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Cardapio":
                 controllerCardapio.nome(nome);
                 stage.setScene(cardapio);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Funcionario":
                 controllerFuncionario.nome(nome);
                 stage.setScene(funcionario);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Fornecedor":
                 controllerFornecedor.nome(nome);
                 stage.setScene(fornecedor);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Produto":
                 controllerProduto.nome(nome);
                 stage.setScene(produto);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
             case "Mesa":
                 controllerMesa.nome(nome);
                 stage.setScene(mesa);
-                stage.setResizable(false);
-                stage.centerOnScreen();
                 break;
         }
+        stage.setResizable(false);
+        stage.centerOnScreen();
+    }
+
+    public static Stage showAddPedidoDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddPedido.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Pedido");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
     }
 
     public static void TelaHome() throws IOException {
@@ -250,7 +237,7 @@ public class Main extends Application {
         FXMLLoader fxmlRegistro = new FXMLLoader();
         fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));
         Parent telaRegistro = fxmlRegistro.load();
-        registroGarcons = new Scene(telaRegistro);
+        Scene registroGarcons = new Scene(telaRegistro);
 
         stage.setTitle("Registro de Garçons");
         stage.setScene(registroGarcons);
