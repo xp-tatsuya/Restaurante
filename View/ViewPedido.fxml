@@ -71,16 +71,28 @@
                   <TableColumn fx:id="columnPrecoTotal1" prefWidth="82.0" text="Preço Total" />
                </columns>
             </TableView>
-            <Label layoutX="35.0" layoutY="263.0" text="Pendentes">
+            <Label layoutX="35.0" layoutY="263.0" text="Concluidos">
                <font>
                   <Font name="Ebrima Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="34.0" layoutY="3.0" text="Em andamento">
+            <Label layoutX="34.0" layoutY="3.0" text="Pendentes">
                <font>
                   <Font name="Ebrima Bold" size="24.0" />
                </font>
             </Label>
+            <Button fx:id="btFinalizar" layoutX="585.0" layoutY="359.0" mnemonicParsing="false" onAction="#ActionFinalizar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #A71D1D; -fx-background-radius: 15;" text="Finalizar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/icon%20de%20finalizar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
       <Pane layoutX="199.0" prefHeight="100.0" prefWidth="880.0" style="-fx-background-color: #FFFFFF;">

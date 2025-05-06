@@ -28,6 +28,7 @@ public class controllerPedido implements Initializable {
     @FXML private Button btMesa;
     @FXML private Button btProduto;
     @FXML private Button btSair;
+    @FXML private Button btFinalizar;
 
     @FXML private TableColumn<Pedido, String> columnIndice;
     @FXML private TableColumn<Pedido, String> columnNome;
@@ -101,13 +102,32 @@ public class controllerPedido implements Initializable {
     @FXML void ActionExcluir(ActionEvent event) {
     }
 
-    @FXML void ActionCardapio(ActionEvent e) throws IOException { Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionFuncionario(ActionEvent e) throws IOException { Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionFornecedor(ActionEvent e) throws IOException { Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionHome(ActionEvent e) throws IOException      { Main.changeScreen("main", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionMesa(ActionEvent e) throws IOException      { Main.changeScreen("Mesa", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionProduto(ActionEvent e) throws IOException   { Main.changeScreen("Produto", controllerLogin.funcionario.getNome()); }
-    @FXML void ActionSair(ActionEvent e) throws IOException      { Main.changeScreen("Login", null); }
+    @FXML void ActionCardapio(ActionEvent e) throws IOException { Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0); }
+    @FXML void ActionFuncionario(ActionEvent e) throws IOException { Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome(), 0); }
+    @FXML void ActionFornecedor(ActionEvent e) throws IOException { Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome(), 0); }
+    @FXML void ActionHome(ActionEvent e) throws IOException      { Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes()); }
+    @FXML void ActionMesa(ActionEvent e) throws IOException      { Main.changeScreen("Mesa", controllerLogin.funcionario.getNome(), 0); }
+    @FXML void ActionProduto(ActionEvent e) throws IOException   { Main.changeScreen("Produto", controllerLogin.funcionario.getNome(), 0); }
+    @FXML void ActionSair(ActionEvent e) throws IOException      { Main.changeScreen("Login", null, 0); }
+    
+    @FXML
+    void ActionFinalizar(ActionEvent event) {
+        Pedido sel = tablePedido.getSelectionModel().getSelectedItem();
+        if (sel != null) {
+            sel.setCondicao("Concluído");
+            pedidoDAO.update(sel);
+            loadPendentes();
+            loadConcluidos();
+            
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Pedido Finalizado");
+            info.setHeaderText(null);
+            info.setContentText("O pedido ID " + sel.getId() + " foi finalizado com sucesso!");
+            info.showAndWait();
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Selecione um pedido para finalizar.").showAndWait();
+        }
+    }
 
 
     @FXML

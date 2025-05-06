@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.MesaDAO;
+import DAO.PedidoDAO;
 import Model.Mesa;
 import application.Main;
 import javafx.collections.FXCollections;
@@ -89,7 +90,7 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionCardapio(ActionEvent event) throws IOException {
-        Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome());
+        Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0);
     }
 
     @FXML
@@ -106,32 +107,33 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionFornecedor(ActionEvent event) throws IOException {
-        Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome());
+        Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome(), 0);
     }
 
     @FXML
     void ActionFuncionario(ActionEvent event) throws IOException {
-        Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome());
+        Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome(), 0);
     }
 
     @FXML
     void ActionHome(ActionEvent event) throws IOException {
-        Main.changeScreen("main", controllerLogin.funcionario.getNome());
+    	PedidoDAO pedidoDAO = new PedidoDAO();
+        Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
     }
 
     @FXML
     void ActionPedido(ActionEvent event) throws IOException {
-        Main.changeScreen("Pedido", controllerLogin.funcionario.getNome());
+        Main.changeScreen("Pedido", controllerLogin.funcionario.getNome(), 0);
     }
 
     @FXML
     void ActionProduto(ActionEvent event) throws IOException {
-        Main.changeScreen("Produto", controllerLogin.funcionario.getNome());
+        Main.changeScreen("Produto", controllerLogin.funcionario.getNome(), 0);
     }
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login", null);
+        Main.changeScreen("Login", null, 0);
     }
 
     @FXML

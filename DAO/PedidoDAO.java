@@ -70,8 +70,9 @@ public class PedidoDAO {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         try {
-            String sql = "UPDATE Pedido SET codeFuncionario = ?, codeMesa = ?, dataPedido = ?, condicao = ?, observacoes = ?, desconto = ?, precoTotal = ? WHERE idPedido = ? OR codeFuncionario = ?";
+            String sql = "UPDATE Pedido SET codeFuncionario = ?, codeMesa = ?, dataPedido = ?, condicao = ?, observacoes = ?, desconto = ?, precoTotal = ? WHERE idPedido = ?";
             stmt = con.prepareStatement(sql);
+            
             stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
             stmt.setDate(3, java.sql.Date.valueOf(pedido.getDataPedido()));
@@ -80,7 +81,7 @@ public class PedidoDAO {
             stmt.setBigDecimal(6, new BigDecimal(pedido.getDesconto()));
             stmt.setBigDecimal(7, new BigDecimal(pedido.getPrecoTotal()));
             stmt.setString(8, pedido.getId());
-            stmt.setInt(9, Integer.parseInt(pedido.getCodeFuncionario()));
+
             stmt.executeUpdate();
             System.out.println("Pedido atualizado com sucesso!!");
         } catch (SQLException e) {

@@ -73,10 +73,11 @@ public class Main extends Application {
         }
     }
 
-    public static void changeScreen(String tela, String nome) throws IOException {
+    public static void changeScreen(String tela, String nome, double dindin) throws IOException {
         switch (tela) {
             case "main":
                 controllerHome.nome(nome);
+                controllerHome.seila(dindin);
                 stage.setScene(main);
                 break;
             case "Login":
@@ -124,6 +125,35 @@ public class Main extends Application {
         dialog.show();
         return dialog;
     }
+    
+    public static Stage showAddCardapioDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddCardapio.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Cardápio");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
+    }
+    
+    public static Stage showAddFornecedorDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddFornecedor.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Fornecedor");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
+    }
+
 
     public static void TelaHome() throws IOException {
         FXMLLoader fxmlHome = new FXMLLoader();

@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 
 import DAO.FuncionarioDAO;
+import DAO.PedidoDAO;
 import Model.Funcionario;
 import Util.Alerts;
 import application.Main;
@@ -61,7 +62,8 @@ public class controllerLogin {
             
             String acesso = funcionario.getVerificarAcesso();
             if (acesso.equals("1") || acesso.equals("2")) {
-                Main.changeScreen("main", funcionario.getNome());
+            	PedidoDAO pedidoDAO = new PedidoDAO();
+                Main.changeScreen("main", funcionario.getNome(), pedidoDAO.getTotalVendasMes());
             } else if (acesso.equals("3")) {
                 Main.TelaRegistroGarcons();
             } else {

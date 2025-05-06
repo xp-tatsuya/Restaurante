@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.CardapioDAO;
+import DAO.PedidoDAO;
 import Model.Cardapio;
 import Util.Alerts;
 import application.Main;
@@ -29,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class controllerCardapio implements Initializable {
 
@@ -127,7 +129,10 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionAdicionar(ActionEvent event) throws IOException {
-		Main.TelaAddCardapio();
+	    Stage dialog = Main.showAddCardapioDialog();
+	    dialog.setOnHidden(e -> {
+	        CarregarTableCardapio();
+	    });
 	}
 
 	@FXML
@@ -165,37 +170,38 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionFornecedor(ActionEvent event) throws IOException {
-		Main.changeScreen("Fornecedor", nomeF);
+		Main.changeScreen("Fornecedor", nomeF, 0);
 	}
 
 	@FXML
 	void ActionFuncionario(ActionEvent event) throws IOException {
-		Main.changeScreen("Funcionario", nomeF);
+		Main.changeScreen("Funcionario", nomeF, 0);
 	}
 
 	@FXML
 	void ActionHome(ActionEvent event) throws IOException {
-		Main.changeScreen("main", nomeF);
+		PedidoDAO pedidoDAO = new PedidoDAO();
+		Main.changeScreen("main", nomeF, pedidoDAO.getTotalVendasMes());
 	}
 
 	@FXML
 	void ActionMesa(ActionEvent event) throws IOException {
-		Main.changeScreen("Mesa", nomeF);
+		Main.changeScreen("Mesa", nomeF, 0);
 	}
 
 	@FXML
 	void ActionPedido(ActionEvent event) throws IOException {
-		Main.changeScreen("Pedido", nomeF);
+		Main.changeScreen("Pedido", nomeF, 0);
 	}
 
 	@FXML
 	void ActionProduto(ActionEvent event) throws IOException {
-		Main.changeScreen("Produto", nomeF);
+		Main.changeScreen("Produto", nomeF, 0);
 	}
 
 	@FXML
 	void ActionSair(ActionEvent event) throws IOException {
-		Main.changeScreen("Sair", null);
+		Main.changeScreen("Sair", null, 0);
 	}
 
 	@FXML

@@ -13,24 +13,19 @@ import Model.Cardapio;
 public class CardapioDAO {
 
     // CREATE - inserir um novo cardápio
-    public void create(Cardapio cardapio) {
-        Connection con = ConnectionDatabase.getConnection();
-        PreparedStatement stmt = null;
-        
-        try {
-            String sql = "INSERT INTO Cardapio (nomeCardapio, descricao, categoria, precoUnitario) VALUES (?, ?, ?, ?)";
-            stmt = con.prepareStatement(sql);
+	public void create(Cardapio cardapio) {
+        String sql = "INSERT INTO Cardapio (nomeCardapio, descricao, categoria, precoUnitario, ativo) "
+                   + "VALUES (?, ?, ?, ?, 1)";
+        try (Connection con = ConnectionDatabase.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
             stmt.setString(1, cardapio.getNome());
             stmt.setString(2, cardapio.getDescricao());
             stmt.setString(3, cardapio.getCategoria());
             stmt.setBigDecimal(4, new BigDecimal(cardapio.getPrecoUnitario()));
-            
             stmt.executeUpdate();
-            System.out.println("Cardápio cadastrado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar cardápio!", e);
-        } finally {
-            ConnectionDatabase.closeConnection(con, stmt);
         }
     }
     
