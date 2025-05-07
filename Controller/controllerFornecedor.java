@@ -3,12 +3,15 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.FornecedorDAO;
 import DAO.PedidoDAO;
 import Model.Fornecedor;
+import Util.Alerts;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +20,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,7 +56,12 @@ public class controllerFornecedor implements Initializable {
     @FXML private Label txtUser;
 
     private ObservableList<Fornecedor> masterData = FXCollections.observableArrayList();
-    private final FornecedorDAO fornecedorDAO = new FornecedorDAO();
+    
+    private  FornecedorDAO fornecedorDAO = new FornecedorDAO();
+    
+    Fornecedor fornecedor = new Fornecedor();
+    
+    private AutoCompletionBinding<String> acb;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,6 +69,7 @@ public class controllerFornecedor implements Initializable {
     }
 
     private void CarregarTableFornecedor() {
+    	masterData.clear();
         masterData.setAll(fornecedorDAO.read());
 
         columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -81,8 +92,12 @@ public class controllerFornecedor implements Initializable {
         sortedData.comparatorProperty().bind(tableFornecedor.comparatorProperty());
         tableFornecedor.setItems(sortedData);
 
+        if(acb != null) {
+        	acb.dispose();
+        }
+        
         ArrayList<String> nomes = fornecedorDAO.readFornecedorByNome();
-        TextFields.bindAutoCompletion(txtPesquisa, nomes);
+        acb = TextFields.bindAutoCompletion(txtPesquisa, nomes);
     }
 
     public void nome(String nomeCompleto) {
@@ -109,7 +124,26 @@ public class controllerFornecedor implements Initializable {
 
     @FXML void ActionEditar(ActionEvent event) { }
 
-    @FXML void ActionExcluir(ActionEvent event) { }
+    @FXML void ActionExcluir(ActionEvent event) {
+    	int i = tableFornecedor.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Informação", "Nenhum fornecedor selecionado", "Selecione um fornecedor para excluir!", Alert.AlertType.INFORMATION);
+    	}else {
+    		fornecedor = tableFornecedor.getItems().get(i);
+			Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
+			mensagemDeAviso.setContentText("Tem certeza que deseja excluir o fornecedor " + fornecedor.getNome());
+			
+			Optional<ButtonType> resultado = mensagemDeAviso.showAndWait();
+
+			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+				fornecedorDAO.delete(fornecedor.getId());
+				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
+				mensagemDeExcluir.setContentText("Fornecedor excluido com sucesso!");
+				mensagemDeExcluir.showAndWait();
+				CarregarTableFornecedor();
+			}
+    	}
+    }
 
     @FXML
     void ActionFornecedor(ActionEvent event) throws IOException {

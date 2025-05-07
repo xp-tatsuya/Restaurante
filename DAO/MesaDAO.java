@@ -38,7 +38,7 @@ public class MesaDAO {
         ArrayList<Mesa> mesas = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Mesa";
+            String sql = "SELECT * FROM Mesa WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             
@@ -82,15 +82,14 @@ public class MesaDAO {
     }
     
     // DELETE - remover uma mesa
-    public void delete(Mesa mesa) {
+    public void delete(String id) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            String sql = "DELETE FROM Mesa WHERE idMesa = ? OR condicao = ?";
+            String sql = "UPDATE MESA SET ATIVO = 0 WHERE IDMESA = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, mesa.getId());
-            stmt.setString(2, mesa.getCondicao());
+            stmt.setString(1, id);
             
             stmt.executeUpdate();
             System.out.println("Mesa deletada com sucesso!!");
@@ -109,9 +108,9 @@ public class MesaDAO {
         ArrayList<Mesa> mesas = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Mesa WHERE capacidade LIKE ? OR condicao LIKE ?";
+            String sql = "SELECT * FROM Mesa WHERE IDMESA LIKE ? OR condicao LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + mesaFiltro.getCapacidade() + "%");
+            stmt.setString(1, "%" + mesaFiltro.getId() + "%");
             stmt.setString(2, "%" + mesaFiltro.getCondicao() + "%");
             rs = stmt.executeQuery();
             
@@ -158,7 +157,7 @@ public class MesaDAO {
         ResultSet rs = null;
         ArrayList<String> ids = new ArrayList<>();
         try {
-            String sql = "SELECT idMesa FROM Mesa";
+            String sql = "SELECT idMesa FROM Mesa WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {

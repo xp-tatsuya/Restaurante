@@ -16,7 +16,7 @@ public class FornecedorDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "INSERT INTO Fornecedor (nomeFornecedor, cnpj, telefone, endereco) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Fornecedor (nomeFornecedor, cnpj, telefone, endereco, ativo) VALUES (?, ?, ?, ?, 1)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getCnpj());
@@ -40,7 +40,7 @@ public class FornecedorDAO {
         ArrayList<Fornecedor> fornecedores = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Fornecedor";
+            String sql = "SELECT * FROM Fornecedor WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             
@@ -89,18 +89,17 @@ public class FornecedorDAO {
     }
     
     // DELETE - remover um fornecedor
-    public void delete(Fornecedor fornecedor) {
+    public void delete(String id) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            String sql = "DELETE FROM Fornecedor WHERE idFornecedor = ? OR cnpj = ?";
+            String sql = "UPDATE FORNECEDOR SET ATIVO = 0 WHERE IDFORNECEDOR = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, fornecedor.getId());
-            stmt.setString(2, fornecedor.getCnpj());
+            stmt.setString(1, id);
             
             stmt.executeUpdate();
-            System.out.println("Fornecedor deletado com sucesso!!");
+            
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar fornecedor!", e);
         } finally {
@@ -116,7 +115,7 @@ public class FornecedorDAO {
         ArrayList<Fornecedor> fornecedores = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM Fornecedor WHERE cnpj LIKE ? OR nomeFornecedor LIKE ?";
+            String sql = "SELECT * FROM Fornecedor WHERE cnpj LIKE ? OR nomeFornecedor LIKE ? AND ATIVO = 1";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, "%" + fornecedorFiltro.getCnpj() + "%");
             stmt.setString(2, "%" + fornecedorFiltro.getNome() + "%");
@@ -149,7 +148,7 @@ public class FornecedorDAO {
         ArrayList<String> nomes = new ArrayList<>();
 
         try {
-            String sql = "SELECT nomeFornecedor FROM Fornecedor";
+            String sql = "SELECT nomeFornecedor FROM Fornecedor WHERE ATIVO = 1";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 

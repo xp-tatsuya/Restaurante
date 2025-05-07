@@ -3,11 +3,15 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import DAO.MesaDAO;
 import DAO.PedidoDAO;
 import Model.Mesa;
+import Util.Alerts;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +20,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,9 +55,20 @@ public class controllerMesa implements Initializable {
 
     private ObservableList<Mesa> masterData = FXCollections.observableArrayList();
 
+    private Mesa mesa = new Mesa();
+    
+    private MesaDAO mesaDAO = new MesaDAO();
+    
+    private AutoCompletionBinding<String> acb;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        MesaDAO mesaDAO = new MesaDAO();
+        CarregarTableMesa();
+
+    }
+    
+    public void CarregarTableMesa() {
+    	masterData.clear();
         masterData.addAll(mesaDAO.read());
 
         columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -63,7 +80,7 @@ public class controllerMesa implements Initializable {
             String lower = newValue.toLowerCase().trim();
             filteredData.setPredicate(mesa -> {
                 if (lower.isEmpty()) return true;
-                return mesa.getCapacidade().toLowerCase().contains(lower)
+                return mesa.getId().toLowerCase().contains(lower)
                     || mesa.getCondicao().toLowerCase().contains(lower);
             });
         });
@@ -72,8 +89,11 @@ public class controllerMesa implements Initializable {
         sortedData.comparatorProperty().bind(tableMesa.comparatorProperty());
         tableMesa.setItems(sortedData);
 
-        ArrayList<String> capacidades = mesaDAO.readMesaByCapacidade();
-        TextFields.bindAutoCompletion(txtPesquisa, capacidades);
+        if (acb != null) {
+        	acb.dispose();
+        }
+        ArrayList<String> id = mesaDAO.readMesaById();
+        acb = TextFields.bindAutoCompletion(txtPesquisa, id);
     }
 
     public void nome(String nomeCompleto) {
@@ -99,7 +119,26 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionExcluir(ActionEvent event) {
-    }
+    	int i = tableMesa.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Informação", "Nenhuma mesa selecionado", "Selecione uma mesa para excluir!", Alert.AlertType.INFORMATION);
+    	}else {
+    		mesa = tableMesa.getItems().get(i);
+    		
+    		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
+			mensagemDeAviso.setContentText("Tem certeza que deseja excluir a mesa " + mesa.getId());
+			
+			Optional<ButtonType> resultado = mensagemDeAviso.showAndWait();
+
+			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+				mesaDAO.delete(mesa.getId());
+				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
+				mensagemDeExcluir.setContentText("Fornecedor excluido com sucesso!");
+				mensagemDeExcluir.showAndWait();
+				CarregarTableMesa();
+			}
+		}
+	}
 
     @FXML
     void ActionPesquisar(ActionEvent event) {
