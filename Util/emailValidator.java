@@ -1,19 +1,19 @@
 package Util;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class emailValidator {
-	
-	public static boolean validarEmail(String email) {
-		
-    	String validador = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    	Pattern pattern = Pattern.compile(validador);
-    	Matcher matcher = pattern.matcher(email);
-    	
-		return matcher.matches();
-		
+
+    // Regex aprimorado: não permite “..”, exige TLD de pelo menos 2 letras
+    private static final String EMAIL_REGEX =
+        "^(?!.*\\\\.\\\\.)[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(?:\\\\.[A-Za-z]{2,})+$";
+    private static final Pattern PATTERN =
+        Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+
+    public static boolean isValid(String email) {
+        if (email == null) {
+            return false;
+        }
+        return PATTERN.matcher(email).matches();
     }
-
 }
-

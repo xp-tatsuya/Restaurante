@@ -9,7 +9,9 @@ import Util.cnpjValidator;
 import Util.telefoneValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class controllerAddFornecedor implements Initializable {
@@ -25,6 +27,7 @@ public class controllerAddFornecedor implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Nenhuma inicialização adicional necessária
     }
 
     @FXML
@@ -35,40 +38,56 @@ public class controllerAddFornecedor implements Initializable {
 
     @FXML
     void ActionSalvar() {
-        String nome = txtNome.getText().trim();
-        String cnpj = txtCNPJ.getText().trim();
-        String tel  = txtTelefone.getText().trim();
-        String end  = txtEndereco.getText().trim();
+        String nome      = txtNome.getText().trim();
+        String rawCnpj   = txtCNPJ.getText().trim();
+        String rawTel    = txtTelefone.getText().trim();
+        String endereco  = txtEndereco.getText().trim();
 
-        if (nome.isEmpty() || cnpj.isEmpty() || tel.isEmpty() || end.isEmpty()) {
+        // Validação de campos obrigatórios
+        if (nome.isEmpty() || rawCnpj.isEmpty() || rawTel.isEmpty() || endereco.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
             return;
         }
-        if (!cnpjValidator.isValid(cnpj)) {
+
+        // Remove formatação e valida CNPJ
+        String cnpjDigits = rawCnpj.replaceAll("\\D", "");
+        if (!cnpjValidator.isValid(cnpjDigits)) {
             new Alert(Alert.AlertType.WARNING, "CNPJ inválido.").showAndWait();
             return;
         }
-        if (!telefoneValidator.validarTelefone(tel)) {
-            new Alert(Alert.AlertType.WARNING, "Telefone inválido. Deve ter 11 dígitos, DDD válido e iniciar com 9.").showAndWait();
+
+        // Remove formatação e valida telefone
+        String telDigits = rawTel.replaceAll("\\D", "");
+        if (!telefoneValidator.isValid(telDigits)) {
+            new Alert(Alert.AlertType.WARNING,
+                "Telefone inválido. Deve ter 11 dígitos, DDD válido e iniciar com 9.")
+              .showAndWait();
             return;
         }
 
         try {
+            // Prepara objeto Fornecedor com dados "puros" (só dígitos)
             Fornecedor f = new Fornecedor();
             f.setNome(nome);
-            f.setCnpj(cnpj);
-            f.setTelefone(tel);
-            f.setEndereco(end);
+            f.setCnpj(cnpjDigits);
+            f.setTelefone(telDigits);
+            f.setEndereco(endereco);
 
+            // Grava no banco
             fornecedorDAO.create(f);
 
-            new Alert(Alert.AlertType.INFORMATION, "Fornecedor cadastrado com sucesso!").showAndWait();
+            new Alert(Alert.AlertType.INFORMATION,
+                "Fornecedor cadastrado com sucesso!")
+              .showAndWait();
 
+            // Fecha janela
             Stage stage = (Stage) btSalvar.getScene().getWindow();
             stage.close();
+
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Erro ao salvar fornecedor.").showAndWait();
+            new Alert(Alert.AlertType.ERROR,
+                "Erro ao salvar fornecedor.").showAndWait();
         }
     }
 }

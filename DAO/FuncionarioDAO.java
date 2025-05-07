@@ -178,10 +178,10 @@ public class FuncionarioDAO {
     
     // Autenticar na Tela Login com validação de CPF
     public Funcionario autenticarUser(String cpf, String senha) {
-        if (!cpfValidator.validarCPF(cpf)) {
-            Alerts.showAlert("Erro!!", "CPF inválido", "O CPF informado não é válido", AlertType.ERROR);
-            return null;
-        }
+    	if (!cpfValidator.isValid(cpf)) {
+    	      Alerts.showAlert("Erro!!", "CPF inválido", "O CPF informado não é válido", AlertType.ERROR);
+    	      return null;
+    	  }
         
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
