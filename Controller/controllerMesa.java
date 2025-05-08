@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class controllerMesa implements Initializable {
 
@@ -105,7 +106,10 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Main.TelaAddMesa();
+        Stage dialog = Main.showAddMesaDialog();
+        dialog.setOnHidden(e -> {
+            CarregarTableMesa();
+        });
     }
 
     @FXML

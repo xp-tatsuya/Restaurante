@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class controllerProdutos implements Initializable {
 
@@ -113,8 +114,12 @@ public class controllerProdutos implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Main.TelaAddProduto();
+        Stage dialog = Main.showAddProdutoDialog();
+        dialog.setOnHidden(e -> {
+            CarregarTableProduto();
+        });
     }
+
     	
     @FXML
     void ActionCardapio(ActionEvent event) throws IOException {

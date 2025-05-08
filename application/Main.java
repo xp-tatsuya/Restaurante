@@ -153,7 +153,34 @@ public class Main extends Application {
         dialog.show();
         return dialog;
     }
-
+    
+    public static Stage showAddProdutoDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddProduto.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Produto");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
+    }
+    
+    public static Stage showAddMesaDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddMesa.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Mesa");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
+    }
 
     public static void TelaHome() throws IOException {
         FXMLLoader fxmlHome = new FXMLLoader();

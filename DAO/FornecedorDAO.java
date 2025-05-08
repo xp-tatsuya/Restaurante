@@ -163,4 +163,25 @@ public class FornecedorDAO {
         return nomes;
     }
     
+    public int getIdByNome(String nome) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT idFornecedor FROM Fornecedor WHERE nomeFornecedor = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("idFornecedor");
+            } else {
+                throw new RuntimeException("Fornecedor não encontrado: " + nome);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar ID do fornecedor", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+    }
+    
 }
