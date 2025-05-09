@@ -1,16 +1,20 @@
 package Controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import DAO.MesaDAO;
 import Model.Mesa;
+import Util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class controllerAddMesa implements Initializable {
@@ -19,6 +23,7 @@ public class controllerAddMesa implements Initializable {
     @FXML private Button btSalvar;
     @FXML private ChoiceBox<String> choiceCondicao;
     @FXML private TextField txtCapacidade;
+    @FXML private Label title;
 
     private final MesaDAO mesaDAO = new MesaDAO();
 
@@ -26,6 +31,15 @@ public class controllerAddMesa implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         choiceCondicao.getItems().addAll("Livre", "Reservada");
         choiceCondicao.setValue("Livre");
+        
+        //Verficação para validar a  edição
+        if (controllerMesa.mesaEditar != null) {
+            title.setText("EDITAR CLIENTE");
+            Mesa mesaEditar = new Mesa();
+        	mesaEditar = controllerMesa.mesaEditar;
+			txtCapacidade.setText(mesaEditar.getCapacidade());
+			choiceCondicao.setValue(mesaEditar.getCondicao());       
+        }
     }
 
     @FXML
@@ -60,19 +74,38 @@ public class controllerAddMesa implements Initializable {
         }
         // Cria objeto e salva
         Mesa m = new Mesa();
+        
         m.setCapacidade(String.valueOf(capacidade));
         m.setCondicao(cond);
-        try {
-            mesaDAO.create(m);
-        } catch (Exception e) {
-            showError("Erro ao Salvar", "Ocorreu um erro ao cadastrar a mesa.");
-            e.printStackTrace();
-            return;
-        }
-        Stage stage = (Stage) btSalvar.getScene().getWindow();
-        stage.close();
-    }
+        
+        //Verficação se está criando ou editando
+		if(controllerMesa.mesaEditar == null) {
+	        try {
+	            mesaDAO.create(m);
+	            Alerts.showAlert("Sucesso", "Mesa cadastrado!", "A mesa foi cadastrada com sucesso!", AlertType.INFORMATION);
+	        } catch (Exception e) {
+	            showError("Erro ao Salvar", "Ocorreu um erro ao cadastrar a mesa.");
+	            e.printStackTrace();
+	            return;
+	        }
+	        Stage stage = (Stage) btSalvar.getScene().getWindow();
+	        stage.close();
+	    	    
+		}else if(controllerMesa.mesaEditar != null) {
+			try {
+				mesaDAO.create(m);
+				Alerts.showAlert("Sucesso", "Mesa editado!", "A mesa foi editada com sucesso!", AlertType.INFORMATION);
+			} catch (Exception e) {
+				showError("Erro ao Salvar", "Ocorreu um erro ao cadastrar a mesa.");
+				e.printStackTrace();
+				return;
+			}
+			Stage stage = (Stage) btSalvar.getScene().getWindow();
+			stage.close();
+		}
 
+		}
+		
     private void showError(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);

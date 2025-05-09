@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -65,7 +66,7 @@ public class controllerMesa implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CarregarTableMesa();
-
+        mesaEditar = null;
     }
     
     public void CarregarTableMesa() {
@@ -116,9 +117,18 @@ public class controllerMesa implements Initializable {
     void ActionCardapio(ActionEvent event) throws IOException {
         Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0);
     }
-
+    
+    public static Mesa mesaEditar = new Mesa();
     @FXML
     void ActionEditar(ActionEvent event) throws IOException {
+    	int i = tableMesa.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um mesa para editar!", AlertType.ERROR);
+    	}else {
+    		mesaEditar = tableMesa.getItems().get(i);
+    		Main.showAddMesaDialog();
+    	} 	
+    	
     }
 
     @FXML
@@ -137,7 +147,7 @@ public class controllerMesa implements Initializable {
 			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
 				mesaDAO.delete(mesa.getId());
 				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
-				mensagemDeExcluir.setContentText("Fornecedor excluido com sucesso!");
+				mensagemDeExcluir.setContentText("Mesa excluida com sucesso!");
 				mensagemDeExcluir.showAndWait();
 				CarregarTableMesa();
 			}
