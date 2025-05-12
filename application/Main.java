@@ -126,7 +126,7 @@ public class Main extends Application {
         return dialog;
     }
     
-    public static Stage showAddCardapioDialog() throws IOException {
+    public static void showAddCardapioDialog() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddCardapio.fxml"));
         Parent root = loader.load();
         Stage dialog = new Stage();
@@ -137,7 +137,6 @@ public class Main extends Application {
         dialog.setResizable(false);
         dialog.centerOnScreen();
         dialog.show();
-        return dialog;
     }
     
     public static Stage showAddFornecedorDialog() throws IOException {
@@ -168,7 +167,7 @@ public class Main extends Application {
         return dialog;
     }
     
-    public static Stage showAddMesaDialog() throws IOException {
+    public static void showAddMesaDialog() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddMesa.fxml"));
         Parent root = loader.load();
         Stage dialog = new Stage();
@@ -179,7 +178,6 @@ public class Main extends Application {
         dialog.setResizable(false);
         dialog.centerOnScreen();
         dialog.showAndWait();
-		return dialog;
     }
 
     public static void TelaHome() throws IOException {

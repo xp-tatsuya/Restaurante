@@ -107,10 +107,8 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-        Stage dialog = Main.showAddMesaDialog();
-        dialog.setOnHidden(e -> {
-            CarregarTableMesa();
-        });
+    	Main.showAddMesaDialog();
+    	CarregarTableMesa();
     }
 
     @FXML

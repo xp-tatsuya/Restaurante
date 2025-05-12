@@ -79,6 +79,8 @@ public class controllerCardapio implements Initializable {
 	private String nomeF;
 	
 	CardapioDAO cardapioDAO = new CardapioDAO();
+	
+	Cardapio cardapio = new Cardapio();
 
 	private AutoCompletionBinding<String> acb;
 	
@@ -129,10 +131,8 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionAdicionar(ActionEvent event) throws IOException {
-	    Stage dialog = Main.showAddCardapioDialog();
-	    dialog.setOnHidden(e -> {
-	        CarregarTableCardapio();
-	    });
+		Main.showAddCardapioDialog();
+		CarregarTableCardapio();
 	}
 
 	@FXML
@@ -150,7 +150,6 @@ public class controllerCardapio implements Initializable {
 		if (i == -1) {
 			Alerts.showAlert("Informação", "Nenhum prato selecionado", "Selecione um prato para excluir!", Alert.AlertType.INFORMATION);
 		} else {
-			Cardapio cardapio = new Cardapio();
 			cardapio = tableCardapio.getItems().get(i);
 			Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
 			mensagemDeAviso.setContentText("Tem certeza que deseja excluir o prato " + cardapio.getNome());
