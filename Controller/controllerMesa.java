@@ -57,7 +57,7 @@ public class controllerMesa implements Initializable {
 
     private ObservableList<Mesa> masterData = FXCollections.observableArrayList();
 
-    private Mesa mesa = new Mesa();
+    public static Mesa mesa = new Mesa();
     
     private MesaDAO mesaDAO = new MesaDAO();
     
@@ -66,7 +66,7 @@ public class controllerMesa implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CarregarTableMesa();
-        mesaEditar = null;
+        mesa = null;
     }
     
     public void CarregarTableMesa() {
@@ -118,16 +118,17 @@ public class controllerMesa implements Initializable {
         Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0);
     }
     
-    public static Mesa mesaEditar = new Mesa();
+
     @FXML
     void ActionEditar(ActionEvent event) throws IOException {
     	int i = tableMesa.getSelectionModel().getSelectedIndex();
     	if(i == -1) {
     		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um mesa para editar!", AlertType.ERROR);
     	}else {
-    		mesaEditar = tableMesa.getItems().get(i);
+    		mesa = tableMesa.getItems().get(i);
     		Main.showAddMesaDialog();
-    	} 	
+    	} 
+    	CarregarTableMesa();
     	
     }
 

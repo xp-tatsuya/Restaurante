@@ -33,10 +33,10 @@ public class controllerAddMesa implements Initializable {
         choiceCondicao.setValue("Livre");
         
         //Verficação para validar a  edição
-        if (controllerMesa.mesaEditar != null) {
+        if (controllerMesa.mesa != null) {
             title.setText("EDITAR CLIENTE");
             Mesa mesaEditar = new Mesa();
-        	mesaEditar = controllerMesa.mesaEditar;
+        	mesaEditar = controllerMesa.mesa;
 			txtCapacidade.setText(mesaEditar.getCapacidade());
 			choiceCondicao.setValue(mesaEditar.getCondicao());       
         }
@@ -79,7 +79,7 @@ public class controllerAddMesa implements Initializable {
         m.setCondicao(cond);
         
         //Verficação se está criando ou editando
-		if(controllerMesa.mesaEditar == null) {
+		if(controllerMesa.mesa == null) {
 	        try {
 	            mesaDAO.create(m);
 	            Alerts.showAlert("Sucesso", "Mesa cadastrado!", "A mesa foi cadastrada com sucesso!", AlertType.INFORMATION);
@@ -91,9 +91,9 @@ public class controllerAddMesa implements Initializable {
 	        Stage stage = (Stage) btSalvar.getScene().getWindow();
 	        stage.close();
 	    	    
-		}else if(controllerMesa.mesaEditar != null) {
+		}else if(controllerMesa.mesa != null) {
 			try {
-				mesaDAO.create(m);
+				mesaDAO.update(m);
 				Alerts.showAlert("Sucesso", "Mesa editado!", "A mesa foi editada com sucesso!", AlertType.INFORMATION);
 			} catch (Exception e) {
 				showError("Erro ao Salvar", "Ocorreu um erro ao cadastrar a mesa.");

@@ -164,7 +164,7 @@ public class Main extends Application {
         dialog.setScene(new Scene(root));
         dialog.setResizable(false);
         dialog.centerOnScreen();
-        dialog.show();
+        dialog.showAndWait();
         return dialog;
     }
     
@@ -178,8 +178,8 @@ public class Main extends Application {
         dialog.setScene(new Scene(root));
         dialog.setResizable(false);
         dialog.centerOnScreen();
-        dialog.show();
-        return dialog;
+        dialog.showAndWait();
+		return dialog;
     }
 
     public static void TelaHome() throws IOException {

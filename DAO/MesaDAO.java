@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import ConnectionFactory.ConnectionDatabase;
+import Controller.controllerMesa;
 import Model.Mesa;
 
 public class MesaDAO {
@@ -65,12 +66,11 @@ public class MesaDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Mesa SET capacidade = ?, condicao = ? WHERE idMesa = ? OR condicao = ?";
+            String sql = "UPDATE Mesa SET capacidade = ?, condicao = ? WHERE idMesa = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(mesa.getCapacidade()));
             stmt.setString(2, mesa.getCondicao());
-            stmt.setString(3, mesa.getId());
-            stmt.setString(4, mesa.getCondicao());
+            stmt.setString(3, controllerMesa.mesa.getId());
             
             stmt.executeUpdate();
             System.out.println("Mesa atualizada com sucesso!!");
