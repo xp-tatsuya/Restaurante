@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -80,7 +81,7 @@ public class controllerCardapio implements Initializable {
 	
 	CardapioDAO cardapioDAO = new CardapioDAO();
 	
-	Cardapio cardapio = new Cardapio();
+	public static Cardapio cardapio = new Cardapio();
 
 	private AutoCompletionBinding<String> acb;
 	
@@ -131,7 +132,8 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionAdicionar(ActionEvent event) throws IOException {
-		Main.showAddCardapioDialog();
+		cardapio = null;
+		Main.TelaAddCardapio();
 		CarregarTableCardapio();
 	}
 
@@ -141,7 +143,14 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionEditar(ActionEvent event) throws IOException {
-		Main.TelaAddCardapio();
+		int i = tableCardapio.getSelectionModel().getSelectedIndex();
+		if(i == -1) {
+			Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um prato para editar!", AlertType.ERROR);
+		}else {
+			cardapio = tableCardapio.getItems().get(i);
+			Main.TelaAddCardapio();
+		}
+		CarregarTableCardapio();
 	}
 
 	@FXML

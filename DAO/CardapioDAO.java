@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.math.BigDecimal;
 
 import ConnectionFactory.ConnectionDatabase;
+import Controller.controllerCardapio;
 import Model.Cardapio;
 
 public class CardapioDAO {
@@ -66,14 +67,13 @@ public class CardapioDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Cardapio SET nomeCardapio = ?, descricao = ?, categoria = ?, precoUnitario = ? WHERE idCardapio = ? OR nomeCardapio = ?";
+            String sql = "UPDATE Cardapio SET nomeCardapio = ?, descricao = ?, categoria = ?, precoUnitario = ? WHERE idCardapio = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cardapio.getNome());
             stmt.setString(2, cardapio.getDescricao());
             stmt.setString(3, cardapio.getCategoria());
             stmt.setBigDecimal(4, new BigDecimal(cardapio.getPrecoUnitario()));
-            stmt.setString(5, cardapio.getId());
-            stmt.setString(6, cardapio.getNome());
+            stmt.setString(5, controllerCardapio.cardapio.getId());
             
             stmt.executeUpdate();
             System.out.println("Cardápio atualizado com sucesso!!");

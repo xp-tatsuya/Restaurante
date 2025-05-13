@@ -2,9 +2,11 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import DAO.PedidoDAO;
 import Model.Pedido;
+import Util.Alerts;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -51,7 +54,8 @@ public class controllerPedido implements Initializable {
 
     private PedidoDAO pedidoDAO = new PedidoDAO();
     private ObservableList<Pedido> pendentes, concluidos;
-
+    public static Pedido pedido = new Pedido();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadPendentes();
@@ -88,18 +92,24 @@ public class controllerPedido implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Stage dialog = Main.showAddPedidoDialog();
-        dialog.setOnHidden(e -> {
-            loadPendentes();
-            loadConcluidos();
-        });
+    	pedido = null;
+    	Main.TelaAddPedido();
+    	loadPendentes();
     }
 
     @FXML void ActionEditar(ActionEvent event) throws IOException {
-    	Main.TelaAddPedido();
+    	int i = tablePedido.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um pedido para editar!", AlertType.ERROR);
+    	}else {
+    		pedido = tablePedido.getItems().get(i);
+    		Main.TelaAddPedido();
+    	}
+    	loadPendentes();
     }
 
     @FXML void ActionExcluir(ActionEvent event) {
+    	
     }
 
     @FXML void ActionCardapio(ActionEvent e) throws IOException { Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0); }

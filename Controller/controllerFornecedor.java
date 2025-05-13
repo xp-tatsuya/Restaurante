@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -59,7 +60,7 @@ public class controllerFornecedor implements Initializable {
     
     private  FornecedorDAO fornecedorDAO = new FornecedorDAO();
     
-    Fornecedor fornecedor = new Fornecedor();
+    public static Fornecedor fornecedor = new Fornecedor();
     
     private AutoCompletionBinding<String> acb;
 
@@ -109,8 +110,9 @@ public class controllerFornecedor implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-        Stage dialog = Main.showAddFornecedorDialog();
-        dialog.setOnHidden(e -> CarregarTableFornecedor());
+    	fornecedor = null;
+    	Main.TelaAddFornecedor();
+    	CarregarTableFornecedor();
     }
 
     @FXML
@@ -122,7 +124,16 @@ public class controllerFornecedor implements Initializable {
         Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0);
     }
 
-    @FXML void ActionEditar(ActionEvent event) { }
+    @FXML void ActionEditar(ActionEvent event) throws IOException { 
+    	int i = tableFornecedor.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um fornecedor para editar!", AlertType.ERROR);
+    	}else {
+    		fornecedor = tableFornecedor.getItems().get(i);
+    		Main.TelaAddFornecedor();
+    	}
+    	CarregarTableFornecedor();
+    }
 
     @FXML void ActionExcluir(ActionEvent event) {
     	int i = tableFornecedor.getSelectionModel().getSelectedIndex();

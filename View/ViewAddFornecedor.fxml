@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerAddFornecedor">
    <children>
       <Pane layoutX="-10.0" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: #000000;" />
-      <Label layoutX="285.0" layoutY="31.0" text="ADICIONAR FORNECEDOR">
+      <Label fx:id="title" layoutX="285.0" layoutY="31.0" text="ADICIONAR FORNECEDOR">
          <font>
             <Font name="GOST Common" size="36.0" />
          </font>

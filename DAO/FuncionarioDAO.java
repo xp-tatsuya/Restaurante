@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Util.cpfValidator;
 
 import ConnectionFactory.ConnectionDatabase;
+import Controller.controllerFuncionario;
 import Model.Funcionario;
 import Util.Alerts;
 import javafx.scene.control.Alert.AlertType;
@@ -66,10 +67,14 @@ public class FuncionarioDAO {
                 funcionario.setTelefone(rs.getString("telefoneFuncionario"));
                 funcionario.setGenero(rs.getString("generoFuncionario"));
                 funcionario.setEndereco(rs.getString("enderecoFuncionario"));
-                funcionario.setDataNasc(rs.getString("dataNascFuncionario"));
+                java.sql.Date dataNasc = rs.getDate("dataNascFuncionario");
+                funcionario.setDataNasc(dataNasc.toLocalDate().toString());
                 funcionario.setCargo(rs.getString("cargo"));
                 funcionario.setSalario(rs.getString("salario"));
-                funcionario.setDataAdms(rs.getString("dataDeAdmissao"));
+                java.sql.Date dataAdms = rs.getDate("dataDeAdmissao");
+                funcionario.setDataAdms(dataAdms.toLocalDate().toString());
+                
+                
                 
                 funcionarios.add(funcionario);
             }
@@ -89,7 +94,7 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Funcionario SET nomeFuncionario = ?, senha = ?, verificarAcesso = ?, cpfFuncionario = ?, emailFuncionario = ?, telefoneFuncionario = ?, generoFuncionario = ?, enderecoFuncionario = ?, dataNascFuncionario = ?, cargo = ?, salario = ?, dataDeAdmissao = ? WHERE idFuncionario = ? OR cpfFuncionario = ?";
+            String sql = "UPDATE Funcionario SET nomeFuncionario = ?, senha = ?, verificarAcesso = ?, cpfFuncionario = ?, emailFuncionario = ?, telefoneFuncionario = ?, generoFuncionario = ?, enderecoFuncionario = ?, dataNascFuncionario = ?, cargo = ?, salario = ?, dataDeAdmissao = ? WHERE idFuncionario = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, funcionario.getNome());
             stmt.setString(2, funcionario.getSenha());
@@ -103,8 +108,8 @@ public class FuncionarioDAO {
             stmt.setString(10, funcionario.getCargo());
             stmt.setString(11, funcionario.getSalario());
             stmt.setString(12, funcionario.getDataAdms());
-            stmt.setString(13, funcionario.getId());
-            stmt.setString(14, funcionario.getCpf());
+            stmt.setString(13, controllerFuncionario.funcionario.getId());
+
             
             stmt.executeUpdate();
             System.out.println("Funcionário atualizado com sucesso!!");

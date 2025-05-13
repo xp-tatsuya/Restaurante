@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import ConnectionFactory.ConnectionDatabase;
+import Controller.controllerProdutos;
 import Model.Produto;
 
 public class ProdutoDAO {
@@ -79,7 +80,7 @@ public class ProdutoDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Produto SET codeFornecedor = ?, nomeProduto = ?, dataFabricacao = ?, dataValidade = ?, marca = ?, categoria = ?, precoUnitario = ?, estoque = ? WHERE idProduto = ? OR codeFornecedor = ?";
+            String sql = "UPDATE Produto SET codeFornecedor = ?, nomeProduto = ?, dataFabricacao = ?, dataValidade = ?, marca = ?, categoria = ?, precoUnitario = ?, estoque = ? WHERE idProduto = ?";
             stmt = con.prepareStatement(sql);
             
             stmt.setInt(1, Integer.parseInt(produto.getCodeFornecedor()));
@@ -90,8 +91,7 @@ public class ProdutoDAO {
             stmt.setString(6, produto.getCategoria());
             stmt.setBigDecimal(7, new BigDecimal(produto.getPrecoUn()));
             stmt.setInt(8, Integer.parseInt(produto.getEstoque()));
-            stmt.setString(9, produto.getId());
-            stmt.setInt(10, Integer.parseInt(produto.getCodeFornecedor()));
+            stmt.setString(9, controllerProdutos.produto.getId());
             
             stmt.executeUpdate();
             System.out.println("Produto atualizado com sucesso!!");

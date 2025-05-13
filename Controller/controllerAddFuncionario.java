@@ -1,6 +1,7 @@
 package Controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Util.cpfValidator;
@@ -29,47 +30,98 @@ public class controllerAddFuncionario implements Initializable {
     @FXML private TextField txtEndereco;
     @FXML private TextField txtCargo;
     @FXML private TextField txtSalario;
-
+    @FXML private Label title;
+    
     private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
+    private Funcionario funcionario = new Funcionario();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceGenero.setItems(FXCollections.observableArrayList(
             "Masculino", "Feminino", "Outro"
         ));
+        
+        if(controllerFuncionario.funcionario != null) {
+        	title.setText("EDITAR FUNCIONARIO");
+        	funcionario = controllerFuncionario.funcionario;
+        	txtNome.setText(funcionario.getNome());
+        	txtSenha.setText(funcionario.getSenha());
+        	txtCPF.setText(funcionario.getCpf());
+        	txtEmail.setText(funcionario.getEmail());
+        	txtTelefone.setText(funcionario.getTelefone());
+        	txtEndereco.setText(funcionario.getEndereco());
+        	txtCargo.setText(funcionario.getCargo());
+        	txtSalario.setText(funcionario.getSalario());
+        	choiceGenero.setValue(funcionario.getGenero());
+        	LocalDate dataNasc = LocalDate.parse(funcionario.getDataNasc());
+        	dateNasc.setValue(dataNasc);
+        	LocalDate dataAdms = LocalDate.parse(funcionario.getDataAdms());
+        	dateAdmiss.setValue(dataAdms);
+        	
+        }
     }
 
     @FXML
     void ActionCancelar() {
-        closeWindow();
+        Stage stage = (Stage) btCancelar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void ActionSalvar() {
-        if (!validarCampos()) return;
+    	if(controllerFuncionario.funcionario == null) {
+            if (!validarCampos()) return;
 
-        Funcionario f = new Funcionario();
-        f.setNome(txtNome.getText().trim());
-        f.setSenha(txtSenha.getText());
-        f.setVerificarAcesso("3");
-        f.setCpf(txtCPF.getText().replaceAll("\\D", ""));
-        f.setEmail(txtEmail.getText().trim());
-        f.setTelefone(txtTelefone.getText().replaceAll("\\D", ""));
-        f.setGenero(choiceGenero.getValue());
-        f.setEndereco(txtEndereco.getText().trim());
-        f.setDataNasc(dateNasc.getValue().toString());
-        f.setCargo(txtCargo.getText().trim());
-        f.setSalario(txtSalario.getText().trim());
-        f.setDataAdms(dateAdmiss.getValue().toString());
+            Funcionario f = new Funcionario();
+            f.setNome(txtNome.getText().trim());
+            f.setSenha(txtSenha.getText());
+            f.setVerificarAcesso("3");
+            f.setCpf(txtCPF.getText().replaceAll("\\D", ""));
+            f.setEmail(txtEmail.getText().trim());
+            f.setTelefone(txtTelefone.getText().replaceAll("\\D", ""));
+            f.setGenero(choiceGenero.getValue());
+            f.setEndereco(txtEndereco.getText().trim());
+            f.setDataNasc(dateNasc.getValue().toString());
+            f.setCargo(txtCargo.getText().trim());
+            f.setSalario(txtSalario.getText().trim());
+            f.setDataAdms(dateAdmiss.getValue().toString());
 
-        funcionarioDAO.create(f);
+            funcionarioDAO.create(f);
 
-        new Alert(Alert.AlertType.INFORMATION,
-                  "Funcionário cadastrado com sucesso!",
-                  ButtonType.OK)
-            .showAndWait();
+            new Alert(Alert.AlertType.INFORMATION,
+                      "Funcionário cadastrado com sucesso!",
+                      ButtonType.OK)
+                .showAndWait();
 
-        closeWindow();
+            closeWindow();
+    	}else {
+            if (!validarCampos()) return;
+
+            Funcionario f = new Funcionario();
+            f.setNome(txtNome.getText().trim());
+            f.setSenha(txtSenha.getText());
+            f.setVerificarAcesso("3");
+            f.setCpf(txtCPF.getText().replaceAll("\\D", ""));
+            f.setEmail(txtEmail.getText().trim());
+            f.setTelefone(txtTelefone.getText().replaceAll("\\D", ""));
+            f.setGenero(choiceGenero.getValue());
+            f.setEndereco(txtEndereco.getText().trim());
+            f.setDataNasc(dateNasc.getValue().toString());
+            f.setCargo(txtCargo.getText().trim());
+            f.setSalario(txtSalario.getText().trim());
+            f.setDataAdms(dateAdmiss.getValue().toString());
+
+            funcionarioDAO.update(f);
+
+            new Alert(Alert.AlertType.INFORMATION,
+                      "Funcionário cadastrado com sucesso!",
+                      ButtonType.OK)
+                .showAndWait();
+
+            closeWindow();
+    	}
+
     }
 //
     private boolean validarCampos() {

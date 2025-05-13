@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import ConnectionFactory.ConnectionDatabase;
+import Controller.controllerFornecedor;
 import Model.Fornecedor;
 
 public class FornecedorDAO {
@@ -70,14 +71,13 @@ public class FornecedorDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "UPDATE Fornecedor SET nomeFornecedor = ?, cnpj = ?, telefone = ?, endereco = ? WHERE idFornecedor = ? OR cnpj = ?";
+            String sql = "UPDATE Fornecedor SET nomeFornecedor = ?, cnpj = ?, telefone = ?, endereco = ? WHERE idFornecedor = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getCnpj());
             stmt.setString(3, fornecedor.getTelefone());
             stmt.setString(4, fornecedor.getEndereco());
-            stmt.setString(5, fornecedor.getId());
-            stmt.setString(6, fornecedor.getCnpj());
+            stmt.setString(5, controllerFornecedor.fornecedor.getId());
             
             stmt.executeUpdate();
             System.out.println("Fornecedor atualizado com sucesso!!");
@@ -182,6 +182,27 @@ public class FornecedorDAO {
         } finally {
             ConnectionDatabase.closeConnection(con, stmt, rs);
         }
+    }
+    
+    public String getNomebyId(String id) {
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	try {
+    		String sql = "SELECT NOMEFORNECEDOR FROM FORNECEDOR WHERE IDFORNECEDOR = ?";
+    		stmt = con.prepareStatement(sql);
+    		stmt.setString(1, id);
+    		rs = stmt.executeQuery();
+    		if(rs.next()) {
+    			return rs.getString("NOMEFORNECEDOR");
+    		}else {
+    			throw new RuntimeException("Fornecedor não encontrado: " + id);
+    		}
+    	}catch(SQLException e) {
+    		throw new RuntimeException("Erro");
+    	}finally {
+    		ConnectionDatabase.closeConnection(con, stmt, rs);
+    	}
     }
     
 }
