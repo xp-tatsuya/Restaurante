@@ -179,6 +179,22 @@ public class Main extends Application {
         dialog.centerOnScreen();
         dialog.showAndWait();
     }
+    
+    public static Stage showAddFuncionarioDialog() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddFuncionario.fxml"));
+        Parent root = loader.load();
+        Stage dialog = new Stage();
+        dialog.initOwner(stage);
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setTitle("Adicionar Funcionário");
+        dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
+        dialog.centerOnScreen();
+        dialog.show();
+        return dialog;
+    }
+
+
 
     public static void TelaHome() throws IOException {
         FXMLLoader fxmlHome = new FXMLLoader();

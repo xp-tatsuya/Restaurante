@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class controllerFuncionario implements Initializable {
 
@@ -105,8 +106,12 @@ public class controllerFuncionario implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Main.TelaAddFuncionario();
+        Stage dialog = Main.showAddFuncionarioDialog();
+        dialog.setOnHidden(e -> {
+            CarregarTableFuncionario();
+        });
     }
+
     
     @FXML
     void ActionCardapio(ActionEvent event) throws IOException {

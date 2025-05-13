@@ -27,7 +27,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="choiceGenero" layoutX="372.0" layoutY="309.0" text="Gênero">
+      <Label layoutX="372.0" layoutY="309.0" text="Gênero">
          <font>
             <Font size="16.0" />
          </font>
@@ -57,7 +57,7 @@
          </graphic>
       </Button>
       <TextField fx:id="txtCargo" layoutX="371.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtPrecoUn" layoutX="569.0" layoutY="268.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="txtSalario" layoutX="569.0" layoutY="268.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 20;" />
       <Label layoutX="381.0" layoutY="242.0" text="Cargo">
          <font>
             <Font size="16.0" />
@@ -86,7 +86,7 @@
          </font>
       </Label>
       <DatePicker fx:id="dateNasc" layoutX="180.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="categoria" layoutX="370.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceGenero" layoutX="370.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" />
       <TextField fx:id="txtSenha" layoutX="569.0" layoutY="335.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 20;" />
       <Label layoutX="579.0" layoutY="309.0" text="Senha">
          <font>
