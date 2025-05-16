@@ -61,13 +61,16 @@ public class controllerLogin {
             txtPassword.setText("");
             
             String acesso = funcionario.getVerificarAcesso();
-            if (acesso.equals("1") || acesso.equals("2")) {
+            if (acesso.equals("1")) {
             	PedidoDAO pedidoDAO = new PedidoDAO();
                 Main.changeScreen("main", funcionario.getNome(), pedidoDAO.getTotalVendasMes());
             } else if (acesso.equals("3")) {
                 Main.TelaRegistroGarcons();
-            } else {
-                Alerts.showAlert("Erro", "Erro de Login", "Acesso não reconhecido!", AlertType.ERROR);
+            } else if(acesso.equals("2")){
+            	Main.changeScreen("Pedido", funcionario.getNome(), 0);
+                
+            }else {
+            	Alerts.showAlert("Erro", "Erro de Login", "Acesso não reconhecido!", AlertType.ERROR);
             }
         } else {
             Alerts.showAlert("Erro", "Erro de Login", "Dados inválidos", AlertType.ERROR);

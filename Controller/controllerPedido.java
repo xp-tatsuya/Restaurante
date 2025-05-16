@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import DAO.PedidoDAO;
+import Model.Funcionario;
 import Model.Pedido;
 import Util.Alerts;
 import application.Main;
@@ -115,7 +116,18 @@ public class controllerPedido implements Initializable {
     @FXML void ActionCardapio(ActionEvent e) throws IOException { Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0); }
     @FXML void ActionFuncionario(ActionEvent e) throws IOException { Main.changeScreen("Funcionario", controllerLogin.funcionario.getNome(), 0); }
     @FXML void ActionFornecedor(ActionEvent e) throws IOException { Main.changeScreen("Fornecedor", controllerLogin.funcionario.getNome(), 0); }
-    @FXML void ActionHome(ActionEvent e) throws IOException      { Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes()); }
+    
+    @FXML void ActionHome(ActionEvent e) throws IOException      {
+    	String acesso = controllerLogin.funcionario.getVerificarAcesso();
+    	if(acesso.equals("2")) {
+    		Alerts.showAlert("Erro", "Acesso negado!", "Apenas proprietarios podem acessar esta tela", AlertType.ERROR);
+    	}else {
+    		Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	}
+    	 
+    	
+    	}
+    
     @FXML void ActionMesa(ActionEvent e) throws IOException      { Main.changeScreen("Mesa", controllerLogin.funcionario.getNome(), 0); }
     @FXML void ActionProduto(ActionEvent e) throws IOException   { Main.changeScreen("Produto", controllerLogin.funcionario.getNome(), 0); }
     @FXML void ActionSair(ActionEvent e) throws IOException      { Main.changeScreen("Login", null, 0); }

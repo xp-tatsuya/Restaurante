@@ -65,6 +65,8 @@ public class controllerProdutos implements Initializable {
     
     ProdutoDAO produtoDAO = new ProdutoDAO();
     
+    PedidoDAO pedidoDAO = new PedidoDAO();
+    
     public static Produto produto = new Produto();
     
     @Override
@@ -176,8 +178,12 @@ public class controllerProdutos implements Initializable {
 
     @FXML
     void ActionHome(ActionEvent event) throws IOException {
-    	PedidoDAO pedidoDAO = new PedidoDAO();
-        Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	String acesso = controllerLogin.funcionario.getVerificarAcesso();
+    	if(acesso.equals("2")) {
+    		Alerts.showAlert("Erro", "Acesso negado!", "Apenas proprietarios podem acessar esta tela", AlertType.ERROR);
+    	}else {
+    		Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	}
     }
 
     @FXML

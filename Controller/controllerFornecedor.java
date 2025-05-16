@@ -60,6 +60,8 @@ public class controllerFornecedor implements Initializable {
     
     private  FornecedorDAO fornecedorDAO = new FornecedorDAO();
     
+    PedidoDAO pedidoDAO = new PedidoDAO();
+    
     public static Fornecedor fornecedor = new Fornecedor();
     
     private AutoCompletionBinding<String> acb;
@@ -165,8 +167,12 @@ public class controllerFornecedor implements Initializable {
     }
     @FXML
     void ActionHome(ActionEvent event) throws IOException {
-        PedidoDAO pedidoDao = new PedidoDAO();
-        Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDao.getTotalVendasMes());
+    	String acesso = controllerLogin.funcionario.getVerificarAcesso();
+    	if(acesso.equals("2")) {
+    		Alerts.showAlert("Erro", "Acesso negado!", "Apenas proprietarios podem acessar esta tela", AlertType.ERROR);
+    	}else {
+    		Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	}
     }
     @FXML void ActionMesa(ActionEvent event) throws IOException {
         Main.changeScreen("Mesa", controllerLogin.funcionario.getNome(), 0);

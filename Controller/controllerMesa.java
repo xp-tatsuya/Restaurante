@@ -61,6 +61,8 @@ public class controllerMesa implements Initializable {
     
     private MesaDAO mesaDAO = new MesaDAO();
     
+    private PedidoDAO pedidoDAO = new PedidoDAO();
+    
     private AutoCompletionBinding<String> acb;
     
     @Override
@@ -169,8 +171,13 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionHome(ActionEvent event) throws IOException {
-    	PedidoDAO pedidoDAO = new PedidoDAO();
-        Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	String acesso = controllerLogin.funcionario.getVerificarAcesso();
+    	if(acesso.equals("2")) {
+    		Alerts.showAlert("Erro", "Acesso negado!", "Apenas proprietarios podem acessar esta tela", AlertType.ERROR);
+    	}else {
+    		Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	}
+        
     }
 
     @FXML

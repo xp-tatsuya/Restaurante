@@ -81,6 +81,8 @@ public class controllerCardapio implements Initializable {
 	
 	CardapioDAO cardapioDAO = new CardapioDAO();
 	
+	PedidoDAO pedidoDAO = new PedidoDAO();
+	
 	public static Cardapio cardapio = new Cardapio();
 
 	private AutoCompletionBinding<String> acb;
@@ -188,8 +190,12 @@ public class controllerCardapio implements Initializable {
 
 	@FXML
 	void ActionHome(ActionEvent event) throws IOException {
-		PedidoDAO pedidoDAO = new PedidoDAO();
-		Main.changeScreen("main", nomeF, pedidoDAO.getTotalVendasMes());
+    	String acesso = controllerLogin.funcionario.getVerificarAcesso();
+    	if(acesso.equals("2")) {
+    		Alerts.showAlert("Erro", "Acesso negado!", "Apenas proprietarios podem acessar esta tela", AlertType.ERROR);
+    	}else {
+    		Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes());
+    	}
 	}
 
 	@FXML
