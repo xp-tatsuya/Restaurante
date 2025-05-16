@@ -125,76 +125,6 @@ public class Main extends Application {
         dialog.show();
         return dialog;
     }
-    
-    public static void showAddCardapioDialog() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddCardapio.fxml"));
-        Parent root = loader.load();
-        Stage dialog = new Stage();
-        dialog.initOwner(stage);
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Adicionar Cardápio");
-        dialog.setScene(new Scene(root));
-        dialog.setResizable(false);
-        dialog.centerOnScreen();
-        dialog.show();
-    }
-    
-    public static Stage showAddFornecedorDialog() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddFornecedor.fxml"));
-        Parent root = loader.load();
-        Stage dialog = new Stage();
-        dialog.initOwner(stage);
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Adicionar Fornecedor");
-        dialog.setScene(new Scene(root));
-        dialog.setResizable(false);
-        dialog.centerOnScreen();
-        dialog.show();
-        return dialog;
-    }
-    
-    public static Stage showAddProdutoDialog() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddProduto.fxml"));
-        Parent root = loader.load();
-        Stage dialog = new Stage();
-        dialog.initOwner(stage);
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Adicionar Produto");
-        dialog.setScene(new Scene(root));
-        dialog.setResizable(false);
-        dialog.centerOnScreen();
-        dialog.showAndWait();
-        return dialog;
-    }
-    
-    public static void showAddMesaDialog() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddMesa.fxml"));
-        Parent root = loader.load();
-        Stage dialog = new Stage();
-        dialog.initOwner(stage);
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Adicionar Mesa");
-        dialog.setScene(new Scene(root));
-        dialog.setResizable(false);
-        dialog.centerOnScreen();
-        dialog.showAndWait();
-    }
-    
-    public static Stage showAddFuncionarioDialog() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/View/ViewAddFuncionario.fxml"));
-        Parent root = loader.load();
-        Stage dialog = new Stage();
-        dialog.initOwner(stage);
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setTitle("Adicionar Funcionário");
-        dialog.setScene(new Scene(root));
-        dialog.setResizable(false);
-        dialog.centerOnScreen();
-        dialog.show();
-        return dialog;
-    }
-
-
 
     public static void TelaHome() throws IOException {
         FXMLLoader fxmlHome = new FXMLLoader();
@@ -233,7 +163,11 @@ public class Main extends Application {
         Scene scene3 = new Scene(telaAddFornecedor);
 
         cadFornecedor = new Stage();
-        cadFornecedor.setTitle("Registro de Fornecedor");
+        if(controllerFornecedor.fornecedor == null) {
+        	cadFornecedor.setTitle("Registro de Fornecedor");
+        }else {
+        	cadFornecedor.setTitle("Atualizar Fornecedor");
+        }
         cadFornecedor.initModality(Modality.WINDOW_MODAL);
         cadFornecedor.setScene(scene3);
         cadFornecedor.setResizable(false);
@@ -248,7 +182,12 @@ public class Main extends Application {
         Scene scene3 = new Scene(telaAddFuncionario);
         
         cadFuncionario = new Stage();
-        cadFuncionario.setTitle("Cadastro de Funcionario");
+        if(controllerFuncionario.funcionario == null) {
+        	cadFuncionario.setTitle("Cadastro de Funcionario");
+        }else {
+        	cadFuncionario.setTitle("Atualizar Funcionario");
+        }
+        
         cadFuncionario.initModality(Modality.WINDOW_MODAL);
         cadFuncionario.setScene(scene3);
         cadFuncionario.setResizable(false);
@@ -296,7 +235,11 @@ public class Main extends Application {
         Scene scene3 = new Scene(telaAddCardapio);
 
         cadCardapio = new Stage();
-        cadCardapio.setTitle("Registro de Produto");
+        if(controllerCardapio.cardapio == null) {
+        	cadCardapio.setTitle("Registro de Produto");
+        }else {
+        	cadCardapio.setTitle("Atualizar Produto");
+        }
         cadCardapio.initModality(Modality.WINDOW_MODAL);
         cadCardapio.setScene(scene3);
         cadCardapio.setResizable(false);

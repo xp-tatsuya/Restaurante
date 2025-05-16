@@ -107,7 +107,7 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-    	Main.showAddMesaDialog();
+    	Main.TelaAddMesa();
     	CarregarTableMesa();
     }
 
@@ -124,7 +124,7 @@ public class controllerMesa implements Initializable {
     		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um mesa para editar!", AlertType.ERROR);
     	}else {
     		mesa = tableMesa.getItems().get(i);
-    		Main.showAddMesaDialog();
+    		Main.TelaAddMesa();
     	} 
     	CarregarTableMesa();
     	

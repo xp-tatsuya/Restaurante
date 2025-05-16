@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -57,6 +58,8 @@ public class controllerFuncionario implements Initializable {
     private ObservableList<Funcionario> masterData = FXCollections.observableArrayList();
 
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    
+    public static Funcionario funcionario = new Funcionario();
     
     private AutoCompletionBinding<String> acb;
     
@@ -106,10 +109,9 @@ public class controllerFuncionario implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-        Stage dialog = Main.showAddFuncionarioDialog();
-        dialog.setOnHidden(e -> {
-            CarregarTableFuncionario();
-        });
+    	funcionario = null;
+    	Main.TelaAddFuncionario();
+    	CarregarTableFuncionario();
     }
 
     
@@ -119,7 +121,15 @@ public class controllerFuncionario implements Initializable {
     }
 
     @FXML
-    void ActionEditar(ActionEvent event) {
+    void ActionEditar(ActionEvent event) throws IOException {
+    	int i = tableFuncionario.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um funcionario para editar!", AlertType.ERROR);
+    	}else {
+    		funcionario = tableFuncionario.getItems().get(i);
+    		Main.TelaAddFuncionario();
+    	}
+    	CarregarTableFuncionario();
     }
 
     @FXML
@@ -128,7 +138,6 @@ public class controllerFuncionario implements Initializable {
     	if(i == -1){
     		Alerts.showAlert("Informação", "Nenhum funcionario selecionado", "Selecione um funcionario para excluir!", Alert.AlertType.INFORMATION);
     	}else {
-    		Funcionario funcionario = new Funcionario();
     		funcionario = tableFuncionario.getItems().get(i);
     		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
 			mensagemDeAviso.setContentText("Tem certeza que deseja excluir o funcionario " + funcionario.getNome());

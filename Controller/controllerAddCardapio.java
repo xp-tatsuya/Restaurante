@@ -18,11 +18,22 @@ public class controllerAddCardapio implements Initializable {
     @FXML private TextField txtDescricao;
     @FXML private TextField txtCategoria;
     @FXML private TextField txtValorUn;
-
+    @FXML private Label title;
+    
     private final CardapioDAO cardapioDAO = new CardapioDAO();
+    
+    private Cardapio cardapio = new Cardapio();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	if(controllerCardapio.cardapio != null) {
+    		title.setText("EDITAR PRATO");
+    		cardapio = controllerCardapio.cardapio;
+    		txtNome.setText(cardapio.getNome());
+    		txtDescricao.setText(cardapio.getDescricao());
+    		txtCategoria.setText(cardapio.getCategoria());
+    		txtValorUn.setText(cardapio.getPrecoUnitario());
+    	}
     }
 
     @FXML
@@ -33,37 +44,73 @@ public class controllerAddCardapio implements Initializable {
 
     @FXML
     void ActionSalvar() {
-        try {
-            String nome = txtNome.getText().trim();
-            String desc = txtDescricao.getText().trim();
-            String cat  = txtCategoria.getText().trim();
-            String val  = txtValorUn.getText().trim();
+    	if(controllerCardapio.cardapio == null) {
+    		try {
+                String nome = txtNome.getText().trim();
+                String desc = txtDescricao.getText().trim();
+                String cat  = txtCategoria.getText().trim();
+                String val  = txtValorUn.getText().trim();
 
-            if (nome.isEmpty() || desc.isEmpty() || cat.isEmpty() || val.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
-                return;
+                if (nome.isEmpty() || desc.isEmpty() || cat.isEmpty() || val.isEmpty()) {
+                    new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
+                    return;
+                }
+
+                Cardapio c = new Cardapio();
+                c.setNome(nome);
+                c.setDescricao(desc);
+                c.setCategoria(cat);
+                c.setPrecoUnitario(val);
+
+                cardapioDAO.create(c);
+
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Sucesso");
+                info.setHeaderText(null);
+                info.setContentText("Prato cadastrado com sucesso!");
+                info.showAndWait();
+
+                Stage stage = (Stage) btSalvar.getScene().getWindow();
+                stage.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Erro ao salvar o cardápio.").showAndWait();
             }
+    	}else {
+       		try {
+                String nome = txtNome.getText().trim();
+                String desc = txtDescricao.getText().trim();
+                String cat  = txtCategoria.getText().trim();
+                String val  = txtValorUn.getText().trim();
 
-            Cardapio c = new Cardapio();
-            c.setNome(nome);
-            c.setDescricao(desc);
-            c.setCategoria(cat);
-            c.setPrecoUnitario(val);
+                if (nome.isEmpty() || desc.isEmpty() || cat.isEmpty() || val.isEmpty()) {
+                    new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
+                    return;
+                }
 
-            cardapioDAO.create(c);
+                Cardapio c = new Cardapio();
+                c.setNome(nome);
+                c.setDescricao(desc);
+                c.setCategoria(cat);
+                c.setPrecoUnitario(val);
 
-            Alert info = new Alert(Alert.AlertType.INFORMATION);
-            info.setTitle("Sucesso");
-            info.setHeaderText(null);
-            info.setContentText("Prato cadastrado com sucesso!");
-            info.showAndWait();
+                cardapioDAO.update(c);
 
-            Stage stage = (Stage) btSalvar.getScene().getWindow();
-            stage.close();
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setTitle("Sucesso");
+                info.setHeaderText(null);
+                info.setContentText("Prato cadastrado com sucesso!");
+                info.showAndWait();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Erro ao salvar o cardápio.").showAndWait();
-        }
+                Stage stage = (Stage) btSalvar.getScene().getWindow();
+                stage.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Erro ao salvar o cardápio.").showAndWait();
+            }
+    	}
+        
     }
 }

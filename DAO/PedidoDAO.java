@@ -96,10 +96,9 @@ public class PedidoDAO {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         try {
-            String sql = "DELETE FROM Pedido WHERE idPedido = ? OR codeFuncionario = ?";
+            String sql = "DELETE FROM Pedido WHERE idPedido = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, pedido.getId());
-            stmt.setInt(2, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.executeUpdate();
             System.out.println("Pedido deletado com sucesso!!");
         } catch (SQLException e) {

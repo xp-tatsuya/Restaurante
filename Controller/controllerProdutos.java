@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +64,8 @@ public class controllerProdutos implements Initializable {
     private AutoCompletionBinding<String> acb;
     
     ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    public static Produto produto = new Produto();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -114,10 +117,10 @@ public class controllerProdutos implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
-        Stage dialog = Main.showAddProdutoDialog();
-        dialog.setOnHidden(e -> {
-            CarregarTableProduto();
-        });
+    	produto = null;
+    	Main.TelaAddProduto();
+    	CarregarTableProduto();
+
     }
 
     	
@@ -127,7 +130,15 @@ public class controllerProdutos implements Initializable {
     }
 
     @FXML
-    void ActionEditar(ActionEvent event) {
+    void ActionEditar(ActionEvent event) throws IOException {
+    	int i = tableProdutos.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um produto para editar!", AlertType.ERROR);
+    	}else {
+    		produto = tableProdutos.getItems().get(i);
+    		Main.TelaAddProduto();
+    	}
+    	CarregarTableProduto();
     }
 
     @FXML
