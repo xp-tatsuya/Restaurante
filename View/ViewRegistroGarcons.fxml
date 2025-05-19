@@ -2,71 +2,166 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerRegistroGarcons">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerRegistroGarcons">
    <children>
-      <Pane layoutX="-10.0" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: #000000;" />
-      <Label layoutX="341.0" layoutY="29.0" text="Adicionar Pedido">
+      <Pane layoutX="38.0" layoutY="104.0" prefHeight="475.0" prefWidth="725.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20;">
+         <children>
+            <Pane layoutX="18.0" layoutY="27.0" prefHeight="175.0" prefWidth="690.0" style="-fx-background-color: #000000; -fx-background-radius: 15;">
+               <children>
+                  <TextField fx:id="txtFuncionario" layoutX="10.0" layoutY="43.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="txtMesa" layoutX="172.0" layoutY="43.0" prefHeight="40.0" prefWidth="84.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="txtProduto" layoutX="10.0" layoutY="112.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="txtQuantidade" layoutX="173.0" layoutY="112.0" prefHeight="40.0" prefWidth="84.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="22.0" layoutY="19.0" prefHeight="25.0" prefWidth="84.0" text="Funcionario" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="87.0" text="Produto" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="173.0" layoutY="87.0" prefHeight="25.0" prefWidth="84.0" text="Quantidade" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="182.0" layoutY="18.0" text="Mesa Nº" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtObs" layoutX="291.0" layoutY="112.0" prefHeight="40.0" prefWidth="182.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="307.0" layoutY="87.0" prefHeight="25.0" prefWidth="108.0" text="Observação" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btAdicionar" layoutX="532.0" layoutY="101.0" mnemonicParsing="false" onAction="#ActionAdicionar" prefHeight="50.0" prefWidth="141.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Adicionar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/icon%20de%20adicionar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <TextField fx:id="txtDesconto" layoutX="297.0" layoutY="43.0" prefHeight="40.0" prefWidth="95.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="306.0" layoutY="18.0" prefHeight="25.0" prefWidth="75.0" text="Desconto" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btExcluir" layoutX="532.0" layoutY="21.0" mnemonicParsing="false" onAction="#ActionExcluir" prefHeight="50.0" prefWidth="141.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Excluir" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/icon%20de%20excluir.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+            <TableView fx:id="tablePedido" layoutX="18.0" layoutY="222.0" prefHeight="168.0" prefWidth="420.0">
+              <columns>
+                <TableColumn fx:id="columnIndice" minWidth="0.0" prefWidth="23.199951171875" />
+                <TableColumn fx:id="columnProduto" prefWidth="79.199951171875" text="Produto" />
+                  <TableColumn fx:id="columnObs" prefWidth="132.2666778564453" text="Observação" />
+                  <TableColumn fx:id="columnQuantidade" prefWidth="38.933349609375" text="Qtd." />
+                  <TableColumn fx:id="columnPreconUn" prefWidth="67.73330688476562" text="Preço Un." />
+                  <TableColumn fx:id="columnTotalTabela" prefWidth="77.06671142578125" text="Total" />
+              </columns>
+            </TableView>
+            <Button fx:id="btFinalizar" layoutX="387.0" layoutY="401.0" mnemonicParsing="false" onAction="#ActionFinalizar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Finalizar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/icon%20de%20finalizar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btCancelar" layoutX="558.0" layoutY="402.0" mnemonicParsing="false" onAction="#ActionCancelar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/material-symbols_cancel-outline.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane layoutX="468.0" layoutY="222.0" prefHeight="168.0" prefWidth="240.0" style="-fx-background-color: #000000; -fx-background-radius: 20;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="150.0" text="Subtotal:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="63.0" prefHeight="30.0" prefWidth="91.0" text="Desconto:" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="55.0" text="Total:" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelDesconto" layoutX="119.0" layoutY="71.0" prefHeight="20.0" prefWidth="75.0" />
+                  <Label fx:id="labelTotal" layoutX="119.0" layoutY="106.0" prefHeight="20.0" prefWidth="75.0" />
+               </children>
+            </Pane>
+         </children></Pane>
+      <Label layoutX="341.0" layoutY="29.0">
          <font>
             <Font name="GOST Common" size="36.0" />
          </font>
       </Label>
-      <Line endX="70.199951171875" layoutX="697.0" layoutY="76.0" startX="-521.0" stroke="#a71d1d" strokeWidth="4.0" />
-      <TextField fx:id="txtFuncionario" layoutX="174.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtSenha" layoutX="516.0" layoutY="160.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtCodigoMesa" layoutX="174.0" layoutY="248.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtProdutoVendido" layoutX="174.0" layoutY="358.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="190.0" layoutY="134.0" text="Funcionário">
+      <Label layoutX="358.0" layoutY="42.0" text="Miyazaki" textFill="WHITE">
          <font>
-            <Font size="16.0" />
+            <Font name="Arial Italic" size="36.0" />
          </font>
+         <effect>
+            <Bloom />
+         </effect>
       </Label>
-      <Label layoutX="190.0" layoutY="222.0" text="Codigo da mesa">
+      <Label layoutX="176.0" layoutY="30.0" text="Sushi's " textFill="#a71d1d">
          <font>
-            <Font size="16.0" />
+            <Font name="Arial Bold Italic" size="48.0" />
          </font>
+         <effect>
+            <Glow />
+         </effect>
       </Label>
-      <Label layoutX="185.0" layoutY="332.0" prefHeight="18.0" prefWidth="150.0" text="Produto Vendido">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="529.0" layoutY="134.0" text="Senha">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Button fx:id="btCancelar" layoutX="602.0" layoutY="502.0" mnemonicParsing="false" onAction="#ActionCancelar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Cancelar" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/icon%20de%20excluir.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="btSalvar" layoutX="424.0" layoutY="502.0" mnemonicParsing="false" onAction="#ActionSalvar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Salvar" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/ic_baseline-save-alt.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <ImageView fitHeight="87.0" fitWidth="115.0" layoutX="510.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icons/icon%20slogan.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
