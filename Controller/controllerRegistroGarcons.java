@@ -14,6 +14,9 @@ public class controllerRegistroGarcons {
     private Button btAdicionar;
 
     @FXML
+    private Button btAdm;
+
+    @FXML
     private Button btCancelar;
 
     @FXML
@@ -68,7 +71,15 @@ public class controllerRegistroGarcons {
     private TextField txtQuantidade;
 
     @FXML
+    private TextField txtSenha;
+
+    @FXML
     void ActionAdicionar(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ActionAdm(ActionEvent event) {
 
     }
 
