@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private static Stage stage;
-    private static Scene login, main, pedido, cardapio, funcionario, fornecedor, produto, mesa;
+    private static Scene login, main, pedido, cardapio, funcionario, fornecedor, produto, mesa, registrarVenda;
     private static controllerMain controllerHome;
     private static controllerPedido controllerPedido;
     private static controllerCardapio controllerCardapio;
@@ -23,90 +23,112 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        try {
-            stage = primaryStage;
-            primaryStage.setTitle("Login");
-            login = new Scene(FXMLLoader.load(getClass().getResource("/View/ViewLogin.fxml")));
+    	try {
+    		stage = primaryStage;
+        	primaryStage.setTitle("Registrar venda - Sushi's Miyazaki");
+        	registrarVenda = new Scene(FXMLLoader.load(getClass().getResource("/View/ViewRegistroGarcons.fxml")));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/Icons/restaurante.png")));
+            stage.setScene(registrarVenda);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            primaryStage.show();
 
-            FXMLLoader fxmlHome = new FXMLLoader(getClass().getResource("/View/ViewMain.fxml"));
+            FXMLLoader fxmlHome = new FXMLLoader(Main.class.getResource("/View/ViewMain.fxml"));
             Parent homeRoot = fxmlHome.load();
             main = new Scene(homeRoot);
             controllerHome = fxmlHome.getController();
 
-            FXMLLoader fxmlPedido = new FXMLLoader(getClass().getResource("/View/ViewPedido.fxml"));
+            FXMLLoader fxmlPedido = new FXMLLoader(Main.class.getResource("/View/ViewPedido.fxml"));
             Parent pedidoRoot = fxmlPedido.load();
             pedido = new Scene(pedidoRoot);
             controllerPedido = fxmlPedido.getController();
 
-            FXMLLoader fxmlCardapio = new FXMLLoader(getClass().getResource("/View/ViewCardapio.fxml"));
+            FXMLLoader fxmlCardapio = new FXMLLoader(Main.class.getResource("/View/ViewCardapio.fxml"));
             Parent cardapioRoot = fxmlCardapio.load();
             cardapio = new Scene(cardapioRoot);
             controllerCardapio = fxmlCardapio.getController();
 
-            FXMLLoader fxmlFuncionario = new FXMLLoader(getClass().getResource("/View/ViewFuncionario.fxml"));
+            FXMLLoader fxmlFuncionario = new FXMLLoader(Main.class.getResource("/View/ViewFuncionario.fxml"));
             Parent funcRoot = fxmlFuncionario.load();
             funcionario = new Scene(funcRoot);
             controllerFuncionario = fxmlFuncionario.getController();
 
-            FXMLLoader fxmlFornecedor = new FXMLLoader(getClass().getResource("/View/ViewFornecedor.fxml"));
+            FXMLLoader fxmlFornecedor = new FXMLLoader(Main.class.getResource("/View/ViewFornecedor.fxml"));
             Parent fornRoot = fxmlFornecedor.load();
             fornecedor = new Scene(fornRoot);
             controllerFornecedor = fxmlFornecedor.getController();
 
-            FXMLLoader fxmlProduto = new FXMLLoader(getClass().getResource("/View/ViewProdutos.fxml"));
+            FXMLLoader fxmlProduto = new FXMLLoader(Main.class.getResource("/View/ViewProdutos.fxml"));
             Parent prodRoot = fxmlProduto.load();
             produto = new Scene(prodRoot);
             controllerProduto = fxmlProduto.getController();
 
-            FXMLLoader fxmlMesa = new FXMLLoader(getClass().getResource("/View/ViewMesa.fxml"));
+            FXMLLoader fxmlMesa = new FXMLLoader(Main.class.getResource("/View/ViewMesa.fxml"));
             Parent mesaRoot = fxmlMesa.load();
             mesa = new Scene(mesaRoot);
             controllerMesa = fxmlMesa.getController();
-
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/Icons/restaurante.png")));
-            stage.setScene(login);
-            stage.setResizable(false);
-            stage.centerOnScreen();
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            
+            
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	
     }
-
-    public static void changeScreen(String tela, String nome, double dindin) throws IOException {
+    public static void carregarTelas() {
+    	try {
+    	
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    }
+    public static void changeScreen(String tela, String nome, double totalVendas) throws IOException {
         switch (tela) {
             case "main":
                 controllerHome.nome(nome);
-                controllerHome.seila(dindin);
+                controllerHome.totalVendas(totalVendas); //esse metodo tem que ser chamado depois de eu comer o cu de quem ta lendo
+                stage.setTitle("Home - Sushi's Miyazaki");
                 stage.setScene(main);
                 break;
             case "Login":
+            	stage.setTitle("Login - Sushi's Miyazaki");
                 stage.setScene(login);
                 break;
             case "Pedido":
                 controllerPedido.nome(nome);
+                stage.setTitle("Pedido - Sushi's Miyazaki");
                 stage.setScene(pedido);
                 break;
             case "Cardapio":
                 controllerCardapio.nome(nome);
+                stage.setTitle("Cardapio - Sushi's Miyazaki");
                 stage.setScene(cardapio);
                 break;
             case "Funcionario":
                 controllerFuncionario.nome(nome);
+                stage.setTitle("Funcionario - Sushi's Miyazaki");
                 stage.setScene(funcionario);
                 break;
             case "Fornecedor":
                 controllerFornecedor.nome(nome);
+                stage.setTitle("Fornecedor - Sushi's Miyazaki");
                 stage.setScene(fornecedor);
                 break;
             case "Produto":
                 controllerProduto.nome(nome);
+                stage.setTitle("Produto - Sushi's Miyazaki");
                 stage.setScene(produto);
                 break;
             case "Mesa":
                 controllerMesa.nome(nome);
+                stage.setTitle("Mesa - Sushi's Miyazaki");
                 stage.setScene(mesa);
                 break;
+            case "Registrar":
+            	stage.setTitle("Registrar venda - Sushi's Miyazaki");
+            	stage.setScene(registrarVenda);
+            	break;
         }
         stage.setResizable(false);
         stage.centerOnScreen();
@@ -126,17 +148,17 @@ public class Main extends Application {
         return dialog;
     }
 
-    public static void TelaHome() throws IOException {
-        FXMLLoader fxmlHome = new FXMLLoader();
-        fxmlHome.setLocation(Main.class.getResource("/View/ViewMain.fxml"));
-        Parent telaHome = fxmlHome.load();
-        main = new Scene(telaHome);
-
-        stage.setTitle("Menu Principal");
-        stage.setScene(main);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
+    public static void TelaLogin() throws IOException {
+    	FXMLLoader fxmlLogin = new FXMLLoader();
+    	fxmlLogin.setLocation(Main.class.getResource("/View/ViewLogin.fxml"));
+    	Parent telaLogin = fxmlLogin.load();
+    	login = new Scene(telaLogin);
+    	
+    	stage.setTitle("Login - Sushi's Miyazaki");
+    	stage.setScene(login);
+    	stage.setResizable(false);
+    	stage.centerOnScreen();
+    	stage.show();
     }
 
     private static Stage cadPedido;
@@ -246,97 +268,7 @@ public class Main extends Application {
         cadCardapio.centerOnScreen();
         cadCardapio.showAndWait();
     }
-    
-    public static void TelaRegistroGarcons() throws IOException {
-        FXMLLoader fxmlRegistro = new FXMLLoader();
-        fxmlRegistro.setLocation(Main.class.getResource("/View/ViewRegistroGarcons.fxml"));
-        Parent telaRegistro = fxmlRegistro.load();
-        Scene registroGarcons = new Scene(telaRegistro);
 
-        stage.setTitle("Registro de Garçons");
-        stage.setScene(registroGarcons);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaPedido() throws IOException {
-        FXMLLoader fxmlPedido = new FXMLLoader();
-        fxmlPedido.setLocation(Main.class.getResource("/View/ViewPedido.fxml"));
-        Parent telaPedido = fxmlPedido.load();
-        pedido = new Scene(telaPedido);
-
-        stage.setTitle("Relatório de Pedidos");
-        stage.setScene(pedido);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaCardapio() throws IOException {
-        FXMLLoader fxmlCardapio = new FXMLLoader();
-        fxmlCardapio.setLocation(Main.class.getResource("/View/ViewCardapio.fxml"));
-        Parent telaCardapio = fxmlCardapio.load();
-        cardapio = new Scene(telaCardapio);
-
-        stage.setTitle("Relatório de Cardápio");
-        stage.setScene(cardapio);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaFuncionario() throws IOException {
-        FXMLLoader fxmlFuncionario = new FXMLLoader();
-        fxmlFuncionario.setLocation(Main.class.getResource("/View/ViewFuncionario.fxml"));
-        Parent telaFuncionario = fxmlFuncionario.load();
-        funcionario = new Scene(telaFuncionario);
-
-        stage.setTitle("Relatório de Funcionário");
-        stage.setScene(funcionario);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaFornecedor() throws IOException {
-        FXMLLoader fxmlFornecedor = new FXMLLoader();
-        fxmlFornecedor.setLocation(Main.class.getResource("/View/ViewFornecedor.fxml"));
-        Parent telaFornecedor = fxmlFornecedor.load();
-        fornecedor = new Scene(telaFornecedor);
-
-        stage.setTitle("Relatório de Fornecedor");
-        stage.setScene(fornecedor);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaProduto() throws IOException {
-        FXMLLoader fxmlProduto = new FXMLLoader();
-        fxmlProduto.setLocation(Main.class.getResource("/View/ViewProdutos.fxml"));
-        Parent telaProduto = fxmlProduto.load();
-        produto = new Scene(telaProduto);
-
-        stage.setTitle("Relatório de Produto");
-        stage.setScene(produto);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
-
-    public static void TelaMesa() throws IOException {
-        FXMLLoader fxmlMesa = new FXMLLoader();
-        fxmlMesa.setLocation(Main.class.getResource("/View/ViewMesa.fxml"));
-        Parent telaMesa = fxmlMesa.load();
-        mesa = new Scene(telaMesa);
-
-        stage.setTitle("Relatório de Mesa");
-        stage.setScene(mesa);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
-    }
 
     public static void main(String[] args) {
         launch(args);

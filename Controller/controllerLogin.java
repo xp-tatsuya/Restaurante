@@ -55,23 +55,28 @@ public class controllerLogin {
             Alerts.showAlert("Erro!!", "Erro de Login", "Verifique se as informações estão corretas e tente novamente", AlertType.ERROR);
         }
         else if (funcionario.getCpf().equals(txtUser.getText()) && funcionario.getSenha().equals(txtPassword.getText())) {
-            Alerts.showAlert("Login bem sucedido", "Seja Bem-Vindo " + funcionario.getNome(), "Login realizado com sucesso", AlertType.INFORMATION);
-            
-            txtUser.setText("");
-            txtPassword.setText("");
+
             
             String acesso = funcionario.getVerificarAcesso();
             if (acesso.equals("1")) {
+                Alerts.showAlert("Login bem sucedido", "Seja Bem-Vindo " + funcionario.getNome(), "Login realizado com sucesso", AlertType.INFORMATION);
+
             	PedidoDAO pedidoDAO = new PedidoDAO();
                 Main.changeScreen("main", funcionario.getNome(), pedidoDAO.getTotalVendasMes());
             } else if (acesso.equals("3")) {
-                Main.TelaRegistroGarcons();
+                Main.changeScreen("Registrar", null, 0);
+                Alerts.showAlert("Falha no login", "O usuario não tem autorização para funções de administrador", "Falha no Login", AlertType.ERROR);
             } else if(acesso.equals("2")){
+                Alerts.showAlert("Login bem sucedido", "Seja Bem-Vindo " + funcionario.getNome(), "Login realizado com sucesso", AlertType.INFORMATION);
+
             	Main.changeScreen("Pedido", funcionario.getNome(), 0);
                 
             }else {
             	Alerts.showAlert("Erro", "Erro de Login", "Acesso não reconhecido!", AlertType.ERROR);
             }
+            
+            txtUser.setText("");
+            txtPassword.setText("");
         } else {
             Alerts.showAlert("Erro", "Erro de Login", "Dados inválidos", AlertType.ERROR);
         }

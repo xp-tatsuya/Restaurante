@@ -115,7 +115,7 @@ public class controllerMain implements Initializable {
         CarregarTableValidade();
     }
     
-    public void seila(double coisas) {
+    public void totalVendas(double coisas) {
     	double totalVendas = coisas;
     	txtSalario.setText("R$ " + String.format("%,.2f", totalVendas));
     }

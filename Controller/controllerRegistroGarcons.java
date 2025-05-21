@@ -1,14 +1,30 @@
 package Controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import DAO.RegistroVendaDAO;
+import Model.Produto;
+import Model.RegistroVenda;
+import Util.Alerts;
+import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class controllerRegistroGarcons {
+public class controllerRegistroGarcons implements Initializable{
 
     @FXML
     private Button btAdicionar;
@@ -26,22 +42,22 @@ public class controllerRegistroGarcons {
     private Button btFinalizar;
 
     @FXML
-    private TableColumn<?, ?> columnIndice;
+    private TableColumn<String, RegistroVenda> columnIndice;
 
     @FXML
-    private TableColumn<?, ?> columnObs;
+    private TableColumn<String, RegistroVenda> columnObs;
 
     @FXML
-    private TableColumn<?, ?> columnPreconUn;
+    private TableColumn<String, RegistroVenda> columnPreconUn;
 
     @FXML
-    private TableColumn<?, ?> columnProduto;
+    private TableColumn<String, RegistroVenda> columnProduto;
 
     @FXML
-    private TableColumn<?, ?> columnQuantidade;
+    private TableColumn<String, RegistroVenda> columnQuantidade;
 
     @FXML
-    private TableColumn<?, ?> columnTotalTabela;
+    private TableColumn<String, RegistroVenda> columnTotalTabela;
 
     @FXML
     private Label labelDesconto;
@@ -50,7 +66,7 @@ public class controllerRegistroGarcons {
     private Label labelTotal;
 
     @FXML
-    private TableView<?> tablePedido;
+    private TableView<RegistroVenda> tablePedido;
 
     @FXML
     private TextField txtDesconto;
@@ -73,14 +89,21 @@ public class controllerRegistroGarcons {
     @FXML
     private TextField txtSenha;
 
+    
+    
+    RegistroVendaDAO registroVendaDAO = new RegistroVendaDAO();
+    
+    RegistroVenda registroVenda = new RegistroVenda();
+    
+    
     @FXML
     void ActionAdicionar(ActionEvent event) {
 
     }
 
     @FXML
-    void ActionAdm(ActionEvent event) {
-
+    void ActionAdm(ActionEvent event) throws IOException {
+    	Main.TelaLogin();
     }
 
     @FXML
@@ -89,13 +112,33 @@ public class controllerRegistroGarcons {
     }
 
     @FXML
-    void ActionExcluir(ActionEvent event) {
+	void ActionExcluir(ActionEvent event) {
 
-    }
+	}
 
     @FXML
     void ActionFinalizar(ActionEvent event) {
 
     }
+    
+    public void CarregarTableProduto(){
+    	String numeroMesa = txtMesa.getText();
+		columnIndice.setCellValueFactory(new PropertyValueFactory<>("numeroPedido"));
+		columnProduto.setCellValueFactory(new PropertyValueFactory<>("nomeCardapio"));
+		columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+		columnPreconUn.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
+		columnTotalTabela.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+		
+        ObservableList<RegistroVenda> lista = FXCollections.observableArrayList(registroVendaDAO.read(numeroMesa));
+        tablePedido.setItems(lista);
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+		CarregarTableProduto();
+
+	}
 
 }
