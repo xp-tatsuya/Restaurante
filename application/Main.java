@@ -177,6 +177,21 @@ public class Main extends Application {
         cadPedido.centerOnScreen();
         cadPedido.showAndWait();
     }
+    
+    private static Stage editRG;
+    public static void TelaEditRegistroGarcon() throws IOException {
+    	FXMLLoader fxmlEditRG = new FXMLLoader();
+    	fxmlEditRG.setLocation(Main.class.getResource("/View/ViewEditRegistroGarcon.fxml"));
+    	Parent telaEditRg = fxmlEditRG.load();
+    	Scene scene = new Scene(telaEditRg);
+    	
+    	editRG.setTitle("Editar Pedido");
+    	editRG.initModality(Modality.WINDOW_MODAL);
+        editRG.setScene(scene);
+        editRG.setResizable(false);
+        editRG.centerOnScreen();
+        editRG.showAndWait();
+    }
 
     private static Stage cadFornecedor;
     public static void TelaAddFornecedor() throws IOException {

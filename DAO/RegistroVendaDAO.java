@@ -69,4 +69,19 @@ public class RegistroVendaDAO {
 			ConnectionDatabase.closeConnection(con, stmt);
 		}
 	}
+	
+	public void deleteByPedido(String idPedido) {
+	    Connection con = ConnectionDatabase.getConnection();
+	    try (PreparedStatement stmt = con.prepareStatement(
+	              "DELETE FROM Cardapio_Pedido WHERE codePedido = ?")) {
+	        stmt.setString(1, idPedido);
+	        stmt.executeUpdate();
+	    } catch(SQLException e) {
+	        throw new RuntimeException(e);
+	    } finally {
+	        ConnectionDatabase.closeConnection(con);
+	    }
+	}
+
+	
 }

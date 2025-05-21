@@ -99,6 +99,16 @@ public class controllerPedido implements Initializable {
     }
 
     @FXML void ActionEditar(ActionEvent event) throws IOException {
+    	int i = tablePedido.getSelectionModel().getSelectedIndex();
+    	if(i == -1) {
+    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um pedido para editar!", AlertType.ERROR);
+    	}else {
+    		pedido = tablePedido.getItems().get(i);
+    		
+    		Main.TelaEditRegistroGarcon();
+    	}
+    	loadPendentes();
+    	loadConcluidos();
     }
 
     @FXML
