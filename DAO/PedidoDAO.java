@@ -257,4 +257,33 @@ public class PedidoDAO {
         }
         return id;
     }
+    
+    public Pedido getByMesa(Mesa id) {
+    	Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Pedido pedido = new Pedido();
+        try {
+            String sql = "SELECT * FROM Pedido WHERE codeMesa = ? AND condicao = 'Pendente'";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, id.getId());
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                pedido.setId(rs.getString("idPedido"));
+                pedido.setCodeFuncionario(rs.getString("codeFuncionario"));
+                pedido.setCodeMesa(rs.getString("codeMesa"));
+                pedido.setDataPedido(rs.getString("DataPedido"));
+                pedido.setCondicao(rs.getString("condicao"));
+                pedido.setObservacoes(rs.getString("observacoes"));
+                pedido.setDesconto(rs.getString("Desconto"));
+                pedido.setPrecoTotal(rs.getString("precoTotal"));
+                
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar ID do pedido!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return pedido;
+    }
 }

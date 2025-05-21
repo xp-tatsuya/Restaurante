@@ -109,17 +109,23 @@ public class controllerRegistroGarcons implements Initializable{
     RegistroVenda registroVenda = new RegistroVenda();
     
     
+    
     @FXML
     void ActionAdicionar(ActionEvent event) {
     	MesaDAO mesaDAO = new MesaDAO();
     	Mesa mesa = new Mesa();
+    	Pedido pedido = new Pedido();
+    	PedidoDAO pedidoDAO = new PedidoDAO();
+    	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    	Cardapio_Pedido cp = new Cardapio_Pedido();
+    	
     	mesa.setId(txtMesa.getText());
     	Mesa resultado = mesaDAO.verifycondicao(mesa);
     	System.out.println(resultado.getCondicao());
     	
     	if(resultado.getCondicao().equals("Livre")) {
-    		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    		Pedido pedido = new Pedido();
+    		
+    		
     	
     		pedido.setCodeFuncionario(funcionarioDAO.getIdByNome(txtFuncionario.getText()));
     		pedido.setCodeMesa(resultado.getId());
@@ -130,7 +136,7 @@ public class controllerRegistroGarcons implements Initializable{
     		}else {
     			pedido.setDesconto(txtDesconto.getText());
     		}
-    		PedidoDAO pedidoDAO = new PedidoDAO();
+    		
     		pedidoDAO.create(pedido);
     		
     		String idPedido = pedidoDAO.getIdByMesa(resultado.getId());
@@ -139,7 +145,7 @@ public class controllerRegistroGarcons implements Initializable{
     		String idCardapio = cardapioDAO.getIdByNome(txtProduto.getText());
     		System.out.println(idPedido);
     		
-    		Cardapio_Pedido cp = new Cardapio_Pedido();
+    		
     		cp.setCodePedido(idPedido);
     		cp.setCodeCardapio(idCardapio);
     		cp.setObservacao(txtObs.getText());
@@ -150,14 +156,10 @@ public class controllerRegistroGarcons implements Initializable{
     		
     		resultado.setCondicao("Ocupada");
     		mesaDAO.update(resultado);
-    		
-    		
-    		
 
-    		
-    		
     	}else {
-    		System.out.println("cai fora");
+    		Pedido pedidoByMesa = pedidoDAO.getByMesa(mesa);
+    		System.out.println(pedidoByMesa.getCodeMesa());
     	}
     	CarregarTableProduto();
     }
