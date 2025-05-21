@@ -245,18 +245,18 @@ public class FuncionarioDAO {
         return nomes;
     }
     
-    public int getIdByNome(String nome) {
+    public String getIdByNome(String nome) {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        int id = -1;
+        String id = null;
         try {
             String sql = "SELECT idFuncionario FROM Funcionario WHERE nomeFuncionario = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                id = rs.getInt("idFuncionario");
+                id = rs.getString("idFuncionario");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar ID do funcionário!", e);

@@ -12,30 +12,31 @@ import Model.RegistroVenda;
 
 public class RegistroVendaDAO {
 	
-	public List<RegistroVenda> read(String numeroMesa){
+	public ArrayList<RegistroVenda> read(String idCardapioPedido){
 		Connection con = ConnectionDatabase.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<RegistroVenda> lista = new ArrayList<>();
+		ArrayList<RegistroVenda> lista = new ArrayList<>();
 		
 		try {
-			stmt = con.prepareStatement("SELECT * FROM RegistroVendas WHERE Numero_Mesa = ?");
-			stmt.setString(1, numeroMesa );
+			stmt = con.prepareStatement("SELECT * FROM RegistroVendas WHERE Numero_Mesa = ? AND condicao = 'Pendente'");
+			stmt.setString(1, idCardapioPedido);
 			rs = stmt.executeQuery();
 			
 			
 			while(rs.next()) {
-				RegistroVenda rv = new RegistroVenda(
-						rs.getString("Numero_Pedido"),
-                rs.getString("Nome_Funcionario"),
-                rs.getString("Numero_Mesa"),
-                rs.getString("Codigo_Cardapio"),
-                rs.getString("Nome_Cardapio"),
-                rs.getString("Quantidade"),
-                rs.getString("Preco_Unitario"),
-                rs.getString("Desconto"),
-                rs.getString("Preco_Total")
-                );
+				RegistroVenda rv = new RegistroVenda();
+				rv.setIdCardapioPedido(rs.getString("IdCardapioPedido"));
+				rv.setNumeroPedido(rs.getString("Numero_Pedido"));
+                rv.setNomeFuncionario(rs.getString("Nome_Funcionario"));
+                rv.setNumeroMesa(rs.getString("Numero_Mesa"));;
+                rv.setCodigoCardapio(rs.getString("Codigo_Cardapio"));;
+                rv.setNomeCardapio(rs.getString("Nome_Cardapio"));;
+                rv.setObservacao(rs.getString("observacao"));;
+                rv.setQuantidade(rs.getString("Quantidade"));;
+                rv.setValorUnitario(rs.getString("Preco_Unitario"));
+                rv.setDesconto(rs.getString("Desconto"));
+                rv.setValorTotal(rs.getString("Preco_Total"));
 				
 				lista.add(rv);
 			}
@@ -50,7 +51,22 @@ public class RegistroVendaDAO {
 		
 		return lista;
 		
+	}
+	
+	public void delete(RegistroVenda registroVenda) {
+		Connection con = ConnectionDatabase.getConnection();
+		PreparedStatement stmt = null;
 		
-		
+		try {
+			stmt = con.prepareStatement("DELETE FROM Cardapio_Pedido WHERE idCardapioPedido = ?");
+			stmt.setString(1, registroVenda.getIdCardapioPedido());
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			ConnectionDatabase.closeConnection(con, stmt);
+		}
 	}
 }

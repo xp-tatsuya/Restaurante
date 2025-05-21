@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import ConnectionFactory.ConnectionDatabase;
+import Model.Mesa;
 import Model.Pedido;
 
 public class PedidoDAO {
@@ -16,15 +17,13 @@ public class PedidoDAO {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         try {
-            String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto, precoTotal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto) VALUES (?, ?, GETDATE(), ?, ?, ?)";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
-            stmt.setDate(3, java.sql.Date.valueOf(pedido.getDataPedido()));
-            stmt.setString(4, pedido.getCondicao());
-            stmt.setString(5, pedido.getObservacoes());
-            stmt.setBigDecimal(6, new BigDecimal(pedido.getDesconto()));
-            stmt.setBigDecimal(7, new BigDecimal(pedido.getPrecoTotal()));
+            stmt.setString(3, pedido.getCondicao());
+            stmt.setString(4, pedido.getObservacoes());
+            stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
             stmt.executeUpdate();
             System.out.println("Pedido cadastrado com sucesso!!");
         } catch (SQLException e) {
@@ -236,5 +235,26 @@ public class PedidoDAO {
             ConnectionDatabase.closeConnection(con, stmt, rs);
         }
         return pedidos;
+    }
+    
+    public String getIdByMesa(String string) {
+    	Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String id = null;
+        try {
+            String sql = "SELECT idPedido FROM Pedido WHERE codeMesa = ? AND condicao = 'Pendente'";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, string);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getString("idPedido");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar ID do pedido!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return id;
     }
 }

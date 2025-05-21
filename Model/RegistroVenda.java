@@ -1,24 +1,29 @@
 package Model;
 
 public class RegistroVenda {
+	private String idCardapioPedido;
 	private String numeroPedido;
 	private String nomeFuncionario;
 	private String numeroMesa;
 	private String codigoCardapio;
 	private String nomeCardapio;
+	private String observacao;
 	private String quantidade;
 	private String valorUnitario;
 	private String desconto;
 	private String valorTotal;
 	
-	public RegistroVenda(String numeroPedido, String nomeFuncionario, String numeroMesa, String codigoCardapio,
-			String nomeCardapio, String quantidade, String valorUnitario, String desconto, String valorTotal) {
+	public RegistroVenda(String idCardapioPedido, String numeroPedido, String nomeFuncionario, String numeroMesa,
+			String codigoCardapio, String nomeCardapio, String observacao, String quantidade, String valorUnitario,
+			String desconto, String valorTotal) {
 		super();
+		this.idCardapioPedido = idCardapioPedido;
 		this.numeroPedido = numeroPedido;
 		this.nomeFuncionario = nomeFuncionario;
 		this.numeroMesa = numeroMesa;
 		this.codigoCardapio = codigoCardapio;
 		this.nomeCardapio = nomeCardapio;
+		this.observacao = observacao;
 		this.quantidade = quantidade;
 		this.valorUnitario = valorUnitario;
 		this.desconto = desconto;
@@ -27,6 +32,14 @@ public class RegistroVenda {
 
 	public RegistroVenda() {
 		super();
+	}
+
+	public String getIdCardapioPedido() {
+		return idCardapioPedido;
+	}
+
+	public void setIdCardapioPedido(String idCardapioPedido) {
+		this.idCardapioPedido = idCardapioPedido;
 	}
 
 	public String getNumeroPedido() {
@@ -69,6 +82,14 @@ public class RegistroVenda {
 		this.nomeCardapio = nomeCardapio;
 	}
 
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
 	public String getQuantidade() {
 		return quantidade;
 	}
@@ -100,6 +121,7 @@ public class RegistroVenda {
 	public void setValorTotal(String valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+	
 	
 	
 }

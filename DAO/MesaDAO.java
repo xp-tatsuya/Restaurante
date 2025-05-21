@@ -70,7 +70,7 @@ public class MesaDAO {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(mesa.getCapacidade()));
             stmt.setString(2, mesa.getCondicao());
-            stmt.setString(3, controllerMesa.mesa.getId());
+            stmt.setString(3, mesa.getId());
             
             stmt.executeUpdate();
             System.out.println("Mesa atualizada com sucesso!!");
@@ -170,5 +170,31 @@ public class MesaDAO {
         }
         return ids;
     }
+    
+    public Mesa verifycondicao(Mesa mesa){
+    	Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Mesa resultado = null;
+        try {
+            String sql = "SELECT * FROM Mesa WHERE ATIVO = 1 AND IDMESA = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, mesa.getId());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resultado = new Mesa();
+                resultado.setId(rs.getString("idMesa"));
+                resultado.setCapacidade(String.valueOf(rs.getInt("capacidade")));
+                resultado.setCondicao(rs.getString("condicao"));
+               
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler IDs de mesas!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return resultado;
+    }
+    
     
 }

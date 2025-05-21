@@ -16,12 +16,13 @@ public class Cardapio_PedidoDAO {
         PreparedStatement stmt = null;
         
         try {
-            String sql = "INSERT INTO Cardapio_Pedido (codeCardapio, codePedido, quantidade) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Cardapio_Pedido (codeCardapio, codePedido, observacao, quantidade) VALUES (?, ?, ?,?)";
             stmt = con.prepareStatement(sql);
             
             stmt.setInt(1, Integer.parseInt(cp.getCodeCardapio()));
             stmt.setInt(2, Integer.parseInt(cp.getCodePedido()));
-            stmt.setInt(3, Integer.parseInt(cp.getQuantidade()));
+            stmt.setString(3, cp.getObservacao());
+            stmt.setInt(4, Integer.parseInt(cp.getQuantidade()));
             
             stmt.executeUpdate();
             System.out.println("Cardapio_Pedido cadastrado com sucesso!!");

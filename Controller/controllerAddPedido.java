@@ -56,7 +56,7 @@ public class controllerAddPedido implements Initializable {
     void ActionSalvar(ActionEvent event) {
         try {
             String nomeFunc = txtFuncionario.getText().trim();
-            int idFunc = funcDAO.getIdByNome(nomeFunc);
+            String idFunc = funcDAO.getIdByNome(nomeFunc);
             int idMesa = Integer.parseInt(txtCODEmesa.getText().trim());
             String data = datePedido.getValue().toString();
             String condicao = "Pendente";

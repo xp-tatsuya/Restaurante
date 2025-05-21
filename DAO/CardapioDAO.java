@@ -158,4 +158,26 @@ public class CardapioDAO {
         return nomes;
     }
     
+    public String getIdByNome(String nome) {
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	String id = null;
+    	
+        try {
+            String sql = "SELECT idCardapio FROM Cardapio WHERE nomeCardapio = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getString("idCardapio");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar ID do cardapio!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return id;
+    }
+    
 }
