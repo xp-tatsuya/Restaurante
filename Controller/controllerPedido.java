@@ -99,18 +99,35 @@ public class controllerPedido implements Initializable {
     }
 
     @FXML void ActionEditar(ActionEvent event) throws IOException {
-    	int i = tablePedido.getSelectionModel().getSelectedIndex();
-    	if(i == -1) {
-    		Alerts.showAlert("Erro!", "Falha ao tentar editar", "Erro! Selecione um pedido para editar!", AlertType.ERROR);
-    	}else {
-    		pedido = tablePedido.getItems().get(i);
-    		Main.TelaAddPedido();
-    	}
-    	loadPendentes();
     }
 
-    @FXML void ActionExcluir(ActionEvent event) {
-    	
+    @FXML
+    void ActionExcluir(ActionEvent event) {
+        int idx = tablePedido.getSelectionModel().getSelectedIndex();
+        if (idx == -1) {
+            Alerts.showAlert(
+                "Informação",
+                "Nenhum pedido selecionado",
+                "Selecione um pedido para excluir!",
+                Alert.AlertType.INFORMATION
+            );
+            return;
+        }
+
+        Pedido sel = tablePedido.getItems().get(idx);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setContentText("Tem certeza que deseja excluir o pedido " + sel.getId() + "?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            pedidoDAO.delete(sel);
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setContentText("Pedido excluído com sucesso!");
+            info.showAndWait();
+            loadPendentes();
+            loadConcluidos();
+        }
     }
 
     @FXML void ActionCardapio(ActionEvent e) throws IOException { Main.changeScreen("Cardapio", controllerLogin.funcionario.getNome(), 0); }
