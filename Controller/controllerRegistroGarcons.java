@@ -108,7 +108,13 @@ public class controllerRegistroGarcons implements Initializable{
     
     RegistroVenda registroVenda = new RegistroVenda();
     
+    PedidoDAO pedidoDAO = new PedidoDAO();
     
+    Pedido pedido = new Pedido();
+    
+    Mesa mesa = new Mesa();
+    
+    MesaDAO mesaDAO = new MesaDAO();
     
     @FXML
     void ActionAdicionar(ActionEvent event) {
@@ -121,7 +127,6 @@ public class controllerRegistroGarcons implements Initializable{
     	
     	mesa.setId(txtMesa.getText());
     	Mesa resultado = mesaDAO.verifycondicao(mesa);
-    	System.out.println(resultado.getCondicao());
     	
     	if(resultado.getCondicao().equals("Livre")) {
     		
@@ -143,7 +148,6 @@ public class controllerRegistroGarcons implements Initializable{
     		
     		CardapioDAO cardapioDAO = new CardapioDAO();
     		String idCardapio = cardapioDAO.getIdByNome(txtProduto.getText());
-    		System.out.println(idPedido);
     		
     		
     		cp.setCodePedido(idPedido);
@@ -160,6 +164,26 @@ public class controllerRegistroGarcons implements Initializable{
     	}else {
     		Pedido pedidoByMesa = pedidoDAO.getByMesa(mesa);
     		System.out.println(pedidoByMesa.getCodeMesa());
+    		
+    		String idFuncionario = funcionarioDAO.getIdByNome(txtFuncionario.getText());
+    		if(idFuncionario.equals(pedidoByMesa.getCodeFuncionario())) {
+    			String idPedido = pedidoDAO.getIdByMesa(resultado.getId());
+        		
+        		CardapioDAO cardapioDAO = new CardapioDAO();
+        		String idCardapio = cardapioDAO.getIdByNome(txtProduto.getText());
+        		System.out.println(idPedido);
+        		
+        		
+        		cp.setCodePedido(idPedido);
+        		cp.setCodeCardapio(idCardapio);
+        		cp.setObservacao(txtObs.getText());
+        		cp.setQuantidade(txtQuantidade.getText());
+        		
+        		Cardapio_PedidoDAO cpDAO = new Cardapio_PedidoDAO();
+        		cpDAO.create(cp);
+    		}else {
+    			Alerts.showAlert("Erro!", "Funcionario não atribuído", "Esta mesa já está atribuída por outro funcionario!", AlertType.ERROR);
+    		}
     	}
     	CarregarTableProduto();
     }
@@ -200,8 +224,21 @@ public class controllerRegistroGarcons implements Initializable{
 
     @FXML
     void ActionFinalizar(ActionEvent event) {
-
+    	mesa.setId(txtMesa.getText());
+    	mesa = mesaDAO.verifycondicao(mesa);
+    	pedido = pedidoDAO.getByMesa(mesa);
+    	System.out.println(pedido.getCondicao());
+    	
+    	pedido.setCondicao("Aguardando Pagamento");
+    	pedidoDAO.update(pedido);
+    	System.out.println(pedido.getCondicao());
+    	mesa.setCondicao("Livre");
+    	mesaDAO.update(mesa);
+    	System.out.println(mesa.getCondicao());
+    	CarregarTableProduto();
     }
+    
+    
     
     public void CarregarTableProduto(){
     	String numeroMesa = txtMesa.getText();
