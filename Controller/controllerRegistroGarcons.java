@@ -228,13 +228,6 @@ public class controllerRegistroGarcons implements Initializable{
     	mesa = mesaDAO.verifycondicao(mesa);
     	pedido = pedidoDAO.getByMesa(mesa);
     	System.out.println(pedido.getCondicao());
-    	
-    	pedido.setCondicao("Aguardando Pagamento");
-    	pedidoDAO.update(pedido);
-    	System.out.println(pedido.getCondicao());
-    	mesa.setCondicao("Livre");
-    	mesaDAO.update(mesa);
-    	System.out.println(mesa.getCondicao());
     	CarregarTableProduto();
     }
     

@@ -68,7 +68,7 @@ public class controllerPedido implements Initializable {
         txtUser.setText(parts[0] + " " + parts[parts.length - 1]);
     }
 
-    private void loadPendentes() {
+    public void loadPendentes() {
         pendentes = FXCollections.observableArrayList(pedidoDAO.CarregarTablePendente());
         columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNome.setCellValueFactory(new PropertyValueFactory<>("observacoes"));

@@ -97,6 +97,7 @@ public class Main extends Application {
                 break;
             case "Pedido":
                 controllerPedido.nome(nome);
+                controllerPedido.loadPendentes();
                 stage.setTitle("Pedido - Sushi's Miyazaki");
                 stage.setScene(pedido);
                 break;
