@@ -180,14 +180,16 @@ public class Main extends Application {
     
     private static Stage editRG;
     public static void TelaEditRegistroGarcon() throws IOException {
-    	FXMLLoader fxmlEditRG = new FXMLLoader();
-    	fxmlEditRG.setLocation(Main.class.getResource("/View/ViewEditRegistroGarcon.fxml"));
-    	Parent telaEditRg = fxmlEditRG.load();
-    	Scene scene = new Scene(telaEditRg);
-    	
-    	editRG.setTitle("Editar Pedido");
-    	editRG.initModality(Modality.WINDOW_MODAL);
-        editRG.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(
+            Main.class.getResource("/View/ViewEditRegistroGarcom.fxml")
+        );
+        Parent root = loader.load();
+
+        editRG = new Stage();
+        editRG.setTitle("Editar Pedido");
+        editRG.initOwner(stage);
+        editRG.initModality(Modality.WINDOW_MODAL);
+        editRG.setScene(new Scene(root));
         editRG.setResizable(false);
         editRG.centerOnScreen();
         editRG.showAndWait();

@@ -180,4 +180,20 @@ public class CardapioDAO {
         return id;
     }
     
+    public String getPrecoUnitarioById(String id) {
+        String preco = null;
+        try (Connection con = ConnectionDatabase.getConnection();
+             PreparedStatement stmt = con.prepareStatement(
+                 "SELECT precoUnitario FROM Cardapio WHERE idCardapio = ?")) {
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                preco = rs.getBigDecimal("precoUnitario").toPlainString();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar precoUnitario!", e);
+        }
+        return preco;
+    }
+    
 }

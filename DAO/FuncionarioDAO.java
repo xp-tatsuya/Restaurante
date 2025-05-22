@@ -266,4 +266,20 @@ public class FuncionarioDAO {
         return id;
     }
     
+    public String getNomeById(String id) {
+        String nome = null;
+        try (Connection con = ConnectionDatabase.getConnection();
+             PreparedStatement stmt = con.prepareStatement(
+                 "SELECT nomeFuncionario FROM Funcionario WHERE idFuncionario = ?")) {
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                nome = rs.getString("nomeFuncionario");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar nomeFuncionario!", e);
+        }
+        return nome;
+    }
+    
 }
