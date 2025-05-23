@@ -1,10 +1,13 @@
 package Controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.controlsfx.control.textfield.TextFields;
 
@@ -15,6 +18,7 @@ import DAO.MesaDAO;
 import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import DAO.RegistroVendaDAO;
+import Model.Cardapio;
 import Model.Cardapio_Pedido;
 import Model.Mesa;
 import Model.Pedido;
@@ -102,7 +106,7 @@ public class controllerRegistroGarcons implements Initializable{
     @FXML
     private TextField txtSenha;
 
-    
+	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     
     RegistroVendaDAO registroVendaDAO = new RegistroVendaDAO();
     
@@ -116,76 +120,46 @@ public class controllerRegistroGarcons implements Initializable{
     
     MesaDAO mesaDAO = new MesaDAO();
     
+    Cardapio cardapio = new Cardapio();
+    CardapioDAO cardapioDAO = new CardapioDAO();
+    
+	Cardapio_Pedido cp = new Cardapio_Pedido();
+    Cardapio_PedidoDAO cpDAO = new Cardapio_PedidoDAO();
+    
+    private ObservableList<RegistroVenda> itens = FXCollections.observableArrayList();
+    
+    private String pedidoId;
+    
     @FXML
     void ActionAdicionar(ActionEvent event) {
-    	MesaDAO mesaDAO = new MesaDAO();
-    	Mesa mesa = new Mesa();
-    	Pedido pedido = new Pedido();
-    	PedidoDAO pedidoDAO = new PedidoDAO();
-    	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    	Cardapio_Pedido cp = new Cardapio_Pedido();
-    	
-    	mesa.setId(txtMesa.getText());
-    	Mesa resultado = mesaDAO.verifycondicao(mesa);
-    	
-    	if(resultado.getCondicao().equals("Livre")) {
-    		
-    		
-    	
-    		pedido.setCodeFuncionario(funcionarioDAO.getIdByNome(txtFuncionario.getText()));
-    		pedido.setCodeMesa(resultado.getId());
-    		pedido.setCondicao("Pendente");
-    		
-    		if(txtDesconto.getText() == null || txtDesconto.getText().trim().isEmpty()) {
-    			pedido.setDesconto("0");
-    		}else {
-    			pedido.setDesconto(txtDesconto.getText());
-    		}
-    		
-    		pedidoDAO.create(pedido);
-    		
-    		String idPedido = pedidoDAO.getIdByMesa(resultado.getId());
-    		
-    		CardapioDAO cardapioDAO = new CardapioDAO();
-    		String idCardapio = cardapioDAO.getIdByNome(txtProduto.getText());
-    		
-    		
-    		cp.setCodePedido(idPedido);
-    		cp.setCodeCardapio(idCardapio);
-    		cp.setObservacao(txtObs.getText());
-    		cp.setQuantidade(txtQuantidade.getText());
-    		
-    		Cardapio_PedidoDAO cpDAO = new Cardapio_PedidoDAO();
-    		cpDAO.create(cp);
-    		
-    		resultado.setCondicao("Ocupada");
-    		mesaDAO.update(resultado);
+        // valida quantidade
+        if (txtQuantidade.getText().trim().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Informe a quantidade antes de adicionar.").showAndWait();
+            return;
+        }
 
-    	}else {
-    		Pedido pedidoByMesa = pedidoDAO.getByMesa(mesa);
-    		System.out.println(pedidoByMesa.getCodeMesa());
-    		
-    		String idFuncionario = funcionarioDAO.getIdByNome(txtFuncionario.getText());
-    		if(idFuncionario.equals(pedidoByMesa.getCodeFuncionario())) {
-    			String idPedido = pedidoDAO.getIdByMesa(resultado.getId());
-        		
-        		CardapioDAO cardapioDAO = new CardapioDAO();
-        		String idCardapio = cardapioDAO.getIdByNome(txtProduto.getText());
-        		System.out.println(idPedido);
-        		
-        		
-        		cp.setCodePedido(idPedido);
-        		cp.setCodeCardapio(idCardapio);
-        		cp.setObservacao(txtObs.getText());
-        		cp.setQuantidade(txtQuantidade.getText());
-        		
-        		Cardapio_PedidoDAO cpDAO = new Cardapio_PedidoDAO();
-        		cpDAO.create(cp);
-    		}else {
-    			Alerts.showAlert("Erro!", "Funcionario não atribuído", "Esta mesa já está atribuída por outro funcionario!", AlertType.ERROR);
-    		}
-    	}
-    	CarregarTableProduto();
+        String nome = txtProduto.getText().trim();
+        String idCard = cardapioDAO.getIdByNome(nome);
+        if (idCard == null) {
+            new Alert(Alert.AlertType.ERROR, "Produto ou Cardápio não encontrado.").showAndWait();
+            return;
+        }
+
+        RegistroVenda rv = new RegistroVenda();
+        rv.setNumeroMesa(txtMesa.getText());
+        rv.setNomeCardapio(nome);
+        rv.setObservacao(txtObs.getText());
+        rv.setQuantidade(txtQuantidade.getText());
+
+        String pu = cardapioDAO.getPrecoUnitarioById(idCard);
+        rv.setValorUnitario(pu);
+        double total = Double.parseDouble(rv.getQuantidade()) * Double.parseDouble(pu);
+        rv.setValorTotal(String.format("%.2f", total));
+        itens.add(rv);
+
+        txtProduto.clear();
+        txtQuantidade.clear();
+        txtObs.clear();
     }
 
     @FXML
@@ -205,7 +179,6 @@ public class controllerRegistroGarcons implements Initializable{
     		Alerts.showAlert("Informação", "Nenhum produto selecionado", "Selecione um produto para excluir!", Alert.AlertType.INFORMATION);
     	}else {
     		registroVenda = tablePedido.getItems().get(i);
-    		System.out.println(registroVenda.getIdCardapioPedido());
     		
     		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
 			mensagemDeAviso.setContentText("Tem certeza que deseja excluir este produto? ");
@@ -224,11 +197,36 @@ public class controllerRegistroGarcons implements Initializable{
 
     @FXML
     void ActionFinalizar(ActionEvent event) {
-    	mesa.setId(txtMesa.getText());
-    	mesa = mesaDAO.verifycondicao(mesa);
-    	pedido = pedidoDAO.getByMesa(mesa);
-    	System.out.println(pedido.getCondicao());
-    	CarregarTableProduto();
+    	 try {
+             // 1) Atualiza os dados do pedido (funcionário + desconto)
+             String funcId = new FuncionarioDAO().getIdByNome(txtFuncionario.getText().trim());
+             pedido.setCodeFuncionario(funcId != null ? funcId : pedido.getCodeFuncionario());
+
+             String discText = txtDesconto.getText();
+             BigDecimal desconto = discText.isEmpty()
+                 ? BigDecimal.ZERO
+                 : new BigDecimal(discText);
+             pedido.setDesconto(desconto.toPlainString());
+
+             // salva
+             pedidoDAO.update(pedido);
+
+             // 2) recria todos os itens
+             registroVendaDAO.deleteByPedido(pedidoId);
+             for (RegistroVenda rv : itens) {
+                 Cardapio_Pedido cp = new Cardapio_Pedido();
+                 cp.setCodePedido(pedidoId);
+                 cp.setCodeCardapio(cardapioDAO.getIdByNome(rv.getNomeCardapio()));
+                 cp.setObservacao(rv.getObservacao());
+                 cp.setQuantidade(rv.getQuantidade());
+                 cpDAO.create(cp);
+             }
+
+         } catch (NumberFormatException nfe) {
+             new Alert(Alert.AlertType.ERROR, "Desconto inválido.").showAndWait();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
     
     
@@ -244,24 +242,55 @@ public class controllerRegistroGarcons implements Initializable{
 		
         ObservableList<RegistroVenda> lista = FXCollections.observableArrayList(registroVendaDAO.read(numeroMesa));
         tablePedido.setItems(lista);
+        
+    }
+    
+    public void valores() {
+    	String idPedido = pedido.getPrecoTotal();
+    	labelTotal.setText(pedido.getPrecoTotal());
+    	labelDesconto.setText(pedido.getDesconto());
     }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-		ArrayList<String> nomes = funcionarioDAO.readFuncionarioByNome();
-        TextFields.bindAutoCompletion(txtFuncionario, nomes);
-        
-        MesaDAO mesaDAO = new MesaDAO();
-        ArrayList<String> mesaIds = mesaDAO.readMesaById();
-        TextFields.bindAutoCompletion(txtMesa, mesaIds);
-        
-        CardapioDAO cardapioDAO = new CardapioDAO();
-        ArrayList<String> produtos = cardapioDAO.readCardapioByNome();
-        TextFields.bindAutoCompletion(txtProduto, produtos);
-		CarregarTableProduto();
+		FuncionarioDAO fdao = new FuncionarioDAO();
+        TextFields.bindAutoCompletion(txtFuncionario, fdao.readFuncionarioByNome());
 
+        MesaDAO mdao = new MesaDAO();
+        TextFields.bindAutoCompletion(txtMesa, mdao.readMesaById());
+
+        // Auto-complete produto/cardápio
+        Set<String> sugestoes = new LinkedHashSet<>();
+        sugestoes.addAll(cardapioDAO.readCardapioByNome());
+        sugestoes.addAll(new ProdutoDAO().readProdutoByNome());
+        TextFields.bindAutoCompletion(txtProduto, sugestoes);
+
+        // configura colunas
+        columnProduto.setCellValueFactory(new PropertyValueFactory<>("nomeCardapio"));
+        columnObs.setCellValueFactory(new PropertyValueFactory<>("observacao"));
+        columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        columnPreconUn.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
+        columnTotalTabela.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+
+        // se vier para editar, carrega dados
+        if (controllerPedido.pedido != null) {
+            pedido = controllerPedido.pedido;
+            pedidoId = pedido.getId();
+            txtFuncionario.setText(
+                fdao.readFuncionarioByNome().stream()
+                    .filter(n -> fdao.getIdByNome(n).equals(pedido.getCodeFuncionario()))
+                    .findFirst().orElse("")
+            );
+            txtMesa.setText(pedido.getCodeMesa());
+            txtDesconto.setText(pedido.getDesconto());
+
+            recarregarItens();
+        }
 	}
+	
+	private void recarregarItens() {
+        itens.setAll(registroVendaDAO.read(txtMesa.getText()));
+        tablePedido.setItems(itens);
+    }
 
 }
