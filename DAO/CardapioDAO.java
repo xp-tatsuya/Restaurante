@@ -196,4 +196,32 @@ public class CardapioDAO {
         return preco;
     }
     
+    public Cardapio getByNome(String nome) {
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	
+    	try {
+			stmt = con.prepareStatement("SELECT * FROM Cardapio WHERE nomeCardapio = ?");
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				Cardapio cardapio = new Cardapio();
+				cardapio.setId(rs.getString("idCardapio"));
+				cardapio.setNome(rs.getString("nomeCardapio"));
+				cardapio.setDescricao(rs.getString("descricao"));
+				cardapio.setCategoria(rs.getString("categoria"));
+				cardapio.setPrecoUnitario(rs.getString("precoUnitario"));
+				
+				return cardapio;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    	
+    }
+    
 }
