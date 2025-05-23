@@ -21,8 +21,11 @@
          </font>
       </Label>
       <Line endX="70.199951171875" layoutX="697.0" layoutY="76.0" startX="-521.0" stroke="#a71d1d" strokeWidth="4.0" />
-      <TextField fx:id="txtNome" layoutX="179.0" layoutY="135.0" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="193.0" layoutY="109.0" text="Nome">
+      <TextField fx:id="txtNome" layoutX="179.0" layoutY="135.0" prefHeight="40.0" prefWidth="280.0" promptText="Ex: Eduardo" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="192.0" layoutY="109.0" text="Nome">
          <font>
             <Font size="16.0" />
          </font>
@@ -34,7 +37,7 @@
       </Label>
       <Button fx:id="btCancelar" layoutX="602.0" layoutY="502.0" mnemonicParsing="false" onAction="#ActionCancelar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Cancelar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
@@ -46,7 +49,7 @@
       </Button>
       <Button fx:id="btSalvar" layoutX="424.0" layoutY="502.0" mnemonicParsing="false" onAction="#ActionSalvar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Salvar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
@@ -56,19 +59,25 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtCargo" layoutX="371.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtSalario" layoutX="569.0" layoutY="268.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="381.0" layoutY="242.0" text="Cargo">
+      <TextField fx:id="txtCargo" layoutX="371.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" promptText="Ex: Garçom" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="txtSalario" layoutX="567.0" layoutY="268.0" prefHeight="40.0" prefWidth="200.0" promptText="Ex: R$ 000,00" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="382.0" layoutY="242.0" text="Cargo">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="580.0" layoutY="242.0" text="Salário">
+      <Label layoutX="579.0" layoutY="242.0" text="Salário">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dateAdmiss" layoutX="180.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" />
+      <DatePicker fx:id="dateAdmiss" layoutX="179.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" promptText="00/00/0000" />
       <Label layoutX="180.0" layoutY="242.0" text="Data de Nasc.">
          <font>
             <Font size="16.0" />
@@ -79,33 +88,48 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCPF" layoutX="489.0" layoutY="135.0" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="493.0" layoutY="109.0" text="CPF">
+      <TextField fx:id="txtCPF" layoutX="487.0" layoutY="135.0" prefHeight="40.0" prefWidth="280.0" promptText="Ex: 000.000.000-00" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="500.0" layoutY="109.0" text="CPF">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dateNasc" layoutX="180.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="choiceGenero" layoutX="370.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" />
-      <TextField fx:id="txtSenha" layoutX="569.0" layoutY="335.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 20;" />
+      <DatePicker fx:id="dateNasc" layoutX="179.0" layoutY="268.0" prefHeight="40.0" prefWidth="150.0" promptText="00/00/0000" />
+      <ChoiceBox fx:id="choiceGenero" layoutX="371.0" layoutY="335.0" prefHeight="40.0" prefWidth="150.0" />
+      <TextField fx:id="txtSenha" layoutX="567.0" layoutY="335.0" prefHeight="40.0" prefWidth="200.0" promptText="Ex: senha123" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
       <Label layoutX="579.0" layoutY="309.0" text="Senha">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEmail" layoutX="177.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="txtEmail" layoutX="179.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0" promptText="Ex: exemplo@exemplo.com" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
       <Label layoutX="191.0" layoutY="175.0" text="E-mail">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtTelefone" layoutX="487.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="491.0" layoutY="175.0" text="Telefone">
+      <TextField fx:id="txtTelefone" layoutX="487.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0" promptText="Ex: 00 00000-0000" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="500.0" layoutY="175.0" text="Telefone">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEndereco" layoutX="177.0" layoutY="401.0" prefHeight="40.0" prefWidth="588.0" style="-fx-background-radius: 20;" />
+      <TextField fx:id="txtEndereco" layoutX="179.0" layoutY="401.0" prefHeight="40.0" prefWidth="588.0" promptText="Ex: Rua B, nº 2" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
       <Label layoutX="191.0" layoutY="375.0" text="Endereço">
          <font>
             <Font size="16.0" />

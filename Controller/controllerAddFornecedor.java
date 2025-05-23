@@ -26,8 +26,8 @@ public class controllerAddFornecedor implements Initializable {
     @FXML private Label title;
     
     private final FornecedorDAO fornecedorDAO = new FornecedorDAO();
-
     private Fornecedor fornecedor = new Fornecedor();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(controllerFornecedor.fornecedor != null) {

@@ -13,20 +13,26 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerAddCardapio">
    <children>
       <Pane layoutX="-10.0" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: #000000;" />
-      <Label fx:id="title" layoutX="244.0" layoutY="30.0" text="ADICIONAR ITEM AO CARDAPIO">
+      <Label fx:id="title" alignment="CENTER" layoutX="244.0" layoutY="30.0" prefHeight="42.0" prefWidth="462.0" text="ADICIONAR ITEM AO CARDAPIO">
          <font>
             <Font name="GOST Common" size="36.0" />
          </font>
       </Label>
       <Line endX="70.199951171875" layoutX="697.0" layoutY="76.0" startX="-521.0" stroke="#a71d1d" strokeWidth="4.0" />
-      <TextField fx:id="txtNome" layoutX="174.0" layoutY="160.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtDescricao" layoutX="178.0" layoutY="236.0" prefHeight="40.0" prefWidth="586.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="190.0" layoutY="134.0" text="Nome">
+      <TextField fx:id="txtNome" layoutX="179.0" layoutY="160.0" prefHeight="40.0" prefWidth="586.0" promptText="Ex: Sushi" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="txtDescricao" layoutX="179.0" layoutY="230.0" prefHeight="40.0" prefWidth="586.0" promptText="Ex: Arroz temperado com peixe fresco." style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="191.0" layoutY="135.0" text="Nome">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="210.0" prefHeight="18.0" prefWidth="150.0" text="Descrição">
+      <Label layoutX="191.0" layoutY="205.0" prefHeight="18.0" prefWidth="150.0" text="Descrição">
          <font>
             <Font size="16.0" />
          </font>
@@ -45,7 +51,7 @@
       </Button>
       <Button fx:id="btSalvar" layoutX="424.0" layoutY="502.0" mnemonicParsing="false" onAction="#ActionSalvar" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: A71D1D; -fx-background-radius: 15;" text="Salvar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -55,14 +61,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtCategoria" layoutX="185.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <TextField fx:id="txtValorUn" layoutX="527.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-radius: 20;" />
-      <Label layoutX="201.0" layoutY="281.0" text="Categoria">
+      <TextField fx:id="txtCategoria" layoutX="179.0" layoutY="300.0" prefHeight="40.0" prefWidth="250.0" promptText="Ex: Peixes" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="txtValorUn" layoutX="515.0" layoutY="300.0" prefHeight="40.0" prefWidth="250.0" promptText="Ex: 00,00" style="-fx-background-radius: 20;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Label layoutX="191.0" layoutY="275.0" text="Categoria">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="540.0" layoutY="281.0" text="Valor Unitario">
+      <Label layoutX="527.0" layoutY="275.0" text="Valor Unitário">
          <font>
             <Font size="16.0" />
          </font>
