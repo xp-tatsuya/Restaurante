@@ -25,7 +25,6 @@ public class PedidoDAO {
             stmt.setString(4, pedido.getObservacoes());
             stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
             stmt.executeUpdate();
-            System.out.println("Pedido cadastrado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar pedido!", e);
         } finally {
@@ -69,20 +68,25 @@ public class PedidoDAO {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         try {
-            String sql = "UPDATE Pedido SET codeFuncionario = ?, codeMesa = ?, dataPedido = ?, condicao = ?, observacoes = ?, desconto = ?, precoTotal = ? WHERE idPedido = ?";
+            String sql = "UPDATE Pedido SET codeFuncionario = ?, codeMesa = ?, condicao = ?, observacoes = ?, desconto = ?, precoTotal = ? WHERE idPedido = ?";
             stmt = con.prepareStatement(sql);
             
             stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
             stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
-            stmt.setDate(3, java.sql.Date.valueOf(pedido.getDataPedido()));
-            stmt.setString(4, pedido.getCondicao());
-            stmt.setString(5, pedido.getObservacoes());
-            stmt.setBigDecimal(6, new BigDecimal(pedido.getDesconto()));
-            stmt.setBigDecimal(7, new BigDecimal(pedido.getPrecoTotal()));
-            stmt.setString(8, pedido.getId());
+            stmt.setString(3, pedido.getCondicao());
+            stmt.setString(4, pedido.getObservacoes());
+            
+            stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
+            if(pedido.getPrecoTotal() == null) {
+            	pedido.setPrecoTotal("0");
+            	stmt.setBigDecimal(6, new BigDecimal(pedido.getPrecoTotal()));
+            }else {
+            	stmt.setBigDecimal(6, new BigDecimal(pedido.getPrecoTotal()));
+            }
+            
+            stmt.setString(7, pedido.getId());
 
             stmt.executeUpdate();
-            System.out.println("Pedido atualizado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar pedido!", e);
         } finally {
@@ -99,7 +103,6 @@ public class PedidoDAO {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, pedido.getId());
             stmt.executeUpdate();
-            System.out.println("Pedido deletado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar pedido!", e);
         } finally {
