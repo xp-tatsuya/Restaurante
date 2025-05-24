@@ -19,21 +19,33 @@
          <children>
             <Pane layoutX="18.0" layoutY="27.0" prefHeight="175.0" prefWidth="690.0" style="-fx-background-color: #000000; -fx-background-radius: 15;">
                <children>
-                  <TextField fx:id="txtFuncionario" layoutX="10.0" layoutY="43.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-radius: 20;" />
-                  <TextField fx:id="txtMesa" layoutX="270.0" layoutY="43.0" prefHeight="40.0" prefWidth="84.0" style="-fx-background-radius: 20;" />
-                  <TextField fx:id="txtProduto" layoutX="10.0" layoutY="112.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-radius: 20;" />
-                  <TextField fx:id="txtQuantidade" layoutX="169.0" layoutY="112.0" prefHeight="40.0" prefWidth="84.0" style="-fx-background-radius: 20;" />
-                  <Label layoutX="22.0" layoutY="19.0" prefHeight="25.0" prefWidth="84.0" text="Funcionario" textFill="WHITE">
+                  <TextField fx:id="txtFuncionario" layoutX="15.0" layoutY="40.0" prefHeight="40.0" prefWidth="141.0" promptText="Ex: Hugo" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="txtMesa" layoutX="284.0" layoutY="40.0" prefHeight="40.0" prefWidth="70.0" promptText="Ex: 10" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="txtProduto" layoutX="15.0" layoutY="115.0" prefHeight="40.0" prefWidth="141.0" promptText="Ex: Sushi" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <TextField fx:id="txtQuantidade" layoutX="169.0" layoutY="115.0" prefHeight="40.0" prefWidth="70.0" promptText="Ex: 2" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <Label layoutX="27.0" layoutY="15.0" prefHeight="25.0" prefWidth="84.0" text="Funcionario" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="24.0" layoutY="87.0" text="Produto" textFill="WHITE">
+                  <Label layoutX="27.0" layoutY="90.0" text="Produto" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="169.0" layoutY="87.0" prefHeight="25.0" prefWidth="84.0" text="Quantidade" textFill="WHITE">
+                  <Label layoutX="165.0" layoutY="90.0" prefHeight="25.0" prefWidth="84.0" text="Quantidade" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -43,8 +55,11 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtObs" layoutX="275.0" layoutY="112.0" prefHeight="40.0" prefWidth="182.0" style="-fx-background-radius: 20;" />
-                  <Label layoutX="291.0" layoutY="87.0" prefHeight="25.0" prefWidth="108.0" text="Observação" textFill="WHITE">
+                  <TextField fx:id="txtObs" layoutX="275.0" layoutY="115.0" prefHeight="40.0" prefWidth="182.0" promptText="Ex: Com molho shoyu" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <Label layoutX="287.0" layoutY="90.0" prefHeight="25.0" prefWidth="108.0" text="Observação" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -61,7 +76,10 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtDesconto" layoutX="373.0" layoutY="43.0" prefHeight="40.0" prefWidth="95.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="txtDesconto" layoutX="385.0" layoutY="40.0" prefHeight="40.0" prefWidth="95.0" promptText="Ex: R$ 00,00" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
                   <Label layoutX="382.0" layoutY="18.0" prefHeight="25.0" prefWidth="75.0" text="Desconto" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
@@ -79,8 +97,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtSenha" layoutX="167.0" layoutY="43.0" prefHeight="40.0" prefWidth="84.0" style="-fx-background-radius: 20;" />
-                  <Label layoutX="177.0" layoutY="20.0" text="Senha" textFill="WHITE">
+                  <TextField fx:id="txtSenha" layoutX="167.0" layoutY="40.0" prefHeight="40.0" prefWidth="110.0" promptText="Ex: senha123" style="-fx-background-radius: 20;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <Label layoutX="177.0" layoutY="15.0" text="Senha" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -144,7 +165,7 @@
             </Pane>
             <Button fx:id="btAdm" layoutX="18.0" layoutY="402.0" mnemonicParsing="false" onAction="#ActionAdm" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: A71D1D; -fx-background-radius: 30;" text="ADM" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">

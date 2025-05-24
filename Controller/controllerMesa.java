@@ -68,7 +68,6 @@ public class controllerMesa implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CarregarTableMesa();
-        mesa = null;
     }
     
     public void CarregarTableMesa() {
@@ -109,6 +108,7 @@ public class controllerMesa implements Initializable {
 
     @FXML
     void ActionAdicionar(ActionEvent event) throws IOException {
+    	mesa = null;
     	Main.TelaAddMesa();
     	CarregarTableMesa();
     }
