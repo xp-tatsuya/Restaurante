@@ -26,6 +26,7 @@ import Model.Produto;
 import Model.RegistroVenda;
 import Util.Alerts;
 import application.Main;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,22 +60,22 @@ public class controllerRegistroGarcons implements Initializable{
     private Button btFinalizar;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnIndice;
+    private TableColumn<RegistroVenda, String> columnIndice;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnObs;
+    private TableColumn<RegistroVenda, String> columnObs;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnPreconUn;
+    private TableColumn<RegistroVenda, String> columnPreconUn;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnProduto;
+    private TableColumn<RegistroVenda, String> columnProduto;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnQuantidade;
+    private TableColumn<RegistroVenda, String> columnQuantidade;
 
     @FXML
-    private TableColumn<String, RegistroVenda> columnTotalTabela;
+    private TableColumn<RegistroVenda, String> columnTotalTabela;
 
     @FXML
     private Label labelDesconto;
@@ -106,60 +107,35 @@ public class controllerRegistroGarcons implements Initializable{
     @FXML
     private TextField txtSenha;
 
-	FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     
-    RegistroVendaDAO registroVendaDAO = new RegistroVendaDAO();
+    private  ObservableList<RegistroVenda> listaTemp = FXCollections.observableArrayList();
     
-    RegistroVenda registroVenda = new RegistroVenda();
+    private String subTotal = "0";
     
-    PedidoDAO pedidoDAO = new PedidoDAO();
-    
-    Pedido pedido = new Pedido();
-    
-    Mesa mesa = new Mesa();
-    
-    MesaDAO mesaDAO = new MesaDAO();
-    
-    Cardapio cardapio = new Cardapio();
-    CardapioDAO cardapioDAO = new CardapioDAO();
-    
-	Cardapio_Pedido cp = new Cardapio_Pedido();
-    Cardapio_PedidoDAO cpDAO = new Cardapio_PedidoDAO();
-    
-    private ObservableList<RegistroVenda> itens = FXCollections.observableArrayList();
-    
-    private String pedidoId;
+    double descontoAcumulado = 0;
     
     @FXML
     void ActionAdicionar(ActionEvent event) {
-        // valida quantidade
-        if (txtQuantidade.getText().trim().isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Informe a quantidade antes de adicionar.").showAndWait();
-            return;
-        }
-
-        String nome = txtProduto.getText().trim();
-        String idCard = cardapioDAO.getIdByNome(nome);
-        if (idCard == null) {
-            new Alert(Alert.AlertType.ERROR, "Produto ou Cardápio não encontrado.").showAndWait();
-            return;
-        }
-
-        RegistroVenda rv = new RegistroVenda();
-        rv.setNumeroMesa(txtMesa.getText());
-        rv.setNomeCardapio(nome);
-        rv.setObservacao(txtObs.getText());
-        rv.setQuantidade(txtQuantidade.getText());
-
-        String pu = cardapioDAO.getPrecoUnitarioById(idCard);
-        rv.setValorUnitario(pu);
-        double total = Double.parseDouble(rv.getQuantidade()) * Double.parseDouble(pu);
-        rv.setValorTotal(String.format("%.2f", total));
-        itens.add(rv);
-
-        txtProduto.clear();
-        txtQuantidade.clear();
-        txtObs.clear();
+    	String nomeProduto = txtProduto.getText();
+    	String quantidade = txtQuantidade.getText();
+    	String observacao = txtObs.getText();
+    	
+    	Cardapio cardapio = new CardapioDAO().getByNome(nomeProduto);
+    	RegistroVenda item = new RegistroVenda();
+    	
+    	item.setCodigoCardapio(cardapio.getId());
+    	item.setNomeCardapio(cardapio.getNome());
+    	item.setValorUnitario(cardapio.getPrecoUnitario());
+    	item.setQuantidade(quantidade);
+    	item.setObservacao(observacao);
+    	
+    	listaTemp.add(item);
+    	atualizarValores();
+    	
+    	txtProduto.clear();
+    	txtQuantidade.clear();
+    	txtObs.clear();
+    	txtDesconto.clear();
     }
 
     @FXML
@@ -169,128 +145,110 @@ public class controllerRegistroGarcons implements Initializable{
 
     @FXML
     void ActionCancelar(ActionEvent event) {
-
+    	limparTudo();
     }
 
     @FXML
 	void ActionExcluir(ActionEvent event) {
-    	int i = tablePedido.getSelectionModel().getSelectedIndex();
-    	if(i == -1) {
-    		Alerts.showAlert("Informação", "Nenhum produto selecionado", "Selecione um produto para excluir!", Alert.AlertType.INFORMATION);
+    	RegistroVenda item = tablePedido.getSelectionModel().getSelectedItem();
+    	if(item != null) {
+    		listaTemp.remove(item);
+    		atualizarValores();
     	}else {
-    		registroVenda = tablePedido.getItems().get(i);
-    		
-    		Alert mensagemDeAviso = new Alert(Alert.AlertType.CONFIRMATION);
-			mensagemDeAviso.setContentText("Tem certeza que deseja excluir este produto? ");
-			
-			Optional<ButtonType> resultado = mensagemDeAviso.showAndWait();
-
-			if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-				registroVendaDAO.delete(registroVenda);
-				Alert mensagemDeExcluir = new Alert(Alert.AlertType.INFORMATION);
-				mensagemDeExcluir.setContentText("Mesa excluida com sucesso!");
-				mensagemDeExcluir.showAndWait();
-				CarregarTableProduto();
-    	}
+    		Alerts.showAlert("Informação", "Nenhum produto selecionado", "Selecione um produto para excluir!", Alert.AlertType.INFORMATION);
     	}
 	}
 
     @FXML
     void ActionFinalizar(ActionEvent event) {
-    	 try {
-             // 1) Atualiza os dados do pedido (funcionário + desconto)
-             String funcId = new FuncionarioDAO().getIdByNome(txtFuncionario.getText().trim());
-             pedido.setCodeFuncionario(funcId != null ? funcId : pedido.getCodeFuncionario());
 
-             String discText = txtDesconto.getText();
-             BigDecimal desconto = discText.isEmpty()
-                 ? BigDecimal.ZERO
-                 : new BigDecimal(discText);
-             pedido.setDesconto(desconto.toPlainString());
-
-             // salva
-             pedidoDAO.update(pedido);
-
-             // 2) recria todos os itens
-             registroVendaDAO.deleteByPedido(pedidoId);
-             for (RegistroVenda rv : itens) {
-                 Cardapio_Pedido cp = new Cardapio_Pedido();
-                 cp.setCodePedido(pedidoId);
-                 cp.setCodeCardapio(cardapioDAO.getIdByNome(rv.getNomeCardapio()));
-                 cp.setObservacao(rv.getObservacao());
-                 cp.setQuantidade(rv.getQuantidade());
-                 cpDAO.create(cp);
-             }
-
-         } catch (NumberFormatException nfe) {
-             new Alert(Alert.AlertType.ERROR, "Desconto inválido.").showAndWait();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
     }
     
     
-    
-    public void CarregarTableProduto(){
-    	String numeroMesa = txtMesa.getText();
-		columnIndice.setCellValueFactory(new PropertyValueFactory<>("numeroPedido"));
-		columnProduto.setCellValueFactory(new PropertyValueFactory<>("nomeCardapio"));
-		columnObs.setCellValueFactory(new PropertyValueFactory<>("observacao"));
-		columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-		columnPreconUn.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
-		columnTotalTabela.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
-		
-        ObservableList<RegistroVenda> lista = FXCollections.observableArrayList(registroVendaDAO.read(numeroMesa));
-        tablePedido.setItems(lista);
-        
+    private void atualizarValores() {
+    	   double subtotalDouble = 0;
+    	    for (RegistroVenda i : listaTemp) {
+    	        try {
+    	            double preco = Double.parseDouble(i.getValorUnitario());
+    	            int qtd = Integer.parseInt(i.getQuantidade());
+    	            subtotalDouble += preco * qtd;
+    	        } catch (Exception ignored) {}
+    	    }
+    	    subTotal = String.format("%.2f", subtotalDouble);
+
+    	    double desconto = 0;
+    	    try {
+    	        desconto = Double.parseDouble(txtDesconto.getText());
+    	        if (desconto > subtotalDouble) {
+    	            System.out.println("Desconto não pode ser maior que o subtotal.");
+    	            desconto = 0;
+    	            txtDesconto.setText("0");
+    	        }
+    	    } catch (NumberFormatException ignored) {}
+    	    
+    	    
+    	    descontoAcumulado += desconto;
+    	    double total = subtotalDouble - descontoAcumulado;
+
+
+    	    labelDesconto.setText(String.format("%.2f", descontoAcumulado));
+    	    labelTotal.setText(String.format("%.2f", total));
     }
     
-    public void valores() {
-    	String idPedido = pedido.getPrecoTotal();
-    	labelTotal.setText(pedido.getPrecoTotal());
-    	labelDesconto.setText(pedido.getDesconto());
+    private void limparTudo() {
+        txtFuncionario.clear();
+        txtSenha.clear();
+        txtMesa.clear();
+        txtDesconto.clear();
+        txtProduto.clear();
+        txtQuantidade.clear();
+        txtObs.clear();
+        listaTemp.clear();
+        descontoAcumulado = 0;
+        atualizarValores();
     }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		FuncionarioDAO fdao = new FuncionarioDAO();
-        TextFields.bindAutoCompletion(txtFuncionario, fdao.readFuncionarioByNome());
+		CardapioDAO cardapioDAO = new CardapioDAO();
+	  	// Configura autocomplete para txtFuncionario
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        ArrayList<String> nomesFuncionarios = funcionarioDAO.readFuncionarioByNome();
+        TextFields.bindAutoCompletion(txtFuncionario, nomesFuncionarios);
 
-        MesaDAO mdao = new MesaDAO();
-        TextFields.bindAutoCompletion(txtMesa, mdao.readMesaById());
+        // Configura autocomplete para txtMesa
+        MesaDAO mesaDAO = new MesaDAO();
+        ArrayList<String> mesaIds = mesaDAO.readMesaById();
+        TextFields.bindAutoCompletion(txtMesa, mesaIds);
 
-        // Auto-complete produto/cardápio
-        Set<String> sugestoes = new LinkedHashSet<>();
-        sugestoes.addAll(cardapioDAO.readCardapioByNome());
-        sugestoes.addAll(new ProdutoDAO().readProdutoByNome());
-        TextFields.bindAutoCompletion(txtProduto, sugestoes);
+        // Configura autocomplete para txtProduto com nomes de produtos e itens do cardápio
+        ArrayList<String> produtosCardapio = cardapioDAO.readCardapioByNome();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ArrayList<String> nomesProdutos = produtoDAO.readProdutoByNome();
 
-        // configura colunas
-        columnProduto.setCellValueFactory(new PropertyValueFactory<>("nomeCardapio"));
-        columnObs.setCellValueFactory(new PropertyValueFactory<>("observacao"));
-        columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        columnPreconUn.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
-        columnTotalTabela.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+        // Combina as duas listas
+        Set<String> sugestoesProdutos = new LinkedHashSet<>();
+        sugestoesProdutos.addAll(produtosCardapio);
+        sugestoesProdutos.addAll(nomesProdutos);
 
-        // se vier para editar, carrega dados
-        if (controllerPedido.pedido != null) {
-            pedido = controllerPedido.pedido;
-            pedidoId = pedido.getId();
-            txtFuncionario.setText(
-                fdao.readFuncionarioByNome().stream()
-                    .filter(n -> fdao.getIdByNome(n).equals(pedido.getCodeFuncionario()))
-                    .findFirst().orElse("")
-            );
-            txtMesa.setText(pedido.getCodeMesa());
-            txtDesconto.setText(pedido.getDesconto());
-
-            recarregarItens();
-        }
+        // Vincula a lista combinada ao campo txtProduto
+        TextFields.bindAutoCompletion(txtProduto, sugestoesProdutos);
+        
+        columnProduto.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getNomeCardapio()));
+        columnObs.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getObservacao()));
+        columnQuantidade.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getQuantidade()));
+        columnPreconUn.setCellValueFactory(c -> new ReadOnlyStringWrapper(c.getValue().getValorUnitario()));
+        columnTotalTabela.setCellValueFactory(c -> {
+        	try {
+        		double preco = Double.parseDouble(c.getValue().getValorUnitario());
+        		int qtd = Integer.parseInt(c.getValue().getQuantidade());
+        		return new ReadOnlyStringWrapper(String.format("%.2f", preco * qtd));
+        	}catch(Exception e) {
+        		return new ReadOnlyStringWrapper("0.00");
+        	}
+        });
+        
+        tablePedido.setItems(listaTemp);
 	}
-	
-	private void recarregarItens() {
-        itens.setAll(registroVendaDAO.read(txtMesa.getText()));
-        tablePedido.setItems(itens);
-    }
-
 }
+
