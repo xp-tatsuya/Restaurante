@@ -13,24 +13,32 @@ import Model.Pedido;
 public class PedidoDAO {
 
     // CREATE - inserir um novo pedido
-    public void create(Pedido pedido) {
-        Connection con = ConnectionDatabase.getConnection();
-        PreparedStatement stmt = null;
-        try {
-            String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto) VALUES (?, ?, GETDATE(), ?, ?, ?)";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
-            stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
-            stmt.setString(3, pedido.getCondicao());
-            stmt.setString(4, pedido.getObservacoes());
-            stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao cadastrar pedido!", e);
-        } finally {
-            ConnectionDatabase.closeConnection(con, stmt);
-        }
-    }
+	public void create(Pedido pedido) {
+	    Connection con = ConnectionDatabase.getConnection();
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null; // Adicione ResultSet
+	    try {
+	        String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto) VALUES (?, ?, GETDATE(), ?, ?, ?); " +
+	                     "SELECT SCOPE_IDENTITY();"; // Adicione SCOPE_IDENTITY() para obter o ID inserido
+	        stmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); // Use RETURN_GENERATED_KEYS
+	        stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
+	        stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
+	        stmt.setString(3, pedido.getCondicao());
+	        stmt.setString(4, pedido.getObservacoes());
+	        stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
+	        stmt.executeUpdate();
+
+	        rs = stmt.getGeneratedKeys(); // Obtenha o ResultSet com a chave gerada
+	        if (rs.next()) {
+	            pedido.setId(String.valueOf(rs.getInt(1))); // Defina o ID do pedido
+	        }
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erro ao cadastrar pedido!", e);
+	    } finally {
+	        ConnectionDatabase.closeConnection(con, stmt, rs); // Inclua rs no closeConnection
+	    }
+	}
     
     // READ - ler todos os pedidos
     public ArrayList<Pedido> read() {
@@ -265,13 +273,14 @@ public class PedidoDAO {
     	Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Pedido pedido = new Pedido();
+        Pedido pedido = null;
         try {
             String sql = "SELECT * FROM Pedido WHERE codeMesa = ? AND condicao = 'Pendente'";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, id.getId());
             rs = stmt.executeQuery();
             if (rs.next()) {
+            	pedido = new Pedido();
                 pedido.setId(rs.getString("idPedido"));
                 pedido.setCodeFuncionario(rs.getString("codeFuncionario"));
                 pedido.setCodeMesa(rs.getString("codeMesa"));

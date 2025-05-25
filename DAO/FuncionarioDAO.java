@@ -226,6 +226,44 @@ public class FuncionarioDAO {
         return func;
     }
     
+    public Funcionario autenticarUserByNome(String nome, String senha) {
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	Funcionario func = null;
+    	 try {
+             stmt = con.prepareStatement("SELECT * FROM Funcionario WHERE nomeFuncionario = ? AND senha = ?");
+             stmt.setString(1, nome);
+             stmt.setString(2, senha);
+             rs = stmt.executeQuery();
+             
+             if (rs.next()) {
+                 func = new Funcionario();
+                 func.setId(rs.getString("idFuncionario"));
+                 func.setNome(rs.getString("nomeFuncionario"));
+                 func.setSenha(rs.getString("senha"));
+                 func.setVerificarAcesso(rs.getString("verificarAcesso"));
+                 func.setCpf(rs.getString("cpfFuncionario"));
+                 func.setEmail(rs.getString("emailFuncionario"));
+                 func.setTelefone(rs.getString("telefoneFuncionario"));
+                 func.setGenero(rs.getString("generoFuncionario"));
+                 func.setEndereco(rs.getString("enderecoFuncionario"));
+                 func.setDataNasc(rs.getString("dataNascFuncionario"));
+                 func.setCargo(rs.getString("cargo"));
+                 func.setSalario(rs.getString("salario"));
+                 func.setDataAdms(rs.getString("dataDeAdmissao"));
+             }
+             
+         } catch (SQLException e) {
+             Alerts.showAlert("Erro!!", "Erro de conexão", "Falha ao consultar informações no banco de dados", AlertType.ERROR);
+             throw new RuntimeException("Erro de autenticação", e);
+         } finally {
+             ConnectionDatabase.closeConnection(con, stmt, rs);
+         }
+    	 
+    	 return func;
+    }
+    
     public ArrayList<String> readFuncionarioByNome() {
         Connection con = ConnectionDatabase.getConnection();
         PreparedStatement stmt = null;

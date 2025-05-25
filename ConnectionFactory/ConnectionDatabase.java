@@ -9,9 +9,9 @@ import java.sql.SQLException;
 public class ConnectionDatabase {
 	
 	private static final String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String URL = "jdbc:sqlserver://192.168.70.76:64594;databaseName=Restaurante;encrypt=false;";
+	private static final String URL = "jdbc:sqlserver://192.168.1.126:1433;databaseName=Restaurante;encrypt=false;";
 	private final static String user = "sa";
-	private final static String password = "Senailab05";
+	private final static String password = "1234";
 	
 	/**
 	 * Método responsável por conectar ao banco de dados.
