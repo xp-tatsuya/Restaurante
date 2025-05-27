@@ -161,14 +161,19 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelDesconto" layoutX="119.0" layoutY="71.0" prefHeight="20.0" prefWidth="75.0" textFill="WHITE">
+                  <Label fx:id="labelDesconto" layoutX="119.0" layoutY="65.0" prefHeight="20.0" prefWidth="75.0" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <Label fx:id="labelTotal" layoutX="119.0" layoutY="106.0" prefHeight="20.0" prefWidth="75.0" textFill="WHITE">
+                  <Label fx:id="labelTotal" layoutX="82.0" layoutY="101.0" prefHeight="30.0" prefWidth="141.0" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
+                  <Label fx:id="labelSubTotal" layoutX="143.0" layoutY="22.0" prefHeight="20.0" prefWidth="75.0" textFill="WHITE">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Button fx:id="btAdm" layoutX="18.0" layoutY="402.0" mnemonicParsing="false" onAction="#ActionAdm" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: A71D1D; -fx-background-radius: 30;" text="ADM" textFill="WHITE">
