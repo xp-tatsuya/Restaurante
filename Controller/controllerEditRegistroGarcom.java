@@ -102,20 +102,6 @@ public class controllerEditRegistroGarcom implements Initializable {
         itens.setAll(rvDAO.read(txtMesa.getText()));
         tablePedido.setItems(itens);
     }
-    
-    private void atualizarTotais() {
-    	BigDecimal subtotal = BigDecimal.ZERO;
-    	
-    	for(RegistroVenda item : itens) {
-    		subtotal = subtotal.add(new BigDecimal(item.getValorTotal()));
-    		BigDecimal desconto = txtDesconto.getText().trim().isEmpty() ? BigDecimal.ZERO : new BigDecimal(txtDesconto.getText().replace(",", ".")); // Substitui vírgula por ponto
-            BigDecimal total = subtotal.subtract(desconto);
-
-            labelSubTotal.setText("R$ " + subtotal.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-            labelDesconto.setText("R$ " + desconto.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-            labelTotal.setText("R$ " + total.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-    	}
-    }
 
     @FXML
     void ActionAdicionar(ActionEvent event) {
@@ -143,7 +129,7 @@ public class controllerEditRegistroGarcom implements Initializable {
         double total = Double.parseDouble(rv.getQuantidade()) * Double.parseDouble(pu);
         rv.setValorTotal(String.format("%.2f", total));
         itens.add(rv);
-
+        
         txtProduto.clear();
         txtQuantidade.clear();
         txtObservacao.clear();
