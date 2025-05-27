@@ -132,8 +132,14 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelDesconto" layoutX="119.0" layoutY="71.0" prefHeight="20.0" prefWidth="108.0" />
-                  <Label fx:id="labelTotal" layoutX="68.0" layoutY="106.0" prefHeight="20.0" prefWidth="156.0" />
+                  <Label fx:id="labelDesconto" layoutX="119.0" layoutY="71.0" prefHeight="20.0" prefWidth="108.0" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <Label fx:id="labelTotal" layoutX="68.0" layoutY="106.0" prefHeight="20.0" prefWidth="156.0" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                </children>
             </Pane>
          </children></Pane>
