@@ -19,7 +19,7 @@ public class RegistroVendaDAO {
 		ArrayList<RegistroVenda> lista = new ArrayList<>();
 		
 		try {
-			stmt = con.prepareStatement("SELECT * FROM RegistroVendas WHERE Numero_Mesa = ? AND condicao = 'Pendente'");
+			stmt = con.prepareStatement("SELECT rv.* FROM registroVendas rv INNER JOIN pedido p ON rv.Numero_Pedido = p.idpedido WHERE p.condicao = 'Pendente' AND rv.Numero_Mesa = ?");
 			stmt.setString(1, idCardapioPedido);
 			rs = stmt.executeQuery();
 			
@@ -35,7 +35,6 @@ public class RegistroVendaDAO {
                 rv.setObservacao(rs.getString("observacao"));;
                 rv.setQuantidade(rs.getString("Quantidade"));;
                 rv.setValorUnitario(rs.getString("Preco_Unitario"));
-                rv.setDesconto(rs.getString("Desconto"));
                 rv.setValorTotal(rs.getString("Preco_Total"));
 				
 				lista.add(rv);

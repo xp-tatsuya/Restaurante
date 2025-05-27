@@ -167,7 +167,7 @@ public class controllerMain implements Initializable {
 
     @FXML
     void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login", null, 0);
+        Main.changeScreen("Registrar", null, 0);
     }
 
     @FXML

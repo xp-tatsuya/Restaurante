@@ -165,7 +165,7 @@ public class controllerPedido implements Initializable {
     @FXML void ActionHome(ActionEvent e) throws IOException       { Main.changeScreen("main", controllerLogin.funcionario.getNome(), pedidoDAO.getTotalVendasMes()); }
     @FXML void ActionMesa(ActionEvent e) throws IOException       { Main.changeScreen("Mesa", controllerLogin.funcionario.getNome(), 0); }
     @FXML void ActionProduto(ActionEvent e) throws IOException    { Main.changeScreen("Produto", controllerLogin.funcionario.getNome(), 0); }
-    @FXML void ActionSair(ActionEvent e) throws IOException       { Main.changeScreen("Login", null, 0); }
+    @FXML void ActionSair(ActionEvent e) throws IOException       { Main.changeScreen("Registrar", null, 0); }
 
     @FXML void OffMouseCardapio(MouseEvent e)   { btCardapio.setStyle("-fx-background-color: #000; -fx-background-radius: 25;"); }
     @FXML void OnMouseCardapio(MouseEvent e)    { btCardapio.setStyle("-fx-background-color: #A71D1D; -fx-background-radius: 25;"); }

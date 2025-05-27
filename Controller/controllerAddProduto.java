@@ -66,7 +66,7 @@ public class controllerAddProduto implements Initializable {
 
     @FXML
     void ActionSalvar() {
-    	if(produto == null) {
+    	if(controllerProdutos.produto == null) {
             // Validação básica de campos
             String nome       = txtNome.getText().trim();
             String categoria  = txtCategoria.getText().trim();
@@ -105,42 +105,46 @@ public class controllerAddProduto implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Erro ao salvar produto. Verifique os dados e tente novamente.").showAndWait();
             }
     	}else {
-            // Validação básica de campos
-            String nome       = txtNome.getText().trim();
-            String categoria  = txtCategoria.getText().trim();
-            String marca      = txtMarca.getText().trim();
-            String fornecedor = txtFornecedor.getText().trim();
-            String precoUn    = txtPrecoUn.getText().trim();
-            String estoque    = txtEstoque.getText().trim();
+    		 String nome = txtNome.getText().trim();
+    	        String categoria = txtCategoria.getText().trim();
+    	        String marca = txtMarca.getText().trim();
+    	        String fornecedor = txtFornecedor.getText().trim();
+    	        String precoUn = txtPrecoUn.getText().trim();
+    	        String estoque = txtEstoque.getText().trim();
 
-            if (nome.isEmpty() || categoria.isEmpty() || marca.isEmpty() || fornecedor.isEmpty() ||
-                dateFab.getValue() == null || dateVal.getValue() == null ||
-                precoUn.isEmpty() || estoque.isEmpty()) {
-                new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
-                return;
-            }
+    	        if (nome.isEmpty() || categoria.isEmpty() || marca.isEmpty() || fornecedor.isEmpty() ||
+    	            dateFab.getValue() == null || dateVal.getValue() == null ||
+    	            precoUn.isEmpty() || estoque.isEmpty()) {
+    	            new Alert(Alert.AlertType.WARNING, "Preencha todos os campos.").showAndWait();
+    	            return;
+    	        }
 
-            try {
-                int idFornecedor = fornecedorDAO.getIdByNome(fornecedor);
+    	        try {
+    	            int idFornecedor = fornecedorDAO.getIdByNome(fornecedor);
 
-                Produto p = new Produto();
-                p.setNome(nome);
-                p.setCategoria(categoria);
-                p.setMarca(marca);
-                p.setCodeFornecedor(String.valueOf(idFornecedor));
-                p.setDataFab(dateFab.getValue().toString());
-                p.setDataVal(dateVal.getValue().toString());
-                p.setPrecoUn(precoUn);
-                p.setEstoque(estoque);
+    	            // Verificação de nulo CRÍTICA
+    	            if (controllerProdutos.produto != null) {
+    	                controllerProdutos.produto.setNome(nome);
+    	                controllerProdutos.produto.setCategoria(categoria);
+    	                controllerProdutos.produto.setMarca(marca);
+    	                controllerProdutos.produto.setCodeFornecedor(String.valueOf(idFornecedor));
+    	                controllerProdutos.produto.setDataFab(dateFab.getValue().toString());
+    	                controllerProdutos.produto.setDataVal(dateVal.getValue().toString());
+    	                controllerProdutos.produto.setPrecoUn(precoUn);
+    	                controllerProdutos.produto.setEstoque(estoque);
 
-                produtoDAO.update(p);
-                new Alert(Alert.AlertType.INFORMATION, "Produto cadastrado com sucesso!").showAndWait();
+    	                produtoDAO.update(controllerProdutos.produto);
+    	                new Alert(Alert.AlertType.INFORMATION, "Produto atualizado com sucesso!").showAndWait();
 
-                Stage stage = (Stage) btSalvar.getScene().getWindow();
-                stage.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "Erro ao salvar produto. Verifique os dados e tente novamente.").showAndWait();
+    	                Stage stage = (Stage) btSalvar.getScene().getWindow();
+    	                stage.close();
+    	            } else {
+    	                new Alert(Alert.AlertType.ERROR, "Erro: Produto não selecionado para edição.").showAndWait();
+    	            }
+
+    	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	            new Alert(Alert.AlertType.ERROR, "Erro ao salvar produto. Verifique os dados e tente novamente.").showAndWait();
             }
         }
 

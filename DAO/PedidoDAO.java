@@ -18,14 +18,13 @@ public class PedidoDAO {
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null; // Adicione ResultSet
 	    try {
-	        String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto) VALUES (?, ?, GETDATE(), ?, ?, ?); " +
+	        String sql = "INSERT INTO Pedido (codeFuncionario, codeMesa, dataPedido, condicao, observacoes, desconto) VALUES (?, ?, GETDATE(), 'Pendente', ?, ?); " +
 	                     "SELECT SCOPE_IDENTITY();"; // Adicione SCOPE_IDENTITY() para obter o ID inserido
 	        stmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); // Use RETURN_GENERATED_KEYS
 	        stmt.setInt(1, Integer.parseInt(pedido.getCodeFuncionario()));
 	        stmt.setInt(2, Integer.parseInt(pedido.getCodeMesa()));
-	        stmt.setString(3, pedido.getCondicao());
-	        stmt.setString(4, pedido.getObservacoes());
-	        stmt.setBigDecimal(5, new BigDecimal(pedido.getDesconto()));
+	        stmt.setString(3, pedido.getObservacoes());
+	        stmt.setBigDecimal(4, new BigDecimal(pedido.getDesconto()));
 	        stmt.executeUpdate();
 
 	        rs = stmt.getGeneratedKeys(); // Obtenha o ResultSet com a chave gerada

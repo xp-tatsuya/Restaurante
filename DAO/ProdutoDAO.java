@@ -30,7 +30,7 @@ public class ProdutoDAO {
             stmt.setBigDecimal(7, new BigDecimal(produto.getPrecoUn()));
             stmt.setInt(8, Integer.parseInt(produto.getEstoque()));
             
-            stmt.executeUpdate();
+            stmt.execute();
             System.out.println("Produto cadastrado com sucesso!!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao cadastrar produto!", e);

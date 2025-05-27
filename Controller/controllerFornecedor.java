@@ -184,7 +184,7 @@ public class controllerFornecedor implements Initializable {
         Main.changeScreen("Produto", controllerLogin.funcionario.getNome(), 0);
     }
     @FXML void ActionSair(ActionEvent event) throws IOException {
-        Main.changeScreen("Login", null, 0);
+        Main.changeScreen("Registrar", null, 0);
     }
 
     @FXML void OffMouseCardapio(MouseEvent event) { btCardapio.setStyle("-fx-background-color: #000000; -fx-background-radius: 25;"); }
