@@ -39,7 +39,11 @@ public class controllerEditRegistroGarcom implements Initializable {
     @FXML private Button btExcluir;
     @FXML private Button btFinalizar;
     @FXML private Button btCancelar;
-
+    
+    @FXML private Label labelDesconto;
+    @FXML private Label labelTotal;
+    @FXML private Label labelSubTotal;
+    
     @FXML private TableView<RegistroVenda> tablePedido;
     @FXML private TableColumn<RegistroVenda, String> columnProduto;
     @FXML private TableColumn<RegistroVenda, String> columnObservacao;
@@ -97,6 +101,20 @@ public class controllerEditRegistroGarcom implements Initializable {
     private void recarregarItens() {
         itens.setAll(rvDAO.read(txtMesa.getText()));
         tablePedido.setItems(itens);
+    }
+    
+    private void atualizarTotais() {
+    	BigDecimal subtotal = BigDecimal.ZERO;
+    	
+    	for(RegistroVenda item : itens) {
+    		subtotal = subtotal.add(new BigDecimal(item.getValorTotal()));
+    		BigDecimal desconto = txtDesconto.getText().trim().isEmpty() ? BigDecimal.ZERO : new BigDecimal(txtDesconto.getText().replace(",", ".")); // Substitui vírgula por ponto
+            BigDecimal total = subtotal.subtract(desconto);
+
+            labelSubTotal.setText("R$ " + subtotal.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+            labelDesconto.setText("R$ " + desconto.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+            labelTotal.setText("R$ " + total.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+    	}
     }
 
     @FXML
